@@ -1,0 +1,436 @@
+package ANALIZADORES.LenguajeDracoScript; 
+import java_cup.runtime.*;
+
+import java.util.*;
+import ESTRUCTURAS.*;
+
+action code {:
+    public int Index=1;
+    public Nodo Root;  
+:}
+
+parser code {:
+    
+    public void syntax_error(Symbol s){
+        System.err.println("Error en la Línea " + (s.right+1) +" Columna "+(s.left+1)+ ". Identificador "
+        +s.value + " no reconocido." );
+        //Inicio.reporteError.agregar("Sintactico",s.right+1,s.left+1,"Identificador "+s.value+" no reconocido");
+    }
+    
+    public Nodo getRoot(){
+        return action_obj.Root;
+    }
+
+    public Nodo crearNodo(String nombre, token tk)
+    {
+        Nodo nuevo = new Nodo(action_obj.Index++,nombre,tk.cadena,tk.linea,tk.columna);
+        return nuevo;
+    }
+
+    public Nodo crearNodo(String nombre, String valor, int linea, int columna)
+    {
+        Nodo nuevo = new Nodo(action_obj.Index++,nombre,valor,linea,columna);
+        return nuevo;
+    }
+:}
+
+
+
+
+terminal token STRING_LITERAL,CHAR_LITERAL,NUM_LITERAL,DECIMAL_LITERAL,ID,MAS,MENOS,POR,DIV,POT,MOD,INC,DEC,
+APAR,CPAR,ALLA,CLLA,PYC,DSPTS,IGUAL,IG_IG,MENQ,MENIQ,MAYQ,MAYIQ,DIF,OR,AND,NOT,VAR,IF,ELIF,NO_T,SMASH,WHILE,
+FOR,PRINT,RUNMULTDASM,POINT,QUADRATE,OVAL,STRING,LINE,TRUE,FALSE,NULO,PTO,COMA,ACORCH,CCORCH;
+
+
+
+non terminal Nodo inicio,tipo_dato,lista_id,asignacion_var,expl,expr,expa,dato,cuerpos,cuerpo,
+                  cuerpo_documento,contenido_cuerpo,declaraciones,declaracion_variable,
+                  asignacion,indices,indice,valores_arreglo,una_dimension,
+                  lista_valores,declaracion_estructura,cuerpo_estructura,miembros,
+                  
+                  Acceso,AccesoRecursivo,tipoAcceso,llamada,Lista_ValParams,
+                  ValParams,MuchasSentencias,Sentencias,Sentencia, 
+
+                  Sent_Ternario,Sent_Si,final_si,muchos_sino_si,
+                  sino_si,sino,Star_SimArr,
+
+                  Sent_Mientras,Sent_Para,Inicializacion,Actualizacion,
+                  Simplificada,Sent_Detener,Sent_Continuar,
+                  Sent_Retornar,Sent_Imprimir,Metodo,Lista_Parametros,
+                  Muchos_SimArr,SimArr,Parametros,
+                  Parametro,AccesoArray,MuchosIndices,Pintar_Punto,
+                  Pintar_Cuadrado,Pintar_Ovalo,Pintar_Cadena,Pintar_Linea,Funciones_Nativas,importar;
+
+precedence left MAS, MENOS;
+precedence left POR, DIV;
+precedence left POT;
+precedence left APAR,CPAR;
+precedence left IG_IG,MENQ,MENIQ,MAYQ,MAYIQ,DIF;
+
+precedence left OR;
+precedence left AND;
+precedence left NOT;
+
+
+
+
+
+inicio   ::= cuerpos;
+
+//------------------------------------------------------------------------------
+cuerpos  ::= cuerpos cuerpo
+            |cuerpo;
+
+cuerpo   ::= declaracion_variable;
+//------------------------------------------------------------------------------
+
+
+//------------------------------------------------------------------------------
+declaracion_variable  ::= VAR lista_id  PYC;
+
+
+lista_id              ::= lista_id ID asignacion_var
+                         |ID  asignacion_var;
+
+
+
+asignacion_var        ::= {::}             {: RESULT = parser.crearNodo("","",0,0); :}
+                         |DSPTS IGUAL DSPTS expl:a     {: RESULT = a; :};
+//------------------------------------------------------------------------------   
+
+
+
+
+
+
+
+
+
+
+
+//---------------------------EXPRESIONES LOGICAS--------------------------------
+expl ::= expl:a AND expl:b         {: RESULT = parser.crearNodo("AND","",a.linea,a.columna);  RESULT.add(a); RESULT.add(b);   :} 
+        |expl:a OR expl:b          {: RESULT = parser.crearNodo("OR","",a.linea,a.columna);   RESULT.add(a); RESULT.add(b);   :} 
+        |NOT expl:a                {: RESULT = parser.crearNodo("NOT","",a.linea,a.columna);  RESULT.add(a);                  :} 
+        |expr:a                    {: RESULT = a; :};
+//------------------------------------------------------------------------------
+
+//---------------------------EXPRESIONES RELACIONALES---------------------------
+expr ::= expa:a IG_IG expa:b      {: RESULT = parser.crearNodo("IG_IG","",a.linea,a.columna);  RESULT.add(a); RESULT.add(b);   :} 
+        |expa:a DIF   expa:b      {: RESULT = parser.crearNodo("DIF","",a.linea,a.columna);    RESULT.add(a); RESULT.add(b);   :} 
+        |expa:a MENQ expa:b       {: RESULT = parser.crearNodo("MENQ","",a.linea,a.columna);   RESULT.add(a); RESULT.add(b);   :} 
+        |expa:a MENIQ expa:b      {: RESULT = parser.crearNodo("MENIQ","",a.linea,a.columna);  RESULT.add(a); RESULT.add(b);   :} 
+        |expa:a MAYQ expa:b       {: RESULT = parser.crearNodo("MAYQ","",a.linea,a.columna);   RESULT.add(a); RESULT.add(b);   :} 
+        |expa:a MAYIQ expa:b      {: RESULT = parser.crearNodo("MAYIQ","",a.linea,a.columna);  RESULT.add(a); RESULT.add(b);   :} 
+        |expa:a                   {: RESULT = a; :};
+//------------------------------------------------------------------------------
+
+
+//---------------------------EXPRESIONES ARITMETICAS----------------------------
+expa ::= expa:a MAS expa:b    {: RESULT = parser.crearNodo("MAS","",a.linea,a.columna);    RESULT.add(a); RESULT.add(b);   :} 
+        |expa:a MENOS expa:b  {: RESULT = parser.crearNodo("MENOS","",a.linea,a.columna);  RESULT.add(a); RESULT.add(b);   :} 
+        |expa:a POR expa:b    {: RESULT = parser.crearNodo("POR","",a.linea,a.columna);    RESULT.add(a); RESULT.add(b);   :} 
+        |expa:a DIV expa:b    {: RESULT = parser.crearNodo("DIV","",a.linea,a.columna);    RESULT.add(a); RESULT.add(b);   :} 
+        |expa:a POT expa:b    {: RESULT = parser.crearNodo("POT","",a.linea,a.columna);    RESULT.add(a); RESULT.add(b);   :} 
+        |MENOS expa:a         {: RESULT = parser.crearNodo("unario","",a.linea,a.columna); RESULT.add(a); :} 
+        |APAR expl:a CPAR     {: RESULT = a; :}
+        |dato:a               {: RESULT = a; :}
+        |valores_arreglo:a    {: RESULT = a; :}
+        |Acceso:a             {: RESULT = a; :};
+//------------------------------------------------------------------------------
+
+
+//------------------------------------------------------------------------------
+dato ::= STRING_LITERAL:a  {: RESULT = parser.crearNodo("STRING_LITERAL",a);    :}
+        |NUM_LITERAL:a     {: RESULT = parser.crearNodo("NUM_LITERAL",a);       :}
+        |DECIMAL_LITERAL:a {: RESULT = parser.crearNodo("DECIMAL_LITERAL",a);   :}
+        |TRUE:a            {: RESULT = parser.crearNodo("VERDADERO_LITERAL",a); :}
+        |FALSE:a           {: RESULT = parser.crearNodo("FALSO_LITERAL",a);     :}
+        |NULO:a            {: RESULT = parser.crearNodo("NULO_LITERAL",a);      :};
+//------------------------------------------------------------------------------
+
+
+
+//================================Acceso========================================
+Acceso      ::= AccesoRecursivo:a {: RESULT = a;  :};
+
+
+AccesoRecursivo   ::= AccesoRecursivo:b     PTO     tipoAcceso:a
+                    {:
+                        b.add(a);
+                        RESULT = b;
+                    :}
+                    |tipoAcceso:a
+                    {:
+                        RESULT = parser.crearNodo("Acceso","",a.linea,a.columna);
+                        RESULT.add(a);
+                    :};
+
+
+tipoAcceso        ::= llamada:a     {:  RESULT = a;  :}
+                     |AccesoArray:a {:  RESULT = a;  :}
+                     |ID:a              
+                        {: 
+                            RESULT = parser.crearNodo("AccesoId","",a.linea,a.columna); 
+                            RESULT.add(parser.crearNodo("id",a.cadena,a.linea,a.columna)); 
+                        :};
+
+AccesoArray       ::= ID:a indices:b 
+                      {:
+                            RESULT = parser.crearNodo("AccesoArray","",a.linea,a.columna);
+                            RESULT.add(parser.crearNodo("id",a.cadena,a.linea,a.columna));     
+                            RESULT.add(b);
+                      :};
+
+//==============================================================================
+
+
+//================================LLAMADA METODO================================
+llamada           ::= ID:a   APAR    Lista_ValParams:b     CPAR     MuchosIndices:c
+                      {:
+                            RESULT = parser.crearNodo("llamada","",a.linea,a.columna);
+                            RESULT.add(parser.crearNodo("id",a.cadena,a.linea,a.columna));
+                            RESULT.add(b);
+                            RESULT.add(c);
+                      :}; 
+
+
+MuchosIndices     ::=             {: RESULT = parser.crearNodo("indices","",0,0); :}
+                    |indices:a    {: RESULT = a; :};
+//==============================================================================
+
+
+
+//================================Lista Valores Parametros =====================
+Lista_ValParams   ::=                 {:    RESULT = parser.crearNodo("ValParams","",0,0);  :}
+                      |ValParams:a    {:    RESULT = a;    :};
+
+
+ValParams         ::= ValParams:b COMA expl:a
+                      {:
+                            b.add(a);
+                            RESULT = b;
+                      :}
+                      |expl:a
+                      {:
+                            RESULT = parser.crearNodo("ValParams","",a.linea,a.columna);
+                            RESULT.add(a);
+                      :};
+//==============================================================================
+
+
+         
+
+
+
+
+
+
+
+
+
+
+//==================================SI==========================================
+Sent_Si          ::= IF APAR expl:a CPAR ALLA MuchasSentencias:b CLLA final_si:c 
+                     {:
+                        RESULT = parser.crearNodo("Si","",a.linea,a.columna);
+                        RESULT.add(a);
+                        RESULT.add(b);
+                        RESULT.add(c);
+                     :};
+
+final_si         ::= {:
+                        RESULT = parser.crearNodo("partefinal","",0,0);   
+                     :}
+                     |muchos_sino_si:a sino:b   
+                     {:
+                        RESULT = parser.crearNodo("partefinal","",a.linea,a.columna);   
+                        RESULT.add(a);
+                        RESULT.add(b);
+                     :}
+                     |sino:a                
+                     {: 
+                        RESULT = parser.crearNodo("partefinal","",a.linea,a.columna);   
+                        RESULT.add(a);
+                     :};
+
+//------------------------------------------------------------------------------
+muchos_sino_si   ::= muchos_sino_si:b sino_si:a
+                    {:
+                        b.add(a);
+                        RESULT = b;
+                    :}
+                    |sino_si:a
+                    {:
+                        RESULT = parser.crearNodo("muchos_sinosi","",a.linea,a.columna);
+                        RESULT.add(a);
+                    :};
+
+
+sino_si          ::= ELIF APAR expl:a CPAR ALLA MuchasSentencias:b CLLA
+                    {:
+                        RESULT = parser.crearNodo("SinoSi","",a.linea,a.columna);
+                        RESULT.add(a);
+                        RESULT.add(b);
+                    :};
+//------------------------------------------------------------------------------
+
+sino             ::= IF NO_T:a ALLA MuchasSentencias:b CLLA 
+                    {:
+                        RESULT = parser.crearNodo("Sino","",a.linea,a.columna);
+                        RESULT.add(b);
+                    :};
+ 
+//==============================================================================
+
+
+
+
+
+
+
+
+//==================================MIENTRAS====================================
+Sent_Mientras    ::= WHILE APAR  expl:a  CPAR  ALLA MuchasSentencias:b CLLA
+                     {:
+                            RESULT = parser.crearNodo("Mientras","",a.linea,a.columna);
+                            RESULT.add(a);
+                            RESULT.add(b);
+                     :};
+//==============================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+//==================================PARA========================================
+Sent_Para       ::= FOR APAR  Inicializacion:a PYC expl:b PYC Actualizacion:c  CPAR  ALLA MuchasSentencias:d CLLA
+                    {:
+                            RESULT = parser.crearNodo("Para","",a.linea,a.columna);
+                            RESULT.add(a);
+                            RESULT.add(b);
+                            RESULT.add(c);
+                            RESULT.add(d);
+                    :};
+
+Inicializacion  ::= VAR:a ID:b  IGUAL expl:c
+                    {:
+                        RESULT = parser.crearNodo("declaracionPrimitiva","",a.linea,a.columna);
+                        RESULT.add(parser.crearNodo("tipo",a.cadena,a.linea,a.columna));
+
+                        Nodo lista_Id = parser.crearNodo("listaid","",b.linea,b.columna);
+                        lista_Id.add(parser.crearNodo("id",b.cadena,b.linea,b.columna));
+
+                        RESULT.add(lista_Id);
+                        RESULT.add(c);
+                    :}
+                   |Acceso:a IGUAL expl:b
+                   {:
+                        RESULT = parser.crearNodo("asignacion","",a.linea,a.columna);
+                        RESULT.add(a);
+                        RESULT.add(b);
+                   :};
+
+
+
+Actualizacion   ::= Simplificada:a    {: RESULT = a; :};
+//==============================================================================
+
+
+
+
+//================================SIMPLIFICADA==================================
+Simplificada    ::= Acceso:a INC  
+                   {:
+                        RESULT = parser.crearNodo("simplificada","incremento",a.linea,a.columna);
+                        RESULT.add(a);
+                   :}
+                   |Acceso:a DEC
+                   {:
+                        RESULT = parser.crearNodo("simplificada","decremento",a.linea,a.columna);
+                        RESULT.add(a);
+                   :};
+//==============================================================================
+
+
+
+
+
+
+
+
+//================================IMPRIMIR======================================
+Sent_Imprimir    ::= PRINT APAR expl:a CPAR PYC
+                    {:
+                        RESULT = parser.crearNodo("imprimir","",a.linea,a.columna);
+                        RESULT.add(a);
+                    :};
+//==============================================================================
+
+
+
+
+
+//================================IMPORTAR DASM=================================
+ImportarDasm     ::= RUNMULTDASM APAR ValParams:a CPAR PYC
+                    {:
+                        RESULT = parser.crearNodo("importar_dasm","",a.linea,a.columna);
+                        RESULT.add(a);
+                    :};
+//==============================================================================
+
+
+
+
+
+
+//================================Funciones NATIVAS=============================
+
+
+Funciones_Nativas  ::=   Pintar_Cadena:a        {: RESULT = a; :}          
+                       | Pintar_Punto:a         {: RESULT = a; :}
+                       | Pintar_Cuadrado:a      {: RESULT = a; :}
+                       | Pintar_Ovalo:a         {: RESULT = a; :}
+                       | Pintar_Linea:a         {: RESULT = a; :};    
+
+Pintar_Punto       ::= POINT:a    APAR ValParams:b   CPAR 
+                       {:
+                            RESULT = parser.crearNodo("pintarpunto","",a.linea,a.columna);
+                            RESULT.add(b);
+                       :};
+
+Pintar_Cuadrado    ::= QUADRATE:a APAR ValParams:b   CPAR
+                        {:
+                            RESULT = parser.crearNodo("pintarcuadrado","",a.linea,a.columna);
+                            RESULT.add(b);
+                       :};
+
+Pintar_Ovalo       ::= OVAL:a    APAR ValParams:b   CPAR
+                        {:
+                            RESULT = parser.crearNodo("pintarovalo","",a.linea,a.columna);
+                            RESULT.add(b);
+                       :};
+
+Pintar_Cadena      ::= STRING:a   APAR ValParams:b   CPAR
+                        {:
+                            RESULT = parser.crearNodo("pintarcadena","",a.linea,a.columna);
+                            RESULT.add(b);
+                       :};
+
+Pintar_Linea       ::= LINE:a    APAR ValParams:b   CPAR
+                        {:
+                            RESULT = parser.crearNodo("pintarlinea","",a.linea,a.columna);
+                            RESULT.add(b);
+                       :};
+//==============================================================================
+
+
+
+

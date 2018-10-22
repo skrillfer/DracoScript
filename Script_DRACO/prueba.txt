@@ -1,0 +1,88 @@
+
+metodo1();
+
+entero num1;
+decimal num2;
+caracter var1;
+cadena var2;
+
+
+entero num1="hola";
+decimal num2=1000.2;
+caracter var1=100;
+cadena var2=100;
+
+
+entero arr1 [1][2][3] = {{1,3,4,5},{1,3,4,5}};
+
+estructura carro
+{
+    entero cad1=100;
+}
+
+
+
+
+
+entero metodo1()
+{
+}
+
+cadena metodo2()
+{
+}
+
+entero  [][]metodo3(entero [][]as)
+{
+    mientras(c>12)
+    {
+        imprimir("hola mundo");
+        ojb1.var1++;
+    }
+    
+    Si(a==2)
+    {
+    
+    }sino si(e==1){}sino si(e==1){}sino si(e==1){}sino si(e==1){}sino{}
+}
+
+
+
+
+
+
+
+booleano varx = arr1[2][3];
+
+booleano varx = metodo1();
+
+
+acceso1 = metodo1();
+
+
+lllo = obj1.atr1.obj1.metodo();
+
+
+lllo = obj1.atr1.obj1.metodo(1,2,3,4);
+
+
+
+booleano ultima= 14==3? "hola" : "nada";
+
+
+
+caracter valornulo = '\u0000';
+
+
+obj1.atribuo1++;
+
+metodo1();
+obje1.arr1()[2][3];
+
+
+
+
+cadena(12,3,3);
+
+
+
