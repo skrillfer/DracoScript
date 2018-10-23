@@ -6,12 +6,15 @@ import ESTRUCTURAS.*;
 
 action code {:
     public int Index=1;
-    public Nodo Root;  
+    public Nodo Root;
+
 :}
 
 
 parser code {:
     
+    
+
     public void syntax_error(Symbol s){
         System.err.println("Error en la Línea " + (s.right+1) +" Columna "+(s.left+1)+ ". Identificador "
         +s.value + " no reconocido." );
@@ -103,7 +106,7 @@ contenido_cuerpo ::= contenido_cuerpo:b     declaraciones:a
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
-declaraciones   ::= declaracion_variable:a          {: RESULT = a; :}
+declaraciones   ::= declaracion_variable:a          {: RESULT = a; RESULT.nombre = "declaracion_variableGlobal"; :}
                     |declaracion_estructura:a       {: RESULT = a; :}
                     |asignacion:a                   {: RESULT = a; :}                 
                     |Metodo:a                       {: RESULT = a; :}
@@ -628,6 +631,7 @@ Metodo          ::= VACIO:a                        ID:b     APAR Lista_Parametro
                         RESULT = parser.crearNodo("metodo","",a.linea,a.columna);
                         RESULT.add(parser.crearNodo("tipo","vacio",a.linea,a.columna));
                         RESULT.add(parser.crearNodo("id","principal",b.linea,b.columna));
+                        RESULT.add(parser.crearNodo("parametros","",0,0));
                         RESULT.add(c);
                     :};
 
@@ -669,17 +673,19 @@ Parametros         ::= Parametros:b COMA Parametro:a
 
 Parametro          ::= tipo_dato:a Star_SimArr:b  ID:c 
                       {:   
-                            RESULT = parser.crearNodo("parametro","",a.linea,a.columna);
+                            RESULT = parser.crearNodo("parametroVal","",a.linea,a.columna);
                             RESULT.add(a);
-                            RESULT.add(b);
                             RESULT.add(parser.crearNodo("id",c.cadena,c.linea,c.columna));
+                            RESULT.add(b);
+
                       :}
                       |ID:a        Star_SimArr:b  ID:c
                       {:
-                            RESULT = parser.crearNodo("parametro","",a.linea,a.columna);
+                            RESULT = parser.crearNodo("parametroStruct","",a.linea,a.columna);
                             RESULT.add(parser.crearNodo("tipo",c.cadena,c.linea,c.columna));
-                            RESULT.add(b);
                             RESULT.add(parser.crearNodo("id",c.cadena,c.linea,c.columna));
+                            RESULT.add(b);
+
                       :};
 
 Star_SimArr        ::=  {:  RESULT = parser.crearNodo("SimArr","",0,0); :}

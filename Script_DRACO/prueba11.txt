@@ -1,0 +1,31 @@
+    entero  num1,r1,r2,r3=100;
+    cadena  cad1="hola mundo";
+    decimal num2=23.1;
+    caracter char1 = 'a';
+    booleano bol1 = verdadero;
+
+    booleano bol1[2][3] = verdadero;
+    lico  b1[2][3] = verdadero;
+estructura carro
+{
+    entero  num1,r1,r2,r3=100;
+    cadena  cad1="hola mundo";
+    decimal num2=23.1;
+    caracter char1 = 'a';
+    booleano bol1 = verdadero;
+}
+
+entero [][]metodo1(entero n1, decimal n2, caracter n3, cadena n4, booleano n5, carro c1)
+{
+
+}
+
+entero [][]metodo2(entero n1, decimal n2, caracter n3, cadena n4, booleano n5, carro c1)
+{
+
+}
+
+
+
+
+

@@ -7,6 +7,7 @@ import ESTRUCTURAS.*;
 action code {:
     public int Index=1;
     public Nodo Root;  
+
 :}
 
 parser code {:

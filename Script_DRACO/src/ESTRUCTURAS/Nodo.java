@@ -12,6 +12,7 @@ import java.util.ArrayList;
  * @author fernando
  */
 public class Nodo {
+    public String archivo = "";
     public int index;
     public String nombre;
     public String valor;
@@ -26,6 +27,7 @@ public class Nodo {
         this.linea = linea;
         this.columna = columna;
         this.hijos = new ArrayList<>();
+        this.archivo =Interprete.Interpretacion.Archivo_Actual;
     }
     
     public void add(int index,String nombre, String valor, int linea, int columna){

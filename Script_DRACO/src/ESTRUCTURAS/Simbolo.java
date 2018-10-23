@@ -20,17 +20,18 @@ public class Simbolo {
     String rol = "";
     int direccion = -1;
     int tamanio = 0;
-    int dimension = 0;
+    ArrayList<Nodo> dimension = null;
     //tabla
     Nodo nodo = null;
     boolean inicializado = false;
     boolean declarado = false;
     Object retornado = null;
 
+    String archivo = "";
     public Simbolo() {
     }
 
-    public Simbolo(String nombre, String tipo, String ambito, String rol, int direccion, int tamanio, int dimension) 
+    public Simbolo(String nombre, String tipo, String ambito, String rol, int direccion, int tamanio, ArrayList<Nodo> dimension,String archivo) 
     {
         this.nombre = nombre;
         this.tipo = tipo;
@@ -43,7 +44,7 @@ public class Simbolo {
         this.nodo = null;
         this.inicializado = false;
         this.declarado = false;
-
+        this.archivo = archivo;
         this.retornado = null;//resultado Retornado
     }
 
