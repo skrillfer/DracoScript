@@ -13,19 +13,19 @@ import java.util.ArrayList;
  */
 public class Simbolo {
 
-    String nombre = "";
-    String tipo = "";
-    String tipo2 = "";
-    String ambito = "";
-    String rol = "";
-    int direccion = -1;
-    int tamanio = 0;
-    ArrayList<Nodo> dimension = null;
+    public String nombre = "";
+    public String tipo = "";
+    public String tipo2 = "";
+    public String ambito = "";
+    public String rol = "";
+    public int direccion = -1;
+    public int tamanio = 0;
+    public ArrayList<Nodo> dimension = null;
     //tabla
-    Nodo nodo = null;
-    boolean inicializado = false;
-    boolean declarado = false;
-    Object retornado = null;
+    public Nodo nodo = null;
+    public boolean inicializado = false;
+    public boolean declarado = false;
+    public Object retornado = null;
 
     String archivo = "";
     public Simbolo() {

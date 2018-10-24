@@ -39,11 +39,43 @@ public class Blockes {
     }
     
     
+    public void agregar_AlInicio(String codigoASM, Nodo nodo)
+    {
+        if(Lista.isEmpty())
+        {
+            
+            linea_actual = nodo.linea;
+            bloque_actual = new Block(nodo.linea,nodo.columna,codigoASM);
+            Lista.add(bloque_actual);
+        }else
+        {
+            if(nodo.linea > linea_actual)
+            {
+                linea_actual = nodo.linea;
+                bloque_actual = new Block(nodo.linea,nodo.columna,codigoASM);
+                Lista.add(bloque_actual);
+            }else
+            {
+                String bloque_tmp = bloque_actual.codigo_asm;
+                bloque_actual.codigo_asm = codigoASM;
+                bloque_actual.codigo_asm += bloque_tmp;
+            }
+        }
+    }
+    
+    public void agregar_AlUltimoBloque(String codigoASM)
+    {
+        if(!Lista.isEmpty())
+        {
+            bloque_actual.codigo_asm += codigoASM;   
+        }
+    }
+    
     public void agregar(String codigoASM, Nodo nodo)
     {
         if(Lista.isEmpty())
         {
-            System.out.println("linea actual:"+nodo.linea);
+            
             linea_actual = nodo.linea;
             bloque_actual = new Block(nodo.linea,nodo.columna,codigoASM);
             Lista.add(bloque_actual);
@@ -60,11 +92,12 @@ public class Blockes {
             }
         }
     }
+    
     public void imprimirBlockes()
     {
         for (Block block : Lista) {
-            System.err.println("Linea:"+block.linea);
-            System.err.println(block.codigo_asm);
+            //System.out.println("\n\nLinea:"+block.linea);
+            System.out.println(block.codigo_asm);
 
         }
     }

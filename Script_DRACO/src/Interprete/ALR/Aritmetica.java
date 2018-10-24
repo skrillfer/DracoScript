@@ -36,16 +36,16 @@ public class Aritmetica extends Interprete.Interpretacion{
             case "AND":
             case "OR":
             case "NOT":    
-                //r1 = this.OPERAR(raiz.hijos.get(0));
-                //r2 = this.OPERAR(raiz.hijos.get(1));
-                break;
+                XopL = new Logica();
+                return XopL.OPERAR(raiz);
+                
             case "STRING_LITERAL":
                 for (char c : raiz.valor.toCharArray()) {
                     
                 }
                 break;    
             case "CHAR_LITERAL":
-                return Retorno("caracter", "", Character.getNumericValue(raiz.valor.charAt(0))+"\n", raiz);
+                return Retorno("caracter", "", (int)((char)raiz.valor.charAt(1))+"\n", raiz);
             case "NUM_LITERAL":
                 return Retorno("entero", "", raiz.valor+"\n", raiz);
             case "DECIMAL_LITERAL":
@@ -69,11 +69,11 @@ public class Aritmetica extends Interprete.Interpretacion{
                             case "entero":
                             case "booleano":
                             case "caracter":    
-                                return Retorno("entero","","ADD\n",raiz);
+                                return Retorno("entero","","Add\n",raiz);
                             case "decimal":
-                                return Retorno("decimal","","ADD\n",raiz);
+                                return Retorno("decimal","","Add\n",raiz);
                             case "cadena":
-                                //return Retorno("cadena","","ADD\n",raiz);
+                                //return Retorno("cadena","","Add\n",raiz);
                             default:
                                 Interprete.Interpretacion.Lista_Errores.add(raiz.linea, raiz.columna, "Semantico", "Error de tipos entre:" + r1.tipo+"-"+r2.tipo + " operacion:"+raiz.nombre, raiz.archivo);
                                 break;
@@ -86,9 +86,9 @@ public class Aritmetica extends Interprete.Interpretacion{
                             case "booleano":
                             case "caracter":    
                             case "decimal":
-                                return Retorno("decimal","","ADD\n",raiz);
+                                return Retorno("decimal","","Add\n",raiz);
                             case "cadena":
-                                //return Retorno("cadena","","ADD\n",raiz);
+                                //return Retorno("cadena","","Add\n",raiz);
                             default:
                                 Interprete.Interpretacion.Lista_Errores.add(raiz.linea, raiz.columna, "Semantico", "Error de tipos entre:" + r1.tipo+"-"+r2.tipo + " operacion:"+raiz.nombre, raiz.archivo);
                                 break;
@@ -98,11 +98,11 @@ public class Aritmetica extends Interprete.Interpretacion{
                         switch(r2.tipo)
                         {
                             case "entero":
-                                return Retorno("entero","","ADD\n",raiz);
+                                return Retorno("entero","","Add\n",raiz);
                             case "decimal":
-                                return Retorno("decimal","","ADD\n",raiz);
+                                return Retorno("decimal","","Add\n",raiz);
                             case "cadena":
-                                //return Retorno("cadena","","ADD\n",raiz);
+                                //return Retorno("cadena","","Add\n",raiz);
                             default:
                                 Interprete.Interpretacion.Lista_Errores.add(raiz.linea, raiz.columna, "Semantico", "Error de tipos entre:" + r1.tipo+"-"+r2.tipo + " operacion:"+raiz.nombre, raiz.archivo);
                                 break;
@@ -112,11 +112,11 @@ public class Aritmetica extends Interprete.Interpretacion{
                         switch(r2.tipo)
                         {
                             case "entero":
-                                return Retorno("entero","","ADD\n",raiz);
+                                return Retorno("entero","","Add\n",raiz);
                             case "decimal":
-                                return Retorno("decimal","","ADD\n",raiz);
+                                return Retorno("decimal","","Add\n",raiz);
                             case "booleano":
-                                return Retorno("booleano","","ADD\n",raiz);
+                                return Retorno("booleano","","Add\n",raiz);
                             default:
                                 Interprete.Interpretacion.Lista_Errores.add(raiz.linea, raiz.columna, "Semantico", "Error de tipos entre:" + r1.tipo+"-"+r2.tipo + " operacion:"+raiz.nombre, raiz.archivo);
                                 break;
@@ -128,10 +128,10 @@ public class Aritmetica extends Interprete.Interpretacion{
                             case "entero":
                             case "decimal":
                             case "caracter":    
-                                //return Retorno("cadena","","ADD\n",raiz);
+                                //return Retorno("cadena","","Add\n",raiz);
                             
                             case "cadena":
-                                //return Retorno("cadena","","ADD\n",raiz);
+                                //return Retorno("cadena","","Add\n",raiz);
                             default:
                                 Interprete.Interpretacion.Lista_Errores.add(raiz.linea, raiz.columna, "Semantico", "Error de tipos entre:" + r1.tipo+"-"+r2.tipo + " operacion:"+raiz.nombre, raiz.archivo);
                                 break;
@@ -151,9 +151,9 @@ public class Aritmetica extends Interprete.Interpretacion{
                             case "entero":
                             case "booleano":
                             case "caracter":    
-                                return Retorno("entero","","SUB\n",raiz);
+                                return Retorno("entero","","Diff\n",raiz);
                             case "decimal":
-                                return Retorno("decimal","","SUB\n",raiz);
+                                return Retorno("decimal","","Diff\n",raiz);
                             default:
                                 Interprete.Interpretacion.Lista_Errores.add(raiz.linea, raiz.columna, "Semantico", "Error de tipos entre:" + r1.tipo+"-"+r2.tipo + " operacion:"+raiz.nombre, raiz.archivo);
                                 break;
@@ -166,7 +166,7 @@ public class Aritmetica extends Interprete.Interpretacion{
                             case "booleano":
                             case "caracter":    
                             case "decimal":
-                                return Retorno("decimal","","SUB\n",raiz);
+                                return Retorno("decimal","","Diff\n",raiz);
                             default:
                                 Interprete.Interpretacion.Lista_Errores.add(raiz.linea, raiz.columna, "Semantico", "Error de tipos entre:" + r1.tipo+"-"+r2.tipo + " operacion:"+raiz.nombre, raiz.archivo);
                                 break;
@@ -176,9 +176,9 @@ public class Aritmetica extends Interprete.Interpretacion{
                         switch(r2.tipo)
                         {
                             case "entero":
-                                return Retorno("entero","","SUB\n",raiz);
+                                return Retorno("entero","","Diff\n",raiz);
                             case "decimal":
-                                return Retorno("decimal","","SUB\n",raiz);
+                                return Retorno("decimal","","Diff\n",raiz);
                             default:
                                 Interprete.Interpretacion.Lista_Errores.add(raiz.linea, raiz.columna, "Semantico", "Error de tipos entre:" + r1.tipo+"-"+r2.tipo + " operacion:"+raiz.nombre, raiz.archivo);
                                 break;
@@ -188,9 +188,9 @@ public class Aritmetica extends Interprete.Interpretacion{
                         switch(r2.tipo)
                         {
                             case "entero":
-                                return Retorno("entero","","SUB\n",raiz);
+                                return Retorno("entero","","Diff\n",raiz);
                             case "decimal":
-                                return Retorno("decimal","","SUB\n",raiz);     
+                                return Retorno("decimal","","Diff\n",raiz);     
                             default:
                                 Interprete.Interpretacion.Lista_Errores.add(raiz.linea, raiz.columna, "Semantico", "Error de tipos entre:" + r1.tipo+"-"+r2.tipo + " operacion:"+raiz.nombre, raiz.archivo);
                                 break;
@@ -212,9 +212,9 @@ public class Aritmetica extends Interprete.Interpretacion{
                             case "entero":
                             case "booleano":
                             case "caracter":    
-                                return Retorno("entero","","MUL\n",raiz);
+                                return Retorno("entero","","Mult\n",raiz);
                             case "decimal":
-                                return Retorno("decimal","","MUL\n",raiz);
+                                return Retorno("decimal","","Mult\n",raiz);
                             default:
                                 Interprete.Interpretacion.Lista_Errores.add(raiz.linea, raiz.columna, "Semantico", "Error de tipos entre:" + r1.tipo+"-"+r2.tipo + " operacion:"+raiz.nombre, raiz.archivo);
                                 break;
@@ -227,7 +227,7 @@ public class Aritmetica extends Interprete.Interpretacion{
                             case "booleano":
                             case "caracter":    
                             case "decimal":
-                                return Retorno("decimal","","MUL\n",raiz);
+                                return Retorno("decimal","","Mult\n",raiz);
                             default:
                                 Interprete.Interpretacion.Lista_Errores.add(raiz.linea, raiz.columna, "Semantico", "Error de tipos entre:" + r1.tipo+"-"+r2.tipo + " operacion:"+raiz.nombre, raiz.archivo);
                                 break;
@@ -237,9 +237,9 @@ public class Aritmetica extends Interprete.Interpretacion{
                         switch(r2.tipo)
                         {
                             case "entero":
-                                return Retorno("entero","","MUL\n",raiz);
+                                return Retorno("entero","","Mult\n",raiz);
                             case "decimal":
-                                return Retorno("decimal","","MUL\n",raiz);
+                                return Retorno("decimal","","Mult\n",raiz);
                             default:
                                 Interprete.Interpretacion.Lista_Errores.add(raiz.linea, raiz.columna, "Semantico", "Error de tipos entre:" + r1.tipo+"-"+r2.tipo + " operacion:"+raiz.nombre, raiz.archivo);
                                 break;
@@ -249,12 +249,12 @@ public class Aritmetica extends Interprete.Interpretacion{
                         switch(r2.tipo)
                         {
                             case "booleano":
-                                //return Retorno("booleano","","MUL\n",raiz);
+                                //return Retorno("booleano","","Mult\n",raiz);
                             
                             case "entero":
-                                return Retorno("entero","","MUL\n",raiz);
+                                return Retorno("entero","","Mult\n",raiz);
                             case "decimal":
-                                return Retorno("decimal","","MUL\n",raiz);     
+                                return Retorno("decimal","","Mult\n",raiz);     
                             default:
                                 Interprete.Interpretacion.Lista_Errores.add(raiz.linea, raiz.columna, "Semantico", "Error de tipos entre:" + r1.tipo+"-"+r2.tipo + " operacion:"+raiz.nombre, raiz.archivo);
                                 break;
@@ -277,7 +277,7 @@ public class Aritmetica extends Interprete.Interpretacion{
                             case "booleano":
                             case "caracter":    
                             case "decimal":
-                                return Retorno("decimal","","DIV\n",raiz);
+                                return Retorno("decimal","","Div\n",raiz);
                             default:
                                 Interprete.Interpretacion.Lista_Errores.add(raiz.linea, raiz.columna, "Semantico", "Error de tipos entre:" + r1.tipo+"-"+r2.tipo + " operacion:"+raiz.nombre, raiz.archivo);
                                 break;
@@ -290,7 +290,7 @@ public class Aritmetica extends Interprete.Interpretacion{
                             case "booleano":
                             case "caracter":    
                             case "decimal":
-                                return Retorno("decimal","","DIV\n",raiz);
+                                return Retorno("decimal","","Div\n",raiz);
                             default:
                                 Interprete.Interpretacion.Lista_Errores.add(raiz.linea, raiz.columna, "Semantico", "Error de tipos entre:" + r1.tipo+"-"+r2.tipo + " operacion:"+raiz.nombre, raiz.archivo);
                                 break;
@@ -301,7 +301,7 @@ public class Aritmetica extends Interprete.Interpretacion{
                         {
                             case "entero":
                             case "decimal":
-                                return Retorno("decimal","","DIV\n",raiz);
+                                return Retorno("decimal","","Div\n",raiz);
                             default:
                                 Interprete.Interpretacion.Lista_Errores.add(raiz.linea, raiz.columna, "Semantico", "Error de tipos entre:" + r1.tipo+"-"+r2.tipo + " operacion:"+raiz.nombre, raiz.archivo);
                                 break;
@@ -312,7 +312,7 @@ public class Aritmetica extends Interprete.Interpretacion{
                         {
                             case "entero":
                             case "decimal":
-                                return Retorno("decimal","","MUL\n",raiz);     
+                                return Retorno("decimal","","Mult\n",raiz);     
                             default:
                                 Interprete.Interpretacion.Lista_Errores.add(raiz.linea, raiz.columna, "Semantico", "Error de tipos entre:" + r1.tipo+"-"+r2.tipo + " operacion:"+raiz.nombre, raiz.archivo);
                                 break;
@@ -385,6 +385,7 @@ public class Aritmetica extends Interprete.Interpretacion{
                         break;
                 }
                 break;      
+            
         }
         return new Resultado("-1", null, "", "");
     }
@@ -392,7 +393,7 @@ public class Aritmetica extends Interprete.Interpretacion{
     
     public Resultado Retorno(String tipo, Object valor,String cod_operacion, Nodo nodo)
     {
-        control.codigoDASM += cod_operacion;
+        //control.codigoDASM += cod_operacion;
         Xblockes.agregar(cod_operacion, nodo);
         return new Resultado(tipo, valor);
     }

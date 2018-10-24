@@ -9,6 +9,7 @@ import ESTRUCTURAS.Nodo;
 import ESTRUCTURAS.Resultado;
 import ESTRUCTURAS.Simbolo;
 import Interprete.ALR.Aritmetica;
+import Interprete.ALR.Logica;
 
 /**
  *
@@ -31,9 +32,10 @@ public class Declaracion extends Interprete.Interpretacion{
                 return 0;
             }
             
-            XopA = new Aritmetica();
-            Resultado r1 = XopA.OPERAR(RAIZ.hijos.get(RAIZ.hijos.size()-1));
-            
+            XopL = new Logica();
+            Resultado r1 = XopL.OPERAR(RAIZ.hijos.get(RAIZ.hijos.size()-1));
+            r1 = Val_Rel_Logic(r1);
+            Xcastear.castear(simbolo, r1, nodo);
             
         }
         

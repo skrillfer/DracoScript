@@ -28,12 +28,9 @@ entero [][]metodo2(entero n1, decimal n2, caracter n3, cadena n4, booleano n5, c
 
 vacio principal()
 {
-    entero num1=10+12;
-    entero num11=10-12;
-    entero num2=10*12;
-    entero num3=10^12;
-    entero num4=10/12;
-    entero num41=3+2*3/3^2;
+    booleano num1=10<12 || 20>12;
+    
+    
 }
 
 

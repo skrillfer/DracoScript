@@ -9,10 +9,14 @@ import ANALIZADORES.LenguajeD_PP.Analizador_LD;
 import ANALIZADORES.LenguajeD_PP.Analizador_SD;
 import ESTRUCTURAS.Blockes;
 import ESTRUCTURAS.Nodo;
+import ESTRUCTURAS.Resultado;
 import ESTRUCTURAS.Simbolo;
 import ESTRUCTURAS.TablaSimbolo;
 import Interprete.Sentencias.Declaracion;
 import Interprete.ALR.Aritmetica;
+import Interprete.ALR.Logica;
+import Interprete.ALR.Relacional;
+import Interprete.Sentencias.Castear;
 import ManejoErrores.Errores;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -34,7 +38,11 @@ public class Interpretacion {
     
     public static Declaracion Xdeclaracion = new Declaracion();
     public static Aritmetica XopA;
+    public static Relacional XopR;
+    public static Logica XopL;
+    
     public static Blockes Xblockes = new Blockes();
+    public static Castear Xcastear = new Castear();
     
     public static Object      nulo  = 201213562;
     public static  Errores Lista_Errores = new Errores();
@@ -121,13 +129,21 @@ public class Interpretacion {
             
             if(id_metodo.toLowerCase().equals("principal"))
             {
-                control.codigoDASM += "function principal\n";
-                control.codigoDASM += "$$_globales();\n";
+                String codigo_tmp= "";
+                /*control.codigoDASM*/codigo_tmp += "function principal\n";
+                /*control.codigoDASM*/codigo_tmp += "$$_globales();\n";
+                
+                Xblockes.agregar(codigo_tmp, metodo);
+                
                 ambito.add("principal");
                 //ejecuto las sentencias del metodo
                 ejecutarSentencias(metodo.hijos.get(3));
-                control.codigoDASM += etqRetorno+"\n";
-                control.codigoDASM += "End\n";
+                
+                //control.codigoDASM += etqRetorno+"\n";
+                codigo_tmp = "End\n";
+                Xblockes.agregar_AlUltimoBloque(codigo_tmp);
+                
+                //control.codigoDASM += "End\n";
                 existe_metodo_principal = true;
                 /*
                 codigo3D+="void Principal(){\n";
@@ -172,5 +188,45 @@ public class Interpretacion {
             default:
                 return false;
         }
+    }
+    
+    public Resultado Val_Rel_Logic(Resultado r1)
+    {
+        String codigo_tmp = "";
+        if(!r1.ETF.equals("") && !r1.ETV.equals(""))
+        {
+            String ETQ_SALIDA = control.generar_etiqueta();
+            codigo_tmp += "\n\n" + r1.ETV + " //ETV\n";
+            if(r1.valor.equals("AND"))
+            {
+                codigo_tmp+="and\n";
+                codigo_tmp+="br "+ETQ_SALIDA+" //ETQ_Salida\n";
+
+            }
+            if(r1.valor.equals("OR"))
+            {
+                codigo_tmp+="or\n";
+                codigo_tmp+="br "+ETQ_SALIDA+" //ETQ_Salida\n";
+            }
+            //codigo_tmp += "1\n";
+            //codigo_tmp += "br "+ETQsalida+ " //Salto a la etiqueta "+ETQsalida +"\n";
+            codigo_tmp += "\n\n" + r1.ETF + " //ETF\n";
+            if(r1.valor.equals("OR"))
+            {
+                codigo_tmp+="or\n";
+            }
+            if(r1.valor.equals("AND"))
+            {
+                codigo_tmp+="and\n";
+                //codigo_tmp+="br "+ETQ_SALIDA+" //ETQ_Salida\n";
+
+            }
+           //codigo_tmp += "0\n";
+            //codigo_tmp += ETQsalida+"\n";
+            codigo_tmp += "\n\n"+ETQ_SALIDA+"\n";
+            Xblockes.agregar_AlUltimoBloque(codigo_tmp);
+            return new Resultado("booleano", "");
+        }
+        return r1;
     }
 }
