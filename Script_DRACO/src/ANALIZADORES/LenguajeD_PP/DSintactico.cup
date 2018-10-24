@@ -106,7 +106,7 @@ contenido_cuerpo ::= contenido_cuerpo:b     declaraciones:a
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
-declaraciones   ::= declaracion_variable:a          {: RESULT = a; RESULT.nombre = "declaracion_variableGlobal"; :}
+declaraciones   ::= declaracion_variable:a          {: RESULT = a; RESULT.nombre += "Global"; :}
                     |declaracion_estructura:a       {: RESULT = a; :}
                     |asignacion:a                   {: RESULT = a; :}                 
                     |Metodo:a                       {: RESULT = a; :}
@@ -163,17 +163,38 @@ asignacion      ::= Acceso:a IGUAL expl:b PYC
 //------------------------------------------------------------------------------
 declaracion_variable ::= tipo_dato:a lista_id:b MuchosIndices:c asignacion_var:d PYC
                         {:
-                            RESULT = parser.crearNodo("declaracion_variable","",a.linea,a.columna);
+                            RESULT = parser.crearNodo("primitiva","",a.linea,a.columna);
                             RESULT.add(a);
                             RESULT.add(b);
+
+                            
+                            if(!d.nombre.equals(""))
+                            {   
+                                RESULT.nombre += "DA";
+                            }
+
+                            if(!c.hijos.isEmpty())
+                            {
+                                RESULT.nombre = "arreglo";
+                            }
+                            
                             RESULT.add(c);
                             RESULT.add(d);
                         :}
                         |ID:a        lista_id:b MuchosIndices:c asignacion_var:d PYC
                         {:
-                            RESULT = parser.crearNodo("declaracion_variable","",a.linea,a.columna);
+                            RESULT = parser.crearNodo("struct","",a.linea,a.columna);
                             RESULT.add(parser.crearNodo("tipo",a.cadena,a.linea,a.columna));
                             RESULT.add(b);
+
+                            if(!d.nombre.equals(""))
+                            {   
+                                RESULT.nombre += "DA";
+                            }
+                            if(!c.hijos.isEmpty())
+                            {
+                                RESULT.nombre = "arreglo";
+                            }
                             RESULT.add(c);
                             RESULT.add(d); 
                         :};
@@ -584,6 +605,8 @@ Metodo          ::= VACIO:a                        ID:b     APAR Lista_Parametro
                         RESULT.add(parser.crearNodo("id",b.cadena,b.linea,b.columna));
                         RESULT.add(c);
                         RESULT.add(d);
+                        RESULT.add(parser.crearNodo("SimArr","",0,0));
+                        
                     :}
                     |tipo_dato:a   Muchos_SimArr:b   ID:c   APAR Lista_Parametros:d CPAR ALLA MuchasSentencias:e CLLA
                     {:
@@ -616,6 +639,7 @@ Metodo          ::= VACIO:a                        ID:b     APAR Lista_Parametro
                         RESULT.add(parser.crearNodo("id",b.cadena,b.linea,b.columna));
                         RESULT.add(c);
                         RESULT.add(d);
+                        RESULT.add(parser.crearNodo("SimArr","",0,0));
                     :}
                     |ID:a                          ID:b   APAR Lista_Parametros:c CPAR ALLA MuchasSentencias:d CLLA
                     {:
@@ -624,6 +648,7 @@ Metodo          ::= VACIO:a                        ID:b     APAR Lista_Parametro
                         RESULT.add(parser.crearNodo("id",b.cadena,b.linea,b.columna));
                         RESULT.add(c);
                         RESULT.add(d);
+                        RESULT.add(parser.crearNodo("SimArr","",0,0));
                     :}
 
                     |VACIO:a PRINCIPAL:b APAR CPAR    ALLA MuchasSentencias:c  CLLA
@@ -633,6 +658,7 @@ Metodo          ::= VACIO:a                        ID:b     APAR Lista_Parametro
                         RESULT.add(parser.crearNodo("id","principal",b.linea,b.columna));
                         RESULT.add(parser.crearNodo("parametros","",0,0));
                         RESULT.add(c);
+                        RESULT.add(parser.crearNodo("SimArr","",0,0));
                     :};
 
 

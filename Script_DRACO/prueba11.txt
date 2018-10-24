@@ -4,7 +4,7 @@
     caracter char1 = 'a';
     booleano bol1 = verdadero;
 
-    booleano bol1[2][3] = verdadero;
+    booleano bol13[2][3] = verdadero;
     lico  b1[2][3] = verdadero;
 estructura carro
 {
@@ -13,6 +13,7 @@ estructura carro
     decimal num2=23.1;
     caracter char1 = 'a';
     booleano bol1 = verdadero;
+    cadena caca;
 }
 
 entero [][]metodo1(entero n1, decimal n2, caracter n3, cadena n4, booleano n5, carro c1)
@@ -23,6 +24,16 @@ entero [][]metodo1(entero n1, decimal n2, caracter n3, cadena n4, booleano n5, c
 entero [][]metodo2(entero n1, decimal n2, caracter n3, cadena n4, booleano n5, carro c1)
 {
 
+}
+
+vacio principal()
+{
+    entero num1=10+12;
+    entero num11=10-12;
+    entero num2=10*12;
+    entero num3=10^12;
+    entero num4=10/12;
+    entero num41=3+2*3/3^2;
 }
 
 
