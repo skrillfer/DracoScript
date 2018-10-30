@@ -16,6 +16,7 @@ public class Resultado {
     public String ETF = "";
     public Simbolo simbolo = null;
     public int tamanio = 0;
+    public boolean ref = false;
 
     public Resultado(String tipo , Object valor, String ETV, String ETF) {
         this.tipo = tipo;

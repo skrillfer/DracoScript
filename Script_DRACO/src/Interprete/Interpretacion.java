@@ -16,18 +16,23 @@ import Interprete.Sentencias.Declaracion;
 import Interprete.ALR.Aritmetica;
 import Interprete.ALR.Logica;
 import Interprete.ALR.Relacional;
+import Interprete.Generico.Genericas;
+import Interprete.Generico.Primitivas;
 import Interprete.Sentencias.Castear;
+import Interprete.Sentencias.PowerFull;
 import ManejoErrores.Errores;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Stack;
 
 /**
  *
  * @author fernando
  */
 public class Interpretacion {
+    public Nodo RAIX = null;
     public ArrayList<Nodo> metodos;
     public ArrayList<Nodo> estructuras;
     public ArrayList<Nodo> sentencias_globales;
@@ -41,6 +46,13 @@ public class Interpretacion {
     public static Relacional XopR;
     public static Logica XopL;
     
+    public static int Xnivel = 0 ;
+    public  static  Genericas genericas = new Genericas();
+    public  static  Primitivas  Xprimitivas= new Primitivas();
+    
+    public static Stack<String> pilaEntradas = null;
+    public static Stack<String> pilaSalidas = null;
+    
     public static Blockes Xblockes = new Blockes();
     public static Castear Xcastear = new Castear();
     
@@ -48,9 +60,13 @@ public class Interpretacion {
     public static  Errores Lista_Errores = new Errores();
     public static  TablaSimbolo tabla ;
     public static  ArrayList<String> ambito =  new ArrayList<>();
-
+    public static  PowerFull manejo_sentencias_control = null;
+    
     public void iniciar_interpretacion() throws FileNotFoundException, IOException
     {
+        pilaEntradas = new Stack<>();
+        pilaSalidas  = new Stack<>();
+        manejo_sentencias_control = new PowerFull();
         metodos = new ArrayList<>();
         estructuras = new ArrayList<>();
         sentencias_globales = new ArrayList<>();
@@ -79,6 +95,7 @@ public class Interpretacion {
         
         if(RAIZ!=null)
         {
+            RAIX =  RAIZ;
             tabla = new TablaSimbolo();
             tabla.generar_codigo(RAIZ);
             tabla.generar_reporte();
@@ -95,12 +112,19 @@ public class Interpretacion {
                     sentencias_globales.add(nodo);
                 }
             }
+            
         }
+        
         this.codigo_Intemerdio_globales();//se genera el codigo intermedio para las globales
         constructor=true;
+        
         //crearconstructores;
         constructor=false;
+        
+        //interprete = this;
         ejecutar_metodos();
+        
+        Xblockes.agregar_AlUltimoBloque(genericas.OUT_STR());
         System.out.println("*****************************************");
         //System.out.println(control.codigoDASM);
         Xblockes.imprimirBlockes();
@@ -112,9 +136,36 @@ public class Interpretacion {
     
     public void codigo_Intemerdio_globales()
     {
-        /*for (Nodo sent_globales : sentencias_globales) {
+        Nodo raix = new Nodo(-1, "Lista_Globales", "", 0, 0);
+        for (Nodo sent_globales : sentencias_globales) {
+            raix.linea = sent_globales.linea;
+            raix.columna = sent_globales.columna;
+            raix.add(sent_globales);
+        }
+        
+        if(!sentencias_globales.isEmpty())
+        {
+           
+
+            this.ejecutarSentencias(raix);
             
-        }*/
+            String codigo_tmp = "function $$_globales\n";
+            Xblockes.agregar_A_Bloque_AlInicio(codigo_tmp, sentencias_globales.get(0));
+            
+            codigo_tmp   = "\n0\n";
+            
+            codigo_tmp   += "get_global 0\n";
+            codigo_tmp   += De$pl4z4r()+"\n";
+            codigo_tmp   += "add\n";
+            
+            codigo_tmp   += "set_global $calc\n";
+            
+            codigo_tmp   += "End\n\n\n";
+            Xblockes.agregar_AlUltimoBloque(codigo_tmp);
+        }else
+        {
+        }
+        
     }
     
     public void ejecutar_metodos()
@@ -130,8 +181,8 @@ public class Interpretacion {
             if(id_metodo.toLowerCase().equals("principal"))
             {
                 String codigo_tmp= "";
-                /*control.codigoDASM*/codigo_tmp += "function principal\n";
-                /*control.codigoDASM*/codigo_tmp += "$$_globales();\n";
+                codigo_tmp += "function principal\n";
+                codigo_tmp += "$$_globales();\n";
                 
                 Xblockes.agregar(codigo_tmp, metodo);
                 
@@ -139,8 +190,8 @@ public class Interpretacion {
                 //ejecuto las sentencias del metodo
                 ejecutarSentencias(metodo.hijos.get(3));
                 
-                //control.codigoDASM += etqRetorno+"\n";
-                codigo_tmp = "End\n";
+                codigo_tmp = etqRetorno+"//etiqueta retorno fncion\n";
+                codigo_tmp += "End\n";
                 Xblockes.agregar_AlUltimoBloque(codigo_tmp);
                 
                 //control.codigoDASM += "End\n";
@@ -156,6 +207,27 @@ public class Interpretacion {
 					existePrincipal=true;
                 */
                 ambito.remove(ambito.size()-1);
+            }else
+            {
+                ambito.add(id_metodo);
+                //declararParametros(metodo.hijos[2]);
+                
+                String codigo_tmp = "function "+id_metodo+"\n";
+                Xblockes.agregar(codigo_tmp, metodo);
+
+                if(id_metodo.equals("prueba"))
+                {
+                    int nada =0;
+                    javax.swing.JOptionPane.showMessageDialog(null, "hola");
+                }
+                ejecutarSentencias(metodo.hijos.get(3));
+
+                
+                codigo_tmp = etqRetorno+"//etRetorno funcion\n";
+                codigo_tmp += "End\n";
+                Xblockes.agregar_AlUltimoBloque(codigo_tmp);
+                
+                
             }
             
         }  
@@ -172,6 +244,28 @@ public class Interpretacion {
             {
                 case "primitivaDA":
                     Xdeclaracion.declaracionPrimitivaDA(sentencia);
+                    break;
+                case "primitiva":
+                    Xdeclaracion.declaracionPrimitivaD(sentencia);
+                    break;
+                case "struct":
+                    Xdeclaracion.declaracionEstructuraD(sentencia);
+                    break;    
+                case "Acceso"://llamada a metodo 
+                    XopA = new Aritmetica();
+                    XopA.OPERAR(sentencia);
+                    break;  
+                case "Mientras" :
+                    manejo_sentencias_control.WHILE(sentencia);
+                    break;
+                case "Si" :
+                    manejo_sentencias_control.SI(sentencia);
+                    break; 
+                case "primitivaDAGlobal":
+                    Xdeclaracion.declaracionPrimitivaDA_GLOBAL(sentencia);
+                    break;
+                case "imprimir":
+                    Xprimitivas.Imprimir(sentencia);
                     break;
             }
         }
@@ -191,42 +285,19 @@ public class Interpretacion {
     }
     
     public Resultado Val_Rel_Logic(Resultado r1)
-    {
-        String codigo_tmp = "";
-        if(!r1.ETF.equals("") && !r1.ETV.equals(""))
-        {
-            String ETQ_SALIDA = control.generar_etiqueta();
-            codigo_tmp += "\n\n" + r1.ETV + " //ETV\n";
-            if(r1.valor.equals("AND"))
-            {
-                codigo_tmp+="and\n";
-                codigo_tmp+="br "+ETQ_SALIDA+" //ETQ_Salida\n";
-
-            }
-            if(r1.valor.equals("OR"))
-            {
-                codigo_tmp+="or\n";
-                codigo_tmp+="br "+ETQ_SALIDA+" //ETQ_Salida\n";
-            }
-            //codigo_tmp += "1\n";
-            //codigo_tmp += "br "+ETQsalida+ " //Salto a la etiqueta "+ETQsalida +"\n";
-            codigo_tmp += "\n\n" + r1.ETF + " //ETF\n";
-            if(r1.valor.equals("OR"))
-            {
-                codigo_tmp+="or\n";
-            }
-            if(r1.valor.equals("AND"))
-            {
-                codigo_tmp+="and\n";
-                //codigo_tmp+="br "+ETQ_SALIDA+" //ETQ_Salida\n";
-
-            }
-           //codigo_tmp += "0\n";
-            //codigo_tmp += ETQsalida+"\n";
-            codigo_tmp += "\n\n"+ETQ_SALIDA+"\n";
-            Xblockes.agregar_AlUltimoBloque(codigo_tmp);
-            return new Resultado("booleano", "");
-        }
+    {        
         return r1;
+    }
+    
+    
+    public String De$pl4z4r()
+    {
+        if(Metodo_Actual!=null)
+        {
+            return Metodo_Actual.tamanio + "";
+        }else
+        {
+            return tabla.globales.size() + "";
+        }
     }
 }

@@ -1,0 +1,83 @@
+    entero  num1,r1,r2,r3=100;
+    cadena  cad1="hola mundo";
+    decimal num2=23.1;
+    caracter char1 = 'a';
+    booleano bol1 = verdadero;
+
+    booleano bol13[2][3] = verdadero;
+    lico  b1[2][3] = verdadero;
+estructura carro
+{
+    entero  num1,r1,r2,r3=100;
+    cadena  cad1="hola mundo";
+    decimal num2=23.1;
+    caracter char1 = 'a';
+    booleano bol1 = verdadero;
+    cadena caca;
+}
+
+entero [][]metodo1(entero n1, decimal n2, caracter n3, cadena n4, booleano n5, carro c1)
+{
+
+}
+
+entero [][]metodo2(entero n1, decimal n2, caracter n3, cadena n4, booleano n5, carro c1)
+{
+
+}
+
+vacio principal()
+{
+    entero num1;
+    decimal num2;
+    caracter char1;
+    booleano bol1;
+    cadena   cad1;
+    carro ca1;
+
+    prueba();
+    prueba2(12,34);
+}
+
+vacio prueba()
+{
+    entero num1=19;
+}
+
+vacio prueba2(entero num1, entero num2)
+{
+
+}
+
+
+
+vacio principal()
+{
+    entero num1=0;
+    metodo1(11,23.2);    
+}
+
+vacio metodo1(entero num1, decimal num2)
+{
+    
+}
+
+
+
+vacio principal()
+{
+    Si(5>3)
+    {
+        entero num1=99;
+    }
+    Sino si(4>2)
+    {
+        caracter ca1 = 'a';
+    }
+    sino
+    {
+        decimal num2=88;
+    }
+}
+
+

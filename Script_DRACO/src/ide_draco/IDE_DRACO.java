@@ -21,12 +21,32 @@ public class IDE_DRACO {
      */
     public static void main(String[] args) throws IOException {
         try {
-            // TODO code application logic here
-
             new Interprete.Interpretacion().iniciar_interpretacion();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(IDE_DRACO.class.getName()).log(Level.SEVERE, null, ex);
         }
+        //new IDE_DRACO().potencia(1.234, 2.1);
     }
     
+    public void potencia(double base, double exponente)
+    {
+        double resultado = 0;
+        if(exponente%1==0)
+        {
+            resultado = base;
+            for (int i = 1; i < exponente; i++) {
+                resultado *= base;
+            }
+        }else
+        {
+            double tmp = base;
+            while(tmp%1!=0)
+            {
+                tmp = tmp * 10;
+            }
+            //ya extraje el numero
+            System.out.println("tmp:"+tmp);
+        }
+        System.out.println("resultado:"+resultado);
+    }
 }

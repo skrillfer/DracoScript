@@ -12,32 +12,39 @@ import java.util.ArrayList;
  * @author fernando
  */
 
-class Block{
-    public int linea = 0;
-    public int columna = 0;
-    String codigo_asm = "";
-
-    public Block() {
-    }
-    
-    public Block(int linea, int columna, String codigo_asm)
-    {
-        this.linea = linea;
-        this.columna = columna;
-        this.codigo_asm =  codigo_asm;
-    }
-    
-}
 
 public class Blockes {
     
     int linea_actual = 0;
-    Block bloque_actual = null;
-    ArrayList<Block> Lista = new ArrayList<>();
+    Blocke bloque_actual = null;
+    ArrayList<Blocke> Lista = new ArrayList<>();
 
     public Blockes() {
     }
     
+    public void agregar_A_Bloque_AlInicio(String cod , Nodo raiz)
+    {
+        for (Blocke block : Lista) {
+            if(block.linea==raiz.linea)
+            {
+                String tmp = block.codigo_asm;
+                block.codigo_asm = cod;
+                block.codigo_asm += tmp;
+                break;
+            }
+        }
+    }
+    
+    public Blocke obtener_UltimoBlock()
+    {
+        if(!Lista.isEmpty())
+        {
+            return Lista.get(Lista.size()-1);
+        }else
+        {
+            return null;
+        }
+    }
     
     public void agregar_AlInicio(String codigoASM, Nodo nodo)
     {
@@ -45,14 +52,14 @@ public class Blockes {
         {
             
             linea_actual = nodo.linea;
-            bloque_actual = new Block(nodo.linea,nodo.columna,codigoASM);
+            bloque_actual = new Blocke(nodo.linea,nodo.columna,codigoASM);
             Lista.add(bloque_actual);
         }else
         {
             if(nodo.linea > linea_actual)
             {
                 linea_actual = nodo.linea;
-                bloque_actual = new Block(nodo.linea,nodo.columna,codigoASM);
+                bloque_actual = new Blocke(nodo.linea,nodo.columna,codigoASM);
                 Lista.add(bloque_actual);
             }else
             {
@@ -77,14 +84,14 @@ public class Blockes {
         {
             
             linea_actual = nodo.linea;
-            bloque_actual = new Block(nodo.linea,nodo.columna,codigoASM);
+            bloque_actual = new Blocke(nodo.linea,nodo.columna,codigoASM);
             Lista.add(bloque_actual);
         }else
         {
             if(nodo.linea > linea_actual)
             {
                 linea_actual = nodo.linea;
-                bloque_actual = new Block(nodo.linea,nodo.columna,codigoASM);
+                bloque_actual = new Blocke(nodo.linea,nodo.columna,codigoASM);
                 Lista.add(bloque_actual);
             }else
             {
@@ -95,7 +102,7 @@ public class Blockes {
     
     public void imprimirBlockes()
     {
-        for (Block block : Lista) {
+        for (Blocke block : Lista) {
             //System.out.println("\n\nLinea:"+block.linea);
             System.out.println(block.codigo_asm);
 

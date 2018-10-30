@@ -35,6 +35,11 @@ public class Relacional extends Interprete.Interpretacion {
                 r1 = XopA.OPERAR(RAIZ.hijos.get(0));
                 r2 = XopA.OPERAR(RAIZ.hijos.get(1));
                 break;
+            default:
+                XopA = new Aritmetica();
+                r1=XopA.OPERAR(RAIZ);
+                return r1;
+
         }
 
         switch (RAIZ.nombre) {

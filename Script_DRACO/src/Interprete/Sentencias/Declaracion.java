@@ -16,6 +16,32 @@ import Interprete.ALR.Logica;
  * @author fernando
  */
 public class Declaracion extends Interprete.Interpretacion{
+    public int declaracionEstructuraD(Nodo RAIZ)
+    {
+        Nodo listaids = RAIZ.hijos.get(1);
+        for (Nodo nodo : listaids.hijos) {
+            Simbolo simbolo = Interprete.Interpretacion.tabla.obtener_Simbolo(nodo.valor, Interprete.Interpretacion.ambito);
+            if(simbolo==null)
+            {
+                return 0;
+            }            
+            Simbolo sim_declarado = Interprete.Interpretacion.tabla.HacerSimboloDeclarado(simbolo);
+            if(sim_declarado==null)
+            {
+                return 0;
+            }
+            
+            String codigo_tmp = "get_local 0\n";
+            codigo_tmp += simbolo.direccion + " //Posicion de la variable:"+simbolo.nombre+"\n";
+            codigo_tmp +=  "Add \n";
+            
+            codigo_tmp += (int)nulo+"\n";
+            
+            codigo_tmp += "set_local $calc //Asignacion a la variable:"+simbolo.nombre+"\n";
+            Xblockes.agregar(codigo_tmp, nodo);
+        }
+        return 0;
+    }
     
     public int declaracionPrimitivaDA(Nodo RAIZ)
     {
@@ -34,11 +60,68 @@ public class Declaracion extends Interprete.Interpretacion{
             
             XopL = new Logica();
             Resultado r1 = XopL.OPERAR(RAIZ.hijos.get(RAIZ.hijos.size()-1));
-            r1 = Val_Rel_Logic(r1);
+            //r1 = Val_Rel_Logic(r1);
             Xcastear.castear(simbolo, r1, nodo);
             
         }
-        
+        return 0;
+    }
+    
+    public int declaracionPrimitivaDA_GLOBAL(Nodo RAIZ)
+    {
+        Nodo listaids = RAIZ.hijos.get(1);
+        for (Nodo nodo : listaids.hijos) {
+            Simbolo simbolo = Interprete.Interpretacion.tabla.obtener_Simbolo(nodo.valor, Interprete.Interpretacion.ambito);
+            if(simbolo==null)
+            {
+                return 0;
+            }            
+            Simbolo sim_declarado = Interprete.Interpretacion.tabla.HacerSimboloDeclarado(simbolo);
+            if(sim_declarado==null)
+            {
+                return 0;
+            }
+            
+            XopL = new Logica();
+            Resultado r1 = XopL.OPERAR(RAIZ.hijos.get(RAIZ.hijos.size()-1));
+            Xcastear.castear_atributo(simbolo, r1, nodo);
+        }
+        return 0;
+    }
+    
+    public int declaracionPrimitivaD(Nodo RAIZ)
+    {
+        Nodo listaids = RAIZ.hijos.get(1);
+        for (Nodo nodo : listaids.hijos) {
+            Simbolo simbolo = Interprete.Interpretacion.tabla.obtener_Simbolo(nodo.valor, Interprete.Interpretacion.ambito);
+            if(simbolo==null)
+            {
+                return 0;
+            }            
+            Simbolo sim_declarado = Interprete.Interpretacion.tabla.HacerSimboloDeclarado(simbolo);
+            if(sim_declarado==null)
+            {
+                return 0;
+            }
+            
+            String codigo_tmp = "get_local 0\n";
+            codigo_tmp += simbolo.direccion + " //Posicion de la variable:"+simbolo.nombre+"\n";
+            codigo_tmp +=  "Add \n";
+            
+            switch(simbolo.tipo)
+            {
+                case "decimal":
+                case "booleano":
+                case "entero":
+                    codigo_tmp += "0\n";
+                    break;    
+                default:
+                    codigo_tmp += (int)nulo+"\n";
+                    break;        
+            }
+            codigo_tmp += "set_local $calc //Asignacion a la variable:"+simbolo.nombre+"\n";
+            Xblockes.agregar(codigo_tmp, nodo);
+        }
         return 0;
     }
     

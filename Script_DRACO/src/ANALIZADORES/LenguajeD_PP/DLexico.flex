@@ -101,7 +101,7 @@ Nulo   = "nulo" | "\'\\u0000\'"
 
 <YYINITIAL> "para" {return new Symbol(sym.SI, new token(yycolumn, yyline, yytext()));}
 
-<YYINITIAL> "mientras" {return new Symbol(sym.SI, new token(yycolumn, yyline, yytext()));}
+<YYINITIAL> "mientras" {return new Symbol(sym.MIENTRAS, new token(yycolumn, yyline, yytext()));}
 
 <YYINITIAL> "detener" {return new Symbol(sym.DETENER, new token(yycolumn, yyline, yytext()));}
 <YYINITIAL> "continuar" {return new Symbol(sym.CONTINUAR, new token(yycolumn, yyline, yytext()));}

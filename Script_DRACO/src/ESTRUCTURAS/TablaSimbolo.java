@@ -19,7 +19,7 @@ public class TablaSimbolo {
 
     ArrayList<Simbolo> metodos = new ArrayList<>();
     ArrayList<Simbolo> simbolos = new ArrayList<>();
-    ArrayList<Simbolo> globales = new ArrayList<>();
+    public ArrayList<Simbolo> globales = new ArrayList<>();
     ArrayList<Simbolo> constructores = new ArrayList<>();
     ArrayList<String> ambito = new ArrayList<>();
     int direccion = 0;
@@ -131,9 +131,28 @@ public class TablaSimbolo {
                     this.ambito.remove(this.ambito.size() - 1);
 
                     Simbolo sim_metodo = new Simbolo(nombre_metodo, tipo_metodo, this.generarAmbito(this.ambito), "metodo", -1, this.direccion, DIMENSION, hijo.archivo);
+                    sim_metodo.nodo = hijo;
                     this.agregar_Simbolo(sim_metodo, hijo);
                     this.direccion = direccion_aux;
 
+                    break;
+                case "Mientras":
+                    this.generar_codigo(hijo.hijos.get(1));
+                    break;
+                case "Si":
+                    this.generar_codigo(hijo.hijos.get(1));
+                    Nodo otra_parte = hijo.hijos.get(2);
+                    if(otra_parte.hijos.size()==1)
+                    {
+                        this.generar_codigo(otra_parte.hijos.get(0).hijos.get(0));
+                    }else if(otra_parte.hijos.size()==2)
+                    {
+                        Nodo muchos_sino = otra_parte.hijos.get(0);
+                        for (Nodo hijo1 : muchos_sino.hijos) {
+                            this.generar_codigo(hijo1.hijos.get(1));
+                        }
+                        this.generar_codigo(otra_parte.hijos.get(1).hijos.get(0));
+                    }
                     break;
             }
         }
@@ -170,7 +189,7 @@ public class TablaSimbolo {
             this.simbolos.add(sim);
             this.direccion++;
 
-            if (sim.ambito.equals("global") && sim.rol.equals("variable")) {
+            if (sim.ambito.equals("global") && sim.rol.equals("variable global")) {
                 this.globales.add(sim);
             }
 
@@ -288,7 +307,7 @@ public class TablaSimbolo {
         writer.println(str_html);
 
         writer.close();
-        //Desktop.getDesktop().open(new File("r.html"));
+        Desktop.getDesktop().open(new File("r.html"));
 
     }
 
@@ -297,9 +316,24 @@ public class TablaSimbolo {
         ArrayList<Nodo> parametros = nodo.hijos.get(2).hijos;
         for (Nodo parametro : parametros) {
             id += "$" + parametro.hijos.get(0).valor;
-
         }
         return id;
+    }
+    
+    
+    public Simbolo obtener_Estructura(Simbolo sim ,  ArrayList<String> ambito)
+    {
+        String ambito_tmp  = this.generarAmbito(ambito);
+        for (Simbolo simbolo : simbolos) {
+            if(simbolo.tipo.equals("struct"))
+            {
+                if(simbolo.nombre.equals(sim.nombre) && simbolo.ambito.equals("global"))
+                {
+                    return simbolo;
+                }
+            }
+        }
+        return null;
     }
 
 }
