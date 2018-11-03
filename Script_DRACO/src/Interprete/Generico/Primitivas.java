@@ -21,9 +21,12 @@ public class Primitivas extends Interprete.Interpretacion{
         String codigo_tmp = "";
         String codigo_2 = "";
         XopL = new Logica();
-        Resultado r1 = XopL.OPERAR(RAIZ.hijos.get(0));
         
         Blocke last = Xblockes.obtener_UltimoBlock();
+        last.codigo_asm += "<><><><><><><><><><><><><><>\n";
+        Resultado r1 = XopL.OPERAR(RAIZ.hijos.get(0));
+        
+        
         
         if(r1.tipo.equals("cadena"))
         {
@@ -66,24 +69,24 @@ public class Primitivas extends Interprete.Interpretacion{
             }else
             {
                 codigo_tmp = "//LLAMANDO A IMPRIMIR\n";
+                codigo_tmp += "get_local 0\n";
+                codigo_tmp += De$pl4z4r()+"\n";
+                codigo_tmp += "add\n";
+                codigo_tmp += "1\n";
+                codigo_tmp += "add\n";
+                
+                
+                last.codigo_asm += codigo_tmp;
+                
+                
+                codigo_tmp = "set_local $calc\n";
+                
                 codigo_tmp += "0\n";
                 codigo_tmp += "get_local 0\n";
                 codigo_tmp += De$pl4z4r()+"\n";
                 codigo_tmp += "add\n";
-                codigo_tmp += "set_local $calc\n";   
+                codigo_tmp += "set_local $calc\n\n";
                 
-                
-                codigo_tmp += "get_local 0\n";
-                codigo_tmp += "1\n";
-                codigo_tmp += "add\n";
-                
-                codigo_2 = last.codigo_asm;
-                
-                last.codigo_asm = codigo_tmp;
-                
-                last.codigo_asm += codigo_2;
-                
-                codigo_tmp = "set_local $calc\n";
                 
                 codigo_tmp += "call $$_outStr\n";
 
@@ -91,9 +94,9 @@ public class Primitivas extends Interprete.Interpretacion{
                 codigo_tmp += "get_local 0\n";
                 codigo_tmp += De$pl4z4r()+"\n";
                 codigo_tmp += "diff\n";
-                codigo_tmp += "set_local $calc\n";
+                codigo_tmp += "set_local $calc\n\n";
                 
-                last.codigo_asm += codigo_tmp;
+                Xblockes.agregar_AlUltimoBloque(codigo_tmp);
             }
         }
     }

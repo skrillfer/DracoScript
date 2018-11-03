@@ -427,6 +427,10 @@ public class Aritmetica extends Interprete.Interpretacion{
     
     public Resultado acceso(Nodo RAIZ)
     {
+        String codigo_tmp = "";
+        ArrayList<String> ambitoTMP = ambito;
+        Simbolo simbolo = null;
+        Simbolo aux = null;
         ArrayList<String> ambito_tmp = ambito;
         Resultado resultado1  = new Resultado("-1", null);
         for (int i = 0; i < RAIZ.hijos.size(); i++) {
@@ -434,6 +438,63 @@ public class Aritmetica extends Interprete.Interpretacion{
             switch(nodo_acc.nombre)
             {
                 case "AccesoId":
+                    simbolo = tabla.ObtenerSimboloDeclarado(nodo_acc.hijos.get(0).valor, ambito);
+                    if(simbolo==null)
+                    {
+                        Lista_Errores.add(nodo_acc.hijos.get(0).linea, nodo_acc.hijos.get(0).columna, "Semantico","La variable "+nodo_acc.hijos.get(0).valor+" no existe", nodo_acc.hijos.get(0).archivo);
+                        return new Resultado("-1",null);	
+                    }
+                    if(simbolo.ambito.equals("global"))
+                    {
+                        constructor = true;
+                    }
+                    if(Xnivel==0)
+                    {
+                        if(simbolo.ambito.equals("global"))
+                        {
+                            constructor = true;
+                        }else
+                        {
+                            if(constructor)
+                            {
+
+                            }else
+                            {
+                                codigo_tmp  = "get_local 0\n";
+                                codigo_tmp += simbolo.direccion+"\n";
+                                codigo_tmp += "add\n";
+                            }
+                        }
+                        if(constructor)
+                        {
+
+                        }else
+                        {
+                            codigo_tmp  += "get_local $calc\n";
+                          
+                        }
+                        resultado1 = new Resultado(simbolo.tipo, "",true);
+                        resultado1.simbolo = simbolo;
+                    }else
+                    {
+                    }
+                    if(i==0)
+                    {
+                        ambito = new ArrayList<>();
+                    }
+                    Xblockes.agregar("\n\n<<<\n"+codigo_tmp+"\n\n>>>\n", nodo_acc);
+                    if(es_primitivo(simbolo.tipo) && i!=RAIZ.hijos.size()-1)
+                    {
+                        Xnivel++;
+                        Simbolo struct = tabla.obtener_Estructura(simbolo, ambito);
+                        ambito = new ArrayList<>();
+                        if(struct ==null)
+                        {
+                            Lista_Errores.add(nodo_acc.linea, nodo_acc.columna, "Semantico", "La estructura "+ simbolo.tipo + " no existe", nodo_acc.archivo);
+                            return new Resultado("-1", null);
+                        }
+                        ambito.add(simbolo.tipo);
+                    }
                     break;
                 case "llamada":
                     resultado1 = llamada_metodo(nodo_acc);

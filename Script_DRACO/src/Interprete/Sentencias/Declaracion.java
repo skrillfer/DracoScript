@@ -125,6 +125,48 @@ public class Declaracion extends Interprete.Interpretacion{
         return 0;
     }
     
+    public int declaracionPrimitivaDGlobal(Nodo RAIZ)
+    {
+        Nodo listaids = RAIZ.hijos.get(1);
+        for (Nodo nodo : listaids.hijos) {
+            Simbolo simbolo = Interprete.Interpretacion.tabla.obtener_Simbolo(nodo.valor, Interprete.Interpretacion.ambito);
+            if(simbolo==null)
+            {
+                return 0;
+            }            
+            Simbolo sim_declarado = Interprete.Interpretacion.tabla.HacerSimboloDeclarado(simbolo);
+            if(sim_declarado==null)
+            {
+                return 0;
+            }
+            
+            String codigo_tmp  = "\n//Inicializacion\n";
+            codigo_tmp += "get_local 0\n";
+            codigo_tmp +=  "1\n";
+            codigo_tmp +=  "Add \n";
+            codigo_tmp +=  "get_local $calc \n";
+            
+            codigo_tmp += simbolo.direccion + " //direccion del atributo:"+simbolo.nombre+"\n";
+            codigo_tmp +=  "Add \n";
+            
+            switch(simbolo.tipo)
+            {
+                case "decimal":
+                case "booleano":
+                case "entero":
+                    codigo_tmp += "0\n";
+                    break;    
+                default:
+                    codigo_tmp += (int)nulo+"\n";
+                    break;        
+            }
+            codigo_tmp += "set_global $calc\n";
+            codigo_tmp += "//Fin inicializacion\n";
+            Xblockes.agregar(codigo_tmp, nodo);
+        }
+        return 0;
+    }
+    
     public void declaracionYasignacion1_MANU(Nodo RAIZ)
     {
         for (int i = 0; i < RAIZ.hijos.get(1).hijos.size(); i++) {

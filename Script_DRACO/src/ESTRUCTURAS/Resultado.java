@@ -30,7 +30,11 @@ public class Resultado {
         this.tipo = tipo;
         this.valor = valor;
     }
-    
+    public Resultado(String tipo, Object valor,boolean  ref) {
+        this.tipo = tipo;
+        this.valor = valor;
+        this.ref = ref;
+    }
     
     
     

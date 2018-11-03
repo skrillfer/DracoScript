@@ -171,6 +171,24 @@ public class TablaSimbolo {
         return str_ambito;
     }
 
+    public Simbolo ObtenerSimboloDeclarado(String nombre,ArrayList<String> ambito) 
+    {
+        String ambito_str = this.generarAmbito(ambito);
+        for (Simbolo simbolo : this.simbolos) {
+            if(nombre.equals(simbolo.nombre))
+            {
+                int estado = this.pertenece_ambito(ambito_str, simbolo.ambito);
+                if( (estado==0 || simbolo.ambito.equals("global")) && simbolo.declarado)
+                {
+                    return simbolo;
+                }
+            }
+        }
+        
+        return null;
+    }
+    
+    
     public Simbolo HacerSimboloDeclarado(Simbolo sim) 
     {
         if(this.si_existe(sim))
@@ -307,7 +325,7 @@ public class TablaSimbolo {
         writer.println(str_html);
 
         writer.close();
-        Desktop.getDesktop().open(new File("r.html"));
+        //Desktop.getDesktop().open(new File("r.html"));
 
     }
 

@@ -19,6 +19,7 @@ import Interprete.ALR.Relacional;
 import Interprete.Generico.Genericas;
 import Interprete.Generico.Primitivas;
 import Interprete.Sentencias.Castear;
+import Interprete.Sentencias.Crear;
 import Interprete.Sentencias.PowerFull;
 import ManejoErrores.Errores;
 import java.io.FileNotFoundException;
@@ -34,7 +35,7 @@ import java.util.Stack;
 public class Interpretacion {
     public Nodo RAIX = null;
     public ArrayList<Nodo> metodos;
-    public ArrayList<Nodo> estructuras;
+    public static ArrayList<Nodo> estructuras;
     public ArrayList<Nodo> sentencias_globales;
     public static String Archivo_Actual ="";
     public static boolean constructor = false;
@@ -55,6 +56,7 @@ public class Interpretacion {
     
     public static Blockes Xblockes = new Blockes();
     public static Castear Xcastear = new Castear();
+    public static Crear Xcrear = new Crear();
     
     public static Object      nulo  = 201213562;
     public static  Errores Lista_Errores = new Errores();
@@ -115,13 +117,12 @@ public class Interpretacion {
             
         }
         
-        this.codigo_Intemerdio_globales();//se genera el codigo intermedio para las globales
         constructor=true;
-        
-        //crearconstructores;
+        Xcrear.crear_estructuras();
         constructor=false;
         
-        //interprete = this;
+        this.codigo_Intemerdio_globales();//se genera el codigo intermedio para las globales
+        
         ejecutar_metodos();
         
         Xblockes.agregar_AlUltimoBloque(genericas.OUT_STR());
