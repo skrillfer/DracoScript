@@ -45,6 +45,8 @@ public class Declaracion extends Compilador_S{
                 return primitivaG();
             case "primitiva":
                 return primitiva();
+            case "primitivaUna":
+                return primitivaUna();    
         }
         return null;
     }
@@ -61,9 +63,35 @@ public class Declaracion extends Compilador_S{
                 simbolo.inicializado = false;
                 if (!global.setSimbolo(simbolo)) {
                     Inicio.reporteError.agregar("Semantico", raiz.linea, raiz.columna, "La variable " + nombre + " ya existe");
-                }else
-                {
-                    return simbolo;
+                }
+                continue;
+            }
+            
+            Resultado_S resultado = opL.operar(exp);
+            if (resultado != null) {
+                Simbolo_S simbolo = new Simbolo_S(resultado.tipo, nombre,"", resultado.valor);
+                simbolo.inicializado = true;
+                if (!global.setSimbolo(simbolo)) {
+                    Inicio.reporteError.agregar("Semantico", raiz.linea, raiz.columna, "La variable " + nombre + " ya existe");
+                }
+            }
+            
+        }
+        return null;
+    }
+     
+    private Simbolo_S primitiva()
+    {
+        for (Nodo id_hijo : raiz.hijos.get(0).hijos) {
+            String nombre = id_hijo.hijos.get(0).valor;
+            Nodo exp = id_hijo.hijos.get(1);
+            
+            if(exp.nombre.equals(""))
+            {
+                Simbolo_S simbolo = new Simbolo_S("", nombre,"", "");
+                simbolo.inicializado = false;
+                if (!tabla.setSimbolo(simbolo)) {
+                    Inicio.reporteError.agregar("Semantico", raiz.linea, raiz.columna, "La variable " + nombre + " ya existe");
                 }
                 
             }
@@ -73,19 +101,16 @@ public class Declaracion extends Compilador_S{
             if (resultado != null) {
                 Simbolo_S simbolo = new Simbolo_S(resultado.tipo, nombre,"", resultado.valor);
                 simbolo.inicializado = true;
-                if (!global.setSimbolo(simbolo)) {
+                if (!tabla.setSimbolo(simbolo)) {
                     Inicio.reporteError.agregar("Semantico", raiz.linea, raiz.columna, "La variable " + nombre + " ya existe");
-                }else
-                {
-                    return simbolo;
                 }
             }
             
         }
         return null;
     }
-     
-    private Simbolo_S primitiva()
+    
+    private Simbolo_S primitivaUna()
     {
         for (Nodo id_hijo : raiz.hijos.get(0).hijos) {
             String nombre = id_hijo.hijos.get(0).valor;

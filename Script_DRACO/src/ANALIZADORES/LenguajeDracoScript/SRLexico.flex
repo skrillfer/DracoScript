@@ -56,7 +56,7 @@ Comentario2 = "$$" [^\r\n]* [^\r\n]
 <YYINITIAL> "<=" {return new Symbol(sym.MENIQ, new token(yycolumn, yyline, yytext()));}
 <YYINITIAL> ">" {return new Symbol(sym.MAYQ, new token(yycolumn, yyline, yytext()));}
 <YYINITIAL> ">=" {return new Symbol(sym.MAYIQ, new token(yycolumn, yyline, yytext()));}
-<YYINITIAL> "<>" {return new Symbol(sym.DIF, new token(yycolumn, yyline, yytext()));}
+<YYINITIAL> "!=" {return new Symbol(sym.DIF, new token(yycolumn, yyline, yytext()));}
 
 /*LOGICOS*/
 
@@ -81,7 +81,7 @@ Comentario2 = "$$" [^\r\n]* [^\r\n]
 <YYINITIAL> "var" {return new Symbol(sym.VAR, new token(yycolumn, yyline, yytext()));}
 <YYINITIAL> "if" {return new Symbol(sym.IF, new token(yycolumn, yyline, yytext()));}
 <YYINITIAL> "elif" {return new Symbol(sym.ELIF, new token(yycolumn, yyline, yytext()));}
-<YYINITIAL> "if not" {return new Symbol(sym.NO_T, new token(yycolumn, yyline, yytext()));}
+<YYINITIAL> "if not" {return new Symbol(sym.NOX, new token(yycolumn, yyline, yytext()));}
 <YYINITIAL> "smash" {return new Symbol(sym.SMASH, new token(yycolumn, yyline, yytext()));}
 <YYINITIAL> "while" {return new Symbol(sym.WHILE, new token(yycolumn, yyline, yytext()));}
 <YYINITIAL> "for" {return new Symbol(sym.FOR, new token(yycolumn, yyline, yytext()));}

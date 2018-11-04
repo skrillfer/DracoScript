@@ -65,12 +65,7 @@ public class ReporteTablaSimbolo {
             html += "<td>" + simbolo.rol + "</td>";
             html += "<td>" + simbolo.ambito + "</td>";
             if (simbolo.valor != null) {
-                if (simbolo.valor.getClass().getSimpleName().equalsIgnoreCase("arreglo")) {
-                    Arreglo arreglo = (Arreglo) simbolo.valor;
-                    html += "<td>" + arreglo.dimensiones.size() + "</td>";
-                } else {
                     html += "<td>" + "No aplica" + "</td>";
-                }
             } else {
                 html += "<td>" + "No aplica" + "</td>";
             }

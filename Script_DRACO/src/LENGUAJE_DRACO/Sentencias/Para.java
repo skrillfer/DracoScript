@@ -36,6 +36,7 @@ public class Para extends Compilador_S{
             Asignacion asig = new Asignacion(variable, global, tabla, "asignacion");
             simbolo = asig.asignar();
         } else {
+            variable.nombre+="Una";
             Declaracion declara = new Declaracion(variable, global, tabla, "Declaracion");
             simbolo = (Simbolo_S) declara.declarar();
         }

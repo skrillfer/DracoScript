@@ -1,19 +1,25 @@
-var id1 : = :  100,id2 :=:200, id3;
-id1 :=: 199;
-print(id1);
-id1++;
-print(id1);
+var contador1 :=: 0,contador2;
 
-var cad1 :=: "hola perra";
-while(id1<300)
+while(contador1 < 10)
 {
-    print(id1);
-    id1 :=: id1+20;
-    print(cad1);
+    if(contador1==7)
+    {
+        smash;
+    }if not
+    {
+        print("contador1:"+contador1);
+        contador2 :=: 0;
+        while(contador2 < 10)
+        {
+            if(contador2==7)
+            {
+                smash;
+            }if not
+            {
+                print("contador2:"+contador2);
+            }
+            contador2++;
+        }
+    }
+    contador1++;
 }
-
-for(var x :=: 0; x<10;x++)
-{
-    print(x);
-}
-

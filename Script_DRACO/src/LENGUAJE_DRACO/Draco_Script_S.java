@@ -7,6 +7,7 @@ package LENGUAJE_DRACO;
 
 import ANALIZADORES.LenguajeDracoScript.Analizador_LexSR;
 import ANALIZADORES.LenguajeDracoScript.Analizador_SintSR;
+import ESTRUCTURAS.Arbol;
 import ESTRUCTURAS.Nodo;
 import java.io.BufferedReader;
 import java.io.File;
@@ -61,17 +62,28 @@ public class Draco_Script_S extends Compilador_S{
         global = claseActual.global;
         
         if (claseActual != null) {
-
+            new Arbol().generacion_arbol(RAIX);
             metodoActual = getInicio(RAIX);
             pilaTablas = claseActual.pilaTablas;
             global = claseActual.global;
             tabla = claseActual.tabla;
             ejecutarSentencias(metodoActual.sentencias);
+            System.out.println("");
         }
-
+        
     }
 
-    
+    public void imprimirArbol(Nodo raiz)
+    {
+        System.out.println("Padre:"+raiz.nombre);
+        for (Nodo hijo : raiz.hijos) {
+            System.out.println("\thijo:"+hijo.nombre);
+        }
+        
+        for (Nodo hijo : raiz.hijos) {
+            imprimirArbol(hijo);
+        }
+    }
 
     private Clase getClasePrincipal() {
         ArrayList<Clase> clases;

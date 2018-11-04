@@ -11,6 +11,7 @@ import LENGUAJE_DRACO.Sentencias.Asignacion;
 import LENGUAJE_DRACO.Sentencias.Declaracion;
 import LENGUAJE_DRACO.Sentencias.Mientras;
 import LENGUAJE_DRACO.Sentencias.Para;
+import LENGUAJE_DRACO.Sentencias.Si;
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -77,10 +78,7 @@ public  class Compilador_S {
                         nivelCiclo++;
                         
                         metodoActual = mientras.ejecutar(sentencia);
-                        if (metodoActual.estadoRetorno) {
-                            nivelCiclo--;
-                            return metodoActual;
-                        }
+                        
                         nivelCiclo--;
                     } catch (Exception e) {
                         Inicio.reporteError.agregar("Ejecucion", sentencia.linea, sentencia.columna, "Sentencia Mientras:"+e.getMessage());
@@ -91,10 +89,7 @@ public  class Compilador_S {
                         nivelCiclo++;
                         Para para = new Para();
                         metodoActual = para.ejecutar(sentencia);
-                        if (metodoActual.estadoRetorno) {
-                            nivelCiclo--;
-                            return metodoActual;
-                        }
+                        
                         nivelCiclo--;
                     } catch (Exception e) {
                         Inicio.reporteError.agregar("Ejecucion", sentencia.linea, sentencia.columna, "Sentencia Mientras:"+e.getMessage());
@@ -112,7 +107,7 @@ public  class Compilador_S {
                         Inicio.reporteError.agregar("Ejecucion", sentencia.linea, sentencia.columna, "Sentencia Mientras:"+e.getMessage());
                     }
                     break;
-                case "terminar":
+                case "detener":
                     if (nivelCiclo > 0) {
                         metodoActual.estadoTerminar = true;
                         return metodoActual;
@@ -205,7 +200,21 @@ public  class Compilador_S {
                             */
                         }
                     }
-                    break;      
+                    break; 
+                case "si":
+                    Si si = new Si();
+                    metodoActual = si.ejecutar(sentencia);
+                    
+                    if (metodoActual.estadoTerminar) {
+                        //metodoActual.estadoTerminar=false;
+                        return metodoActual;
+                    }
+
+                    if (metodoActual.estadoContinuar) {
+                        return metodoActual;
+                    }
+                    break;
+                        
             }
         }
         return metodoActual;

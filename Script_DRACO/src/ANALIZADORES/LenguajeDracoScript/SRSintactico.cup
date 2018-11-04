@@ -7,8 +7,9 @@ import ESTRUCTURAS.*;
 action code {:
     public int Index=1;
     public Nodo Root;  
-
-:}
+    public Stack<Nodo> lista_ifs = new Stack<>();
+    public Nodo L_IF=null; 
+:}  
 
 parser code {:
     
@@ -21,6 +22,8 @@ parser code {:
     public Nodo getRoot(){
         return action_obj.Root;
     }
+
+    
 
     public Nodo crearNodo(String nombre, token tk)
     {
@@ -39,7 +42,7 @@ parser code {:
 
 
 terminal token STRING_LITERAL,CHAR_LITERAL,NUM_LITERAL,DECIMAL_LITERAL,ID,MAS,MENOS,POR,DIV,POT,MOD,INC,DEC,
-APAR,CPAR,ALLA,CLLA,PYC,DSPTS,IGUAL,IG_IG,MENQ,MENIQ,MAYQ,MAYIQ,DIF,OR,AND,NOT,VAR,IF,ELIF,NO_T,SMASH,WHILE,
+APAR,CPAR,ALLA,CLLA,PYC,DSPTS,IGUAL,IG_IG,MENQ,MENIQ,MAYQ,MAYIQ,DIF,OR,AND,NOT,VAR,IF,ELIF,NOX,SMASH,WHILE,
 FOR,PRINT,RUNMULTDASM,POINT,QUADRATE,OVAL,STRING,LINE,TRUE,FALSE,NULO,PTO,COMA,ACORCH,CCORCH;
 
 
@@ -220,7 +223,7 @@ expa ::= expa:a MAS expa:b    {: RESULT = parser.crearNodo("MAS","",a.linea,a.co
 
 
 //------------------------------------------------------------------------------
-dato ::= STRING_LITERAL:a  {: RESULT = parser.crearNodo("STRING_LITERAL",a);    :}
+dato ::= STRING_LITERAL:a  {: a.cadena=a.cadena.substring(1, a.cadena.length()-1); RESULT = parser.crearNodo("STRING_LITERAL",a);    :}
         |NUM_LITERAL:a     {: RESULT = parser.crearNodo("NUM_LITERAL",a);       :}
         |DECIMAL_LITERAL:a {: RESULT = parser.crearNodo("DECIMAL_LITERAL",a);   :}
         |TRUE:a            {: RESULT = parser.crearNodo("VERDADERO_LITERAL",a); :}
@@ -280,27 +283,28 @@ Sentencias          ::= Sentencias:b    cuerpo:a
 //==================================SI==========================================
 Sent_Si          ::= IF APAR expl:a CPAR ALLA MuchasSentencias:b CLLA final_si:c 
                      {:
-                        RESULT = parser.crearNodo("Si","",a.linea,a.columna);
+                        
+                        RESULT = parser.crearNodo("si","",a.linea,a.columna);
                         RESULT.add(a);
                         RESULT.add(b);
                         RESULT.add(c);
+                        
                      :};
 
 
-final_si         ::= {:
-                        RESULT = parser.crearNodo("partefinal","",0,0);   
-                     :}
-                     |muchos_sino_si:a  sino:b   
-                     {:
-                        RESULT = parser.crearNodo("partefinal","",a.linea,a.columna);   
-                        RESULT.add(a);
-                        RESULT.add(b);
-                     :}
-                     | sino:a                
-                     {: 
-                        RESULT = parser.crearNodo("partefinal","",a.linea,a.columna);   
-                        RESULT.add(a);
-                     :};
+final_si         ::=    {:     RESULT = parser.crearNodo("partefinal","",0,0);    :}
+                        | muchos_sino_si:a sino:b
+                        {:
+                           RESULT = parser.crearNodo("partefinal","",a.linea,a.columna);   
+                           RESULT.add(a);
+                           RESULT.add(b);    
+                        :}
+                        |sino:a
+                        {:
+                            RESULT = parser.crearNodo("partefinal","",a.linea,a.columna);   
+                            RESULT.add(a);
+
+                        :};
 
 //------------------------------------------------------------------------------
 muchos_sino_si   ::= muchos_sino_si:b sino_si:a
@@ -323,7 +327,7 @@ sino_si          ::= ELIF APAR expl:a CPAR ALLA MuchasSentencias:b CLLA
                     :};
 //------------------------------------------------------------------------------
 
-sino             ::= NO_T:a ALLA MuchasSentencias:b CLLA 
+sino             ::= NOX:a ALLA MuchasSentencias:b CLLA 
                      {:
                         RESULT = parser.crearNodo("Sino","",a.linea,a.columna);
                         RESULT.add(b);

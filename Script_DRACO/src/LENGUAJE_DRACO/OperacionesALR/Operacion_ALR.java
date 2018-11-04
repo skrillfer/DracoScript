@@ -93,6 +93,7 @@ public class Operacion_ALR extends Compilador_S{
                     return new Resultado_S("booleano", false);
                 }
             case "STRING_LITERAL":
+                
                 return new Resultado_S("cadena", raiz.valor + "");
             case "simplificada":
                 return operacionSimplificada(raiz.valor, raiz.hijos.get(0));
@@ -2077,6 +2078,7 @@ public class Operacion_ALR extends Compilador_S{
                                 case "booleano":
                                 case "caracter":
                                 case "decimal":
+                                default:    
                                     sim = simbolo;
                                     break;                    
                             }
@@ -2126,6 +2128,7 @@ public class Operacion_ALR extends Compilador_S{
                                 case "booleano":
                                 case "caracter":
                                 case "decimal":
+                                default:    
                                     retorno.valor = simbolo.valor;
                                     retorno.tipo = simbolo.tipo;
                                     retorno.simbolo = simbolo;

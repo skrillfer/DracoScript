@@ -90,6 +90,7 @@ public class Asignacion extends Compilador_S{
                             case "booleano":
                             case "caracter":
                             case "decimal":
+                            default:    
                                 sim = simbolo;
                                 break;
                         }
