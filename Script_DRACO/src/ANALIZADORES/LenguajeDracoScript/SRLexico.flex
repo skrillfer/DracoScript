@@ -69,19 +69,16 @@ Comentario2 = "$$" [^\r\n]* [^\r\n]
 <YYINITIAL> ")" {return new Symbol(sym.CPAR, new token(yycolumn, yyline, yytext()));}
 <YYINITIAL> "{" {return new Symbol(sym.ALLA, new token(yycolumn, yyline, yytext()));}
 <YYINITIAL> "}" {return new Symbol(sym.CLLA, new token(yycolumn, yyline, yytext()));}
-<YYINITIAL> "[" {return new Symbol(sym.ACORCH, new token(yycolumn, yyline, yytext()));}
-<YYINITIAL> "]" {return new Symbol(sym.CCORCH, new token(yycolumn, yyline, yytext()));}
 <YYINITIAL> "=" {return new Symbol(sym.IGUAL, new token(yycolumn, yyline, yytext()));}
 <YYINITIAL> ";" {return new Symbol(sym.PYC, new token(yycolumn, yyline, yytext()));}
 <YYINITIAL> ":" {return new Symbol(sym.DSPTS, new token(yycolumn, yyline, yytext()));}
-<YYINITIAL> "." {return new Symbol(sym.PTO, new token(yycolumn, yyline, yytext()));}
 <YYINITIAL> "," {return new Symbol(sym.COMA, new token(yycolumn, yyline, yytext()));}
 
 
 <YYINITIAL> "var" {return new Symbol(sym.VAR, new token(yycolumn, yyline, yytext()));}
 <YYINITIAL> "if" {return new Symbol(sym.IF, new token(yycolumn, yyline, yytext()));}
 <YYINITIAL> "elif" {return new Symbol(sym.ELIF, new token(yycolumn, yyline, yytext()));}
-<YYINITIAL> "if not" {return new Symbol(sym.NOX, new token(yycolumn, yyline, yytext()));}
+<YYINITIAL> "not" {return new Symbol(sym.NOX, new token(yycolumn, yyline, yytext()));}
 <YYINITIAL> "smash" {return new Symbol(sym.SMASH, new token(yycolumn, yyline, yytext()));}
 <YYINITIAL> "while" {return new Symbol(sym.WHILE, new token(yycolumn, yyline, yytext()));}
 <YYINITIAL> "for" {return new Symbol(sym.FOR, new token(yycolumn, yyline, yytext()));}

@@ -1,8 +1,8 @@
 digraph G {
 node[shape=Mrecord]
-62[label="inicio | DRACO_ENTRADA.djs",style=bold]
+64[label="inicio | DRACO_ENTRADA.djs",style=bold]
 9[label="cuerpo | ",style=bold]
-{62}->{9}
+{64}->{9}
 8[label="primitiva | ",style=bold]
 {9}->{8}
 4[label="lista_id | ",style=bold]
@@ -19,22 +19,22 @@ node[shape=Mrecord]
 {6}->{7}
 5[label=" | ",style=bold]
 {6}->{5}
-61[label="mientras | ",style=bold]
-{9}->{61}
+63[label="mientras | ",style=bold]
+{9}->{63}
 13[label="MENQ | ",style=bold]
-{61}->{13}
+{63}->{13}
 11[label="acceso | ",style=bold]
 {13}->{11}
 10[label="id | contador1",style=bold]
 {11}->{10}
 12[label="NUM_LITERAL | 10",style=bold]
 {13}->{12}
-57[label="sentencias | ",style=bold]
-{61}->{57}
-56[label="si | ",style=bold]
-{57}->{56}
+22[label="sentencias | ",style=bold]
+{63}->{22}
+21[label="si | ",style=bold]
+{22}->{21}
 17[label="IG_IG | ",style=bold]
-{56}->{17}
+{21}->{17}
 15[label="acceso | ",style=bold]
 {17}->{15}
 14[label="id | contador1",style=bold]
@@ -42,86 +42,90 @@ node[shape=Mrecord]
 16[label="NUM_LITERAL | 7",style=bold]
 {17}->{16}
 19[label="sentencias | ",style=bold]
-{56}->{19}
+{21}->{19}
 18[label="detener | ",style=bold]
 {19}->{18}
-55[label="partefinal | ",style=bold]
-{56}->{55}
-54[label="Sino | ",style=bold]
-{55}->{54}
-25[label="sentencias | ",style=bold]
-{54}->{25}
-24[label="imprimir | ",style=bold]
-{25}->{24}
-23[label="MAS | ",style=bold]
-{24}->{23}
-20[label="STRING_LITERAL | contador1:",style=bold]
-{23}->{20}
-22[label="acceso | ",style=bold]
-{23}->{22}
-21[label="id | contador1",style=bold]
-{22}->{21}
-29[label="asignacion | ",style=bold]
-{25}->{29}
-27[label="acceso | ",style=bold]
-{29}->{27}
-26[label="id | contador2",style=bold]
+20[label="partefinal | ",style=bold]
+{21}->{20}
+58[label="Sino | ",style=bold]
+{20}->{58}
+28[label="sentencias | ",style=bold]
+{58}->{28}
+27[label="imprimir | ",style=bold]
+{28}->{27}
+26[label="MAS | ",style=bold]
 {27}->{26}
-28[label="NUM_LITERAL | 0",style=bold]
-{29}->{28}
-53[label="mientras | ",style=bold]
-{25}->{53}
-33[label="MENQ | ",style=bold]
-{53}->{33}
-31[label="acceso | ",style=bold]
-{33}->{31}
-30[label="id | contador2",style=bold]
-{31}->{30}
-32[label="NUM_LITERAL | 10",style=bold]
-{33}->{32}
-49[label="sentencias | ",style=bold]
-{53}->{49}
-48[label="si | ",style=bold]
-{49}->{48}
-37[label="IG_IG | ",style=bold]
-{48}->{37}
-35[label="acceso | ",style=bold]
-{37}->{35}
-34[label="id | contador2",style=bold]
-{35}->{34}
-36[label="NUM_LITERAL | 7",style=bold]
-{37}->{36}
-39[label="sentencias | ",style=bold]
-{48}->{39}
-38[label="detener | ",style=bold]
-{39}->{38}
-47[label="partefinal | ",style=bold]
-{48}->{47}
-46[label="Sino | ",style=bold]
-{47}->{46}
+23[label="STRING_LITERAL | contador1:",style=bold]
+{26}->{23}
+25[label="acceso | ",style=bold]
+{26}->{25}
+24[label="id | contador1",style=bold]
+{25}->{24}
+32[label="asignacion | ",style=bold]
+{28}->{32}
+30[label="acceso | ",style=bold]
+{32}->{30}
+29[label="id | contador2",style=bold]
+{30}->{29}
+31[label="NUM_LITERAL | 0",style=bold]
+{32}->{31}
+57[label="mientras | ",style=bold]
+{28}->{57}
+36[label="MENQ | ",style=bold]
+{57}->{36}
+34[label="acceso | ",style=bold]
+{36}->{34}
+33[label="id | contador2",style=bold]
+{34}->{33}
+35[label="NUM_LITERAL | 10",style=bold]
+{36}->{35}
 45[label="sentencias | ",style=bold]
-{46}->{45}
-44[label="imprimir | ",style=bold]
+{57}->{45}
+44[label="si | ",style=bold]
 {45}->{44}
-43[label="MAS | ",style=bold]
-{44}->{43}
-40[label="STRING_LITERAL | contador2:",style=bold]
-{43}->{40}
-42[label="acceso | ",style=bold]
-{43}->{42}
-41[label="id | contador2",style=bold]
+40[label="IG_IG | ",style=bold]
+{44}->{40}
+38[label="acceso | ",style=bold]
+{40}->{38}
+37[label="id | contador2",style=bold]
+{38}->{37}
+39[label="NUM_LITERAL | 7",style=bold]
+{40}->{39}
+42[label="sentencias | ",style=bold]
+{44}->{42}
+41[label="detener | ",style=bold]
 {42}->{41}
-52[label="simplificada | incremento",style=bold]
-{49}->{52}
-51[label="acceso | ",style=bold]
+43[label="partefinal | ",style=bold]
+{44}->{43}
+52[label="Sino | ",style=bold]
+{43}->{52}
+51[label="sentencias | ",style=bold]
 {52}->{51}
-50[label="id | contador2",style=bold]
+50[label="imprimir | ",style=bold]
 {51}->{50}
-60[label="simplificada | incremento",style=bold]
-{57}->{60}
-59[label="acceso | ",style=bold]
-{60}->{59}
-58[label="id | contador1",style=bold]
-{59}->{58}
+49[label="MAS | ",style=bold]
+{50}->{49}
+46[label="STRING_LITERAL | contador2:",style=bold]
+{49}->{46}
+48[label="acceso | ",style=bold]
+{49}->{48}
+47[label="id | contador2",style=bold]
+{48}->{47}
+53[label=" | ",style=bold]
+{45}->{53}
+56[label="simplificada | incremento",style=bold]
+{45}->{56}
+55[label="acceso | ",style=bold]
+{56}->{55}
+54[label="id | contador2",style=bold]
+{55}->{54}
+59[label=" | ",style=bold]
+{22}->{59}
+62[label="simplificada | incremento",style=bold]
+{22}->{62}
+61[label="acceso | ",style=bold]
+{62}->{61}
+60[label="id | contador1",style=bold]
+{61}->{60}
 
 }
