@@ -1,0 +1,219 @@
+package INTERPRETE_PILA.GRAMATICA;
+import ESTRUCTURAS.*;
+import java_cup.runtime.*;
+
+
+action code {:
+    public int indice=1;
+    public Nodo raiz_padre;
+:}
+
+parser code {:
+        
+
+    public void syntax_error(Symbol s){
+        System.err.println("Error en la Línea " + (s.right+1) +" Columna "+(s.left+1)+ ". Identificador "
+        +s.value + " no reconocido." );
+        //Inicio.reporteError.agregar("Sintactico",s.right+1,s.left+1,"Identificador "+s.value+" no reconocido");
+    }
+    
+    public Nodo dema_Raiz(){
+        return action_obj.raiz_padre;
+    }
+
+    public Nodo crearNodo(String nombre, token tk)
+    {
+        Nodo nuevo = new Nodo(action_obj.indice++,nombre,tk.cadena,tk.linea,tk.columna);
+        return nuevo;
+    }
+
+    public Nodo crearNodo(String nombre, String valor, int linea, int columna)
+    {
+        Nodo nuevo = new Nodo(action_obj.indice++,nombre,valor,linea,columna);
+        return nuevo;
+    }
+
+:}
+
+
+terminal token ADD,DIFF,MULT,DIV,POT,MOD,EQZ,LT,LTE,GT,GTE,OR,AND,NOT,FUNCTION,SET_LOCAL,SET_GLOBAL,GET_LOCAL,
+               GET_GLOBAL,C4LC,R3T,ETIQUETA,NUMERO,DECIMAL,ID,BR_IF,BR,END,PRINT,F_CHAR,D_CHAR,CALL,OUT_STR,
+               IGUALIGUAL,NOIGUAL,MENOR,MENORIGUAL,MAYOR,MAYORIGUAL;
+
+
+non terminal Nodo codigo,contenido,funcion,sentencias,sentencia,valor,nombreF;
+
+start with codigo;
+
+
+codigo              ::= contenido:a
+                        {:
+                            raiz_padre = a;
+                        :};
+
+
+contenido           ::= contenido:b funcion:a
+                        {:
+                            b.add(a);
+                            RESULT= b;
+                        :}
+                        |funcion:a
+                        {:
+                            RESULT = parser.crearNodo("contenido","",a.linea,a.columna);
+                            RESULT.add(a);
+                        :};
+
+
+funcion             ::= FUNCTION nombreF:a sentencias:b END
+                        {:
+                            RESULT = parser.crearNodo("metodo",a.valor,a.linea,a.columna);
+                            RESULT.add(b);
+                        :};
+
+nombreF              ::=  ID:a             {:  RESULT = parser.crearNodo("id",a);  :}
+                        |OUT_STR:a         {:  RESULT = parser.crearNodo("id",a);  :}
+                        |IGUALIGUAL:a      {:  RESULT = parser.crearNodo("id",a);  :}
+                        |NOIGUAL:a         {:  RESULT = parser.crearNodo("id",a);  :}
+                        |MENOR:a           {:  RESULT = parser.crearNodo("id",a);  :}
+                        |MENORIGUAL:a      {:  RESULT = parser.crearNodo("id",a);  :}
+                        |MAYOR:a           {:  RESULT = parser.crearNodo("id",a);  :}
+                        |MAYORIGUAL:a      {:  RESULT = parser.crearNodo("id",a);  :};    
+
+sentencias          ::= sentencias:b sentencia:a
+                        {:
+                            b.add(a);
+                            RESULT = b;
+                        :}
+                        |sentencia:a
+                        {:
+                            RESULT = parser.crearNodo("sentencias","",a.linea,a.columna);
+                            RESULT.add(a);
+                        :};
+
+sentencia           ::= NUMERO:a
+                        {:
+                            RESULT = parser.crearNodo("numero",a);
+                        :}
+                        |DECIMAL:a
+                        {:
+                            RESULT = parser.crearNodo("decimal",a);
+                        :}
+                        |GET_GLOBAL valor:a
+                        {:
+                            RESULT = parser.crearNodo("get_global","",a.linea,a.columna);
+                            RESULT.add(a);
+                        :}
+                        |GET_LOCAL valor:a
+                        {:
+                            RESULT = parser.crearNodo("get_local","",a.linea,a.columna);
+                            RESULT.add(a);
+                        :}
+                        |SET_GLOBAL valor:a
+                        {:
+                            RESULT = parser.crearNodo("set_global","",a.linea,a.columna);
+                            RESULT.add(a);
+                        :}
+                        |SET_LOCAL valor:a
+                        {:
+                            RESULT = parser.crearNodo("set_local","",a.linea,a.columna);
+                            RESULT.add(a);
+                        :}
+                        |ETIQUETA:a
+                        {:
+                            RESULT = parser.crearNodo("etiqueta",a);
+                        :}
+                        |AND:a
+                        {:
+                            RESULT = parser.crearNodo("and",a);
+                        :}
+                        |OR:a
+                        {:
+                            RESULT = parser.crearNodo("or",a);
+                        :}
+                        |NOT:a
+                        {:
+                            RESULT = parser.crearNodo("not",a);
+                        :}
+                        |LT:a
+                        {:
+                            RESULT = parser.crearNodo("lt",a);
+                        :}
+                        |LTE:a
+                        {:
+                            RESULT = parser.crearNodo("lte",a);
+                        :}
+                        |GT:a
+                        {:
+                            RESULT = parser.crearNodo("gt",a);
+                        :} 
+                        |GTE:a
+                        {:
+                            RESULT = parser.crearNodo("gte",a);
+                        :} 
+                        |EQZ:a
+                        {:
+                            RESULT = parser.crearNodo("eqz",a);
+                        :} 
+                        |ADD:a
+                        {:
+                            RESULT = parser.crearNodo("add",a);
+                        :}
+                        |DIFF:a
+                        {:
+                            RESULT = parser.crearNodo("diff",a);
+                        :}
+                        |MULT:a
+                        {:
+                            RESULT = parser.crearNodo("mult",a);
+                        :}    
+                        |DIV:a
+                        {:
+                            RESULT = parser.crearNodo("div",a);
+                        :}    
+                        |POT:a
+                        {:
+                            RESULT = parser.crearNodo("pot",a);
+                        :}
+                        |MOD:a
+                        {:
+                            RESULT = parser.crearNodo("mod",a);
+                        :}
+                        |BR_IF ETIQUETA:a
+                        {:
+                            RESULT = parser.crearNodo("br_if",a);
+                        :}
+                        |BR    ETIQUETA:a
+                        {:
+                            RESULT = parser.crearNodo("br",a);
+                        :}
+                        |PRINT:a
+                        {:
+                            RESULT = parser.crearNodo("print",a);
+                        :}
+                        |F_CHAR:a
+                        {:
+                            RESULT = parser.crearNodo("f_char",a);
+                        :}
+                        |CALL nombreF:a
+                        {:
+                            RESULT = parser.crearNodo("llamada",a.valor,a.linea,a.columna);
+                        :};
+
+
+valor   ::= C4LC:a
+            {:
+                RESULT = parser.crearNodo("calc",a);
+            :}
+            |NUMERO:a
+            {:
+                RESULT = parser.crearNodo("numero",a);
+            :}
+            |R3T:a
+            {:
+                RESULT = parser.crearNodo("ret",a);
+            :};
+ 
+
+
+
+

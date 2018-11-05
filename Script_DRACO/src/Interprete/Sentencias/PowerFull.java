@@ -53,17 +53,20 @@ public class PowerFull extends Interprete.Interpretacion{
         Resultado condicion_si = XopL.OPERAR(RAIZ.hijos.get(0));
         
         codigo_tmp = condicion_si.ETV+"\n";
-        Xblockes.agregar(codigo_tmp,RAIZ);
+            Xblockes.agregar(codigo_tmp,RAIZ);
             ejecutarSentencias(RAIZ.hijos.get(1)); //Sentencias del IF
             codigo_tmp = "br "+eti_Salida+"\n";
             Xblockes.agregar_AlUltimoBloque(codigo_tmp);
             
         if(parte_final_If.hijos.size()==1)
         {
-            codigo_tmp = condicion_si.ETF+"\n";
+            codigo_tmp = "//**----------------Inicia else\n";
+            codigo_tmp += condicion_si.ETF+"\n";
             Xblockes.agregar(codigo_tmp,parte_final_If);
             
             ejecutarSentencias(parte_final_If.hijos.get(0).hijos.get(0));//Sentencias del Sino
+            codigo_tmp = "//**----------------Finaliza else\n";
+            Xblockes.agregar_AlUltimoBloque(codigo_tmp);
         }else if(parte_final_If.hijos.size()==2)
         {
             Nodo muchos_sino = parte_final_If.hijos.get(0);

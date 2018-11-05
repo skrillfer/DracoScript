@@ -1,12 +1,12 @@
-estructura carro
-{
-    booleano gb;
-    caracter gb1;
-}
 
 vacio principal()
 {
-    entero num1 = 500;
-    decimal dec1 = num1;       
+    Si("hkz">="hkz")
+    {
+        imprimir("es mayor o igual");
+    }Sino
+    {
+        imprimir("no es mayor o igual");
+    }
 }
 

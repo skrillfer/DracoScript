@@ -14,7 +14,10 @@ import java.util.ArrayList;
 
 
 public class Blockes {
-    
+    Blocke next = null;
+    boolean g_next = false;
+    boolean g_nextLuego = false;
+    public int     ii = -1;
     int linea_actual = 0;
     Blocke bloque_actual = null;
     ArrayList<Blocke> Lista = new ArrayList<>();
@@ -22,14 +25,13 @@ public class Blockes {
     public Blockes() {
     }
     
+    
     public void agregar_A_Bloque_AlInicio(String cod , Nodo raiz)
     {
         for (Blocke block : Lista) {
             if(block.linea==raiz.linea)
             {
-                String tmp = block.codigo_asm;
-                block.codigo_asm = cod;
-                block.codigo_asm += tmp;
+                block.agregarAl_Inicio(cod);
                 break;
             }
         }
@@ -63,9 +65,7 @@ public class Blockes {
                 Lista.add(bloque_actual);
             }else
             {
-                String bloque_tmp = bloque_actual.codigo_asm;
-                bloque_actual.codigo_asm = codigoASM;
-                bloque_actual.codigo_asm += bloque_tmp;
+                bloque_actual.agregarAl_Inicio(codigoASM);
             }
         }
     }
@@ -74,7 +74,7 @@ public class Blockes {
     {
         if(!Lista.isEmpty())
         {
-            bloque_actual.codigo_asm += codigoASM;   
+            bloque_actual.add(codigoASM);   
         }
     }
     
@@ -83,6 +83,13 @@ public class Blockes {
         if(Lista.isEmpty())
         {
             
+            if(g_nextLuego)
+            {
+                ii= bloque_actual.Hacer_Senia();
+                g_nextLuego=false;
+                g_next = true;
+            }
+            
             linea_actual = nodo.linea;
             bloque_actual = new Blocke(nodo.linea,nodo.columna,codigoASM);
             Lista.add(bloque_actual);
@@ -90,23 +97,65 @@ public class Blockes {
         {
             if(nodo.linea > linea_actual)
             {
+                if(g_nextLuego)
+                {
+                    ii= bloque_actual.Hacer_Senia();
+                    g_nextLuego=false;
+                    g_next = true;
+                }
+                
                 linea_actual = nodo.linea;
                 bloque_actual = new Blocke(nodo.linea,nodo.columna,codigoASM);
                 Lista.add(bloque_actual);
+                
+                
             }else
             {
-                bloque_actual.codigo_asm += codigoASM;
+                if(g_nextLuego)
+                {
+                    ii= bloque_actual.Hacer_Senia();
+                    g_nextLuego=false;
+                    g_next = true;
+                }
+                bloque_actual.add(codigoASM);
             }
+        }
+        
+        if (g_next)
+        {
+            next=bloque_actual;
+            g_next=false;
         }
     }
     
-    public void imprimirBlockes()
+    public  Blocke get_Next()
     {
+        return this.next;
+    }
+    
+    
+    
+    public String imprimirBlockes()
+    {
+        String cad = "";
         for (Blocke block : Lista) {
             //System.out.println("\n\nLinea:"+block.linea);
-            System.out.println(block.codigo_asm);
-
+            for (String linea : block.lineas) {
+                cad +=  linea;
+                System.out.println(linea);
+            }
         }
+        return cad;
+    }
+    
+    public void senia()
+    {
+        this.g_next=true;
+    }
+    
+    public void seniaLuego()
+    {
+        this.g_nextLuego=true;
     }
 }
 

@@ -23,7 +23,7 @@ public class Primitivas extends Interprete.Interpretacion{
         XopL = new Logica();
         
         Blocke last = Xblockes.obtener_UltimoBlock();
-        last.codigo_asm += "<><><><><><><><><><><><><><>\n";
+        //last.codigo_asm += "//<><><><><><><><><><><><><><>\n";
         Resultado r1 = XopL.OPERAR(RAIZ.hijos.get(0));
         
         
@@ -34,7 +34,8 @@ public class Primitivas extends Interprete.Interpretacion{
             {
                 codigo_tmp = "//LLAMANDO A IMPRIMIR\n";
                 codigo_tmp +=  "get_global $calc\n";
-                last.codigo_asm  += codigo_tmp;
+                last.add(codigo_tmp);
+                //last.codigo_asm  += codigo_tmp;
                 
                 codigo_tmp = "0\n";
                 codigo_tmp += "get_local 0\n";
@@ -47,12 +48,13 @@ public class Primitivas extends Interprete.Interpretacion{
                 codigo_tmp += "1\n";
                 codigo_tmp += "add\n";
                 
-                codigo_2 = last.codigo_asm;
+                //codigo_2 = last.codigo_asm;
                 
+                last.agregarAl_Inicio(codigo_tmp);
                 
-                last.codigo_asm = codigo_tmp;
+                //last.codigo_asm = codigo_tmp;
                 
-                last.codigo_asm += codigo_2;
+                //last.codigo_asm += codigo_2;
                 
                 codigo_tmp = "set_local $calc\n";
                 
@@ -65,7 +67,7 @@ public class Primitivas extends Interprete.Interpretacion{
                 codigo_tmp += "diff\n";
                 codigo_tmp += "set_local $calc\n";
                 
-                last.codigo_asm += codigo_tmp;
+                last.add(codigo_tmp);
             }else
             {
                 codigo_tmp = "//LLAMANDO A IMPRIMIR\n";
@@ -76,7 +78,8 @@ public class Primitivas extends Interprete.Interpretacion{
                 codigo_tmp += "add\n";
                 
                 
-                last.codigo_asm += codigo_tmp;
+                last.add(codigo_tmp);
+                //last.codigo_asm += codigo_tmp;
                 
                 
                 codigo_tmp = "set_local $calc\n";

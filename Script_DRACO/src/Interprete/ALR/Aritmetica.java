@@ -44,7 +44,7 @@ public class Aritmetica extends Interprete.Interpretacion{
                 return XopL.OPERAR(raiz);
                 
             case "STRING_LITERAL":
-                String codigo_tmp = "get_global 0 //obtener el puntero de heap\n";
+                String codigo_tmp = "\n\nget_global 0 //obtener el puntero de h3ap\n";
                 raiz.valor = raiz.valor.substring(1, raiz.valor.length()-1);
                 for (char c : raiz.valor.toCharArray()) {
                     codigo_tmp   += "get_global 0 //obtener el valor puntero de heap\n";
@@ -66,7 +66,7 @@ public class Aritmetica extends Interprete.Interpretacion{
                 codigo_tmp   += "get_global 0 //obtener el valor puntero de heap\n";
                 codigo_tmp   += "1\n";
                 codigo_tmp   += "add\n";
-                codigo_tmp   += "set_global $calc //setear valor del ptr de heap\n";
+                codigo_tmp   += "set_global $calc //setear valor del ptr de heap\n\n\n\n\n";
                 
                 return Retorno("cadena", "", codigo_tmp, raiz);
             case "CHAR_LITERAL":

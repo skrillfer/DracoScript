@@ -99,11 +99,12 @@ public class TablaSimbolo {
                     Simbolo sim_ret = new Simbolo("$ret", tipo_metodo, this.generarAmbito(this.ambito), "variable", this.direccion, 1, new ArrayList<>(), hijo.archivo);
                     this.agregar_Simbolo(sim_ret, hijo);
 
+                    Simbolo sim_this = new Simbolo("$this", tipo_metodo, this.generarAmbito(this.ambito), "variable", this.direccion, 1, new ArrayList<>(), hijo.archivo);
+                    this.agregar_Simbolo(sim_this, hijo);
+
                     Simbolo sim_calc = new Simbolo("$calc", tipo_metodo, this.generarAmbito(this.ambito), "variable", this.direccion, 1, new ArrayList<>(), hijo.archivo);
                     this.agregar_Simbolo(sim_calc, hijo);
 
-                    Simbolo sim_this = new Simbolo("$this", tipo_metodo, this.generarAmbito(this.ambito), "variable", this.direccion, 1, new ArrayList<>(), hijo.archivo);
-                    this.agregar_Simbolo(sim_this, hijo);
 
                     for (Nodo Parametro : Parametros) {
                         switch (Parametro.nombre) {

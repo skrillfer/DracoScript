@@ -1,0 +1,920 @@
+function principal
+
+
+
+
+
+//---->INTERCALADO
+get_local 0
+3
+add
+1
+add
+//Fin---->INTERCALADO
+
+
+
+get_global 0 //obtener el puntero de h3ap
+get_global 0 //obtener el valor puntero de heap
+104 //ascii de caracter:h
+set_global $calc //setear valor en heap
+//incremento el valor de puntero h=h+1
+0
+get_global 0 //obtener el valor puntero de heap
+1
+add
+set_global $calc //setear valor del ptr de heap
+get_global 0 //obtener el valor puntero de heap
+107 //ascii de caracter:k
+set_global $calc //setear valor en heap
+//incremento el valor de puntero h=h+1
+0
+get_global 0 //obtener el valor puntero de heap
+1
+add
+set_global $calc //setear valor del ptr de heap
+get_global 0 //obtener el valor puntero de heap
+122 //ascii de caracter:z
+set_global $calc //setear valor en heap
+//incremento el valor de puntero h=h+1
+0
+get_global 0 //obtener el valor puntero de heap
+1
+add
+set_global $calc //setear valor del ptr de heap
+get_global 0 //obtener el valor puntero de heap
+0 //ascii de caracter final
+set_global $calc //setear valor en heap
+//incremento el valor de puntero h=h+1
+0
+get_global 0 //obtener el valor puntero de heap
+1
+add
+set_global $calc //setear valor del ptr de heap
+
+
+
+//---->INTERCALADO
+get_local 0
+3
+add
+2
+add
+//Fin---->INTERCALADO
+
+
+
+
+
+get_global 0 //obtener el puntero de h3ap
+get_global 0 //obtener el valor puntero de heap
+104 //ascii de caracter:h
+set_global $calc //setear valor en heap
+//incremento el valor de puntero h=h+1
+0
+get_global 0 //obtener el valor puntero de heap
+1
+add
+set_global $calc //setear valor del ptr de heap
+get_global 0 //obtener el valor puntero de heap
+107 //ascii de caracter:k
+set_global $calc //setear valor en heap
+//incremento el valor de puntero h=h+1
+0
+get_global 0 //obtener el valor puntero de heap
+1
+add
+set_global $calc //setear valor del ptr de heap
+get_global 0 //obtener el valor puntero de heap
+122 //ascii de caracter:z
+set_global $calc //setear valor en heap
+//incremento el valor de puntero h=h+1
+0
+get_global 0 //obtener el valor puntero de heap
+1
+add
+set_global $calc //setear valor del ptr de heap
+get_global 0 //obtener el valor puntero de heap
+0 //ascii de caracter final
+set_global $calc //setear valor en heap
+//incremento el valor de puntero h=h+1
+0
+get_global 0 //obtener el valor puntero de heap
+1
+add
+set_global $calc //setear valor del ptr de heap
+set_local $calc
+set_local $calc
+
+//CAMBIO de AMBITO REAL
+0
+get_local 0
+3
+add
+set_local $calc
+//________________________
+
+call $$_mayorIgual
+
+
+get_local 0
+0
+add
+get_local $calc
+
+//REGRESO de AMBITO REAL
+0
+get_local 0
+3
+diff
+set_local $calc
+//________________________
+br_if $label4
+br $label3
+$label3
+//LLAMANDO A IMPRIMIR
+get_local 0
+3
+add
+1
+add
+
+
+get_global 0 //obtener el puntero de h3ap
+get_global 0 //obtener el valor puntero de heap
+101 //ascii de caracter:e
+set_global $calc //setear valor en heap
+//incremento el valor de puntero h=h+1
+0
+get_global 0 //obtener el valor puntero de heap
+1
+add
+set_global $calc //setear valor del ptr de heap
+get_global 0 //obtener el valor puntero de heap
+115 //ascii de caracter:s
+set_global $calc //setear valor en heap
+//incremento el valor de puntero h=h+1
+0
+get_global 0 //obtener el valor puntero de heap
+1
+add
+set_global $calc //setear valor del ptr de heap
+get_global 0 //obtener el valor puntero de heap
+32 //ascii de caracter: 
+set_global $calc //setear valor en heap
+//incremento el valor de puntero h=h+1
+0
+get_global 0 //obtener el valor puntero de heap
+1
+add
+set_global $calc //setear valor del ptr de heap
+get_global 0 //obtener el valor puntero de heap
+109 //ascii de caracter:m
+set_global $calc //setear valor en heap
+//incremento el valor de puntero h=h+1
+0
+get_global 0 //obtener el valor puntero de heap
+1
+add
+set_global $calc //setear valor del ptr de heap
+get_global 0 //obtener el valor puntero de heap
+97 //ascii de caracter:a
+set_global $calc //setear valor en heap
+//incremento el valor de puntero h=h+1
+0
+get_global 0 //obtener el valor puntero de heap
+1
+add
+set_global $calc //setear valor del ptr de heap
+get_global 0 //obtener el valor puntero de heap
+121 //ascii de caracter:y
+set_global $calc //setear valor en heap
+//incremento el valor de puntero h=h+1
+0
+get_global 0 //obtener el valor puntero de heap
+1
+add
+set_global $calc //setear valor del ptr de heap
+get_global 0 //obtener el valor puntero de heap
+111 //ascii de caracter:o
+set_global $calc //setear valor en heap
+//incremento el valor de puntero h=h+1
+0
+get_global 0 //obtener el valor puntero de heap
+1
+add
+set_global $calc //setear valor del ptr de heap
+get_global 0 //obtener el valor puntero de heap
+114 //ascii de caracter:r
+set_global $calc //setear valor en heap
+//incremento el valor de puntero h=h+1
+0
+get_global 0 //obtener el valor puntero de heap
+1
+add
+set_global $calc //setear valor del ptr de heap
+get_global 0 //obtener el valor puntero de heap
+32 //ascii de caracter: 
+set_global $calc //setear valor en heap
+//incremento el valor de puntero h=h+1
+0
+get_global 0 //obtener el valor puntero de heap
+1
+add
+set_global $calc //setear valor del ptr de heap
+get_global 0 //obtener el valor puntero de heap
+111 //ascii de caracter:o
+set_global $calc //setear valor en heap
+//incremento el valor de puntero h=h+1
+0
+get_global 0 //obtener el valor puntero de heap
+1
+add
+set_global $calc //setear valor del ptr de heap
+get_global 0 //obtener el valor puntero de heap
+32 //ascii de caracter: 
+set_global $calc //setear valor en heap
+//incremento el valor de puntero h=h+1
+0
+get_global 0 //obtener el valor puntero de heap
+1
+add
+set_global $calc //setear valor del ptr de heap
+get_global 0 //obtener el valor puntero de heap
+105 //ascii de caracter:i
+set_global $calc //setear valor en heap
+//incremento el valor de puntero h=h+1
+0
+get_global 0 //obtener el valor puntero de heap
+1
+add
+set_global $calc //setear valor del ptr de heap
+get_global 0 //obtener el valor puntero de heap
+103 //ascii de caracter:g
+set_global $calc //setear valor en heap
+//incremento el valor de puntero h=h+1
+0
+get_global 0 //obtener el valor puntero de heap
+1
+add
+set_global $calc //setear valor del ptr de heap
+get_global 0 //obtener el valor puntero de heap
+117 //ascii de caracter:u
+set_global $calc //setear valor en heap
+//incremento el valor de puntero h=h+1
+0
+get_global 0 //obtener el valor puntero de heap
+1
+add
+set_global $calc //setear valor del ptr de heap
+get_global 0 //obtener el valor puntero de heap
+97 //ascii de caracter:a
+set_global $calc //setear valor en heap
+//incremento el valor de puntero h=h+1
+0
+get_global 0 //obtener el valor puntero de heap
+1
+add
+set_global $calc //setear valor del ptr de heap
+get_global 0 //obtener el valor puntero de heap
+108 //ascii de caracter:l
+set_global $calc //setear valor en heap
+//incremento el valor de puntero h=h+1
+0
+get_global 0 //obtener el valor puntero de heap
+1
+add
+set_global $calc //setear valor del ptr de heap
+get_global 0 //obtener el valor puntero de heap
+0 //ascii de caracter final
+set_global $calc //setear valor en heap
+//incremento el valor de puntero h=h+1
+0
+get_global 0 //obtener el valor puntero de heap
+1
+add
+set_global $calc //setear valor del ptr de heap
+set_local $calc
+0
+get_local 0
+3
+add
+set_local $calc
+
+call $$_outStr
+0
+get_local 0
+3
+diff
+set_local $calc
+br $label2
+//**----------------Inicia else
+$label4
+//LLAMANDO A IMPRIMIR
+get_local 0
+3
+add
+1
+add
+
+
+get_global 0 //obtener el puntero de h3ap
+get_global 0 //obtener el valor puntero de heap
+110 //ascii de caracter:n
+set_global $calc //setear valor en heap
+//incremento el valor de puntero h=h+1
+0
+get_global 0 //obtener el valor puntero de heap
+1
+add
+set_global $calc //setear valor del ptr de heap
+get_global 0 //obtener el valor puntero de heap
+111 //ascii de caracter:o
+set_global $calc //setear valor en heap
+//incremento el valor de puntero h=h+1
+0
+get_global 0 //obtener el valor puntero de heap
+1
+add
+set_global $calc //setear valor del ptr de heap
+get_global 0 //obtener el valor puntero de heap
+32 //ascii de caracter: 
+set_global $calc //setear valor en heap
+//incremento el valor de puntero h=h+1
+0
+get_global 0 //obtener el valor puntero de heap
+1
+add
+set_global $calc //setear valor del ptr de heap
+get_global 0 //obtener el valor puntero de heap
+101 //ascii de caracter:e
+set_global $calc //setear valor en heap
+//incremento el valor de puntero h=h+1
+0
+get_global 0 //obtener el valor puntero de heap
+1
+add
+set_global $calc //setear valor del ptr de heap
+get_global 0 //obtener el valor puntero de heap
+115 //ascii de caracter:s
+set_global $calc //setear valor en heap
+//incremento el valor de puntero h=h+1
+0
+get_global 0 //obtener el valor puntero de heap
+1
+add
+set_global $calc //setear valor del ptr de heap
+get_global 0 //obtener el valor puntero de heap
+32 //ascii de caracter: 
+set_global $calc //setear valor en heap
+//incremento el valor de puntero h=h+1
+0
+get_global 0 //obtener el valor puntero de heap
+1
+add
+set_global $calc //setear valor del ptr de heap
+get_global 0 //obtener el valor puntero de heap
+109 //ascii de caracter:m
+set_global $calc //setear valor en heap
+//incremento el valor de puntero h=h+1
+0
+get_global 0 //obtener el valor puntero de heap
+1
+add
+set_global $calc //setear valor del ptr de heap
+get_global 0 //obtener el valor puntero de heap
+97 //ascii de caracter:a
+set_global $calc //setear valor en heap
+//incremento el valor de puntero h=h+1
+0
+get_global 0 //obtener el valor puntero de heap
+1
+add
+set_global $calc //setear valor del ptr de heap
+get_global 0 //obtener el valor puntero de heap
+121 //ascii de caracter:y
+set_global $calc //setear valor en heap
+//incremento el valor de puntero h=h+1
+0
+get_global 0 //obtener el valor puntero de heap
+1
+add
+set_global $calc //setear valor del ptr de heap
+get_global 0 //obtener el valor puntero de heap
+111 //ascii de caracter:o
+set_global $calc //setear valor en heap
+//incremento el valor de puntero h=h+1
+0
+get_global 0 //obtener el valor puntero de heap
+1
+add
+set_global $calc //setear valor del ptr de heap
+get_global 0 //obtener el valor puntero de heap
+114 //ascii de caracter:r
+set_global $calc //setear valor en heap
+//incremento el valor de puntero h=h+1
+0
+get_global 0 //obtener el valor puntero de heap
+1
+add
+set_global $calc //setear valor del ptr de heap
+get_global 0 //obtener el valor puntero de heap
+32 //ascii de caracter: 
+set_global $calc //setear valor en heap
+//incremento el valor de puntero h=h+1
+0
+get_global 0 //obtener el valor puntero de heap
+1
+add
+set_global $calc //setear valor del ptr de heap
+get_global 0 //obtener el valor puntero de heap
+111 //ascii de caracter:o
+set_global $calc //setear valor en heap
+//incremento el valor de puntero h=h+1
+0
+get_global 0 //obtener el valor puntero de heap
+1
+add
+set_global $calc //setear valor del ptr de heap
+get_global 0 //obtener el valor puntero de heap
+32 //ascii de caracter: 
+set_global $calc //setear valor en heap
+//incremento el valor de puntero h=h+1
+0
+get_global 0 //obtener el valor puntero de heap
+1
+add
+set_global $calc //setear valor del ptr de heap
+get_global 0 //obtener el valor puntero de heap
+105 //ascii de caracter:i
+set_global $calc //setear valor en heap
+//incremento el valor de puntero h=h+1
+0
+get_global 0 //obtener el valor puntero de heap
+1
+add
+set_global $calc //setear valor del ptr de heap
+get_global 0 //obtener el valor puntero de heap
+103 //ascii de caracter:g
+set_global $calc //setear valor en heap
+//incremento el valor de puntero h=h+1
+0
+get_global 0 //obtener el valor puntero de heap
+1
+add
+set_global $calc //setear valor del ptr de heap
+get_global 0 //obtener el valor puntero de heap
+117 //ascii de caracter:u
+set_global $calc //setear valor en heap
+//incremento el valor de puntero h=h+1
+0
+get_global 0 //obtener el valor puntero de heap
+1
+add
+set_global $calc //setear valor del ptr de heap
+get_global 0 //obtener el valor puntero de heap
+97 //ascii de caracter:a
+set_global $calc //setear valor en heap
+//incremento el valor de puntero h=h+1
+0
+get_global 0 //obtener el valor puntero de heap
+1
+add
+set_global $calc //setear valor del ptr de heap
+get_global 0 //obtener el valor puntero de heap
+108 //ascii de caracter:l
+set_global $calc //setear valor en heap
+//incremento el valor de puntero h=h+1
+0
+get_global 0 //obtener el valor puntero de heap
+1
+add
+set_global $calc //setear valor del ptr de heap
+get_global 0 //obtener el valor puntero de heap
+0 //ascii de caracter final
+set_global $calc //setear valor en heap
+//incremento el valor de puntero h=h+1
+0
+get_global 0 //obtener el valor puntero de heap
+1
+add
+set_global $calc //setear valor del ptr de heap
+set_local $calc
+0
+get_local 0
+3
+add
+set_local $calc
+
+call $$_outStr
+0
+get_local 0
+3
+diff
+set_local $calc
+//**----------------Finaliza else
+$label2
+$label1//etiqueta retorno fncion
+End
+
+
+function $$_outStr
+$label8
+get_local 0 //obtengo el puntero de stack
+1
+add
+get_local $calc
+get_global $calc
+0
+diff
+eqz
+not
+br_if $label6
+br $label5
+$label6
+br $label7
+$label5
+%c
+get_local 0
+1
+add
+get_local $calc
+get_global $calc
+print
+get_local 0
+1
+add
+get_local 0
+1
+add
+get_local $calc
+1
+add
+set_local $calc
+br $label8
+$label7
+End
+
+
+function $$_mayor
+0
+get_local 0
+1
+add
+get_local $calc
+$label9
+get_global $calc
+0
+diff
+eqz
+not
+br_if $label10
+br $label11
+
+$label10
+0
+get_local 0
+2
+add
+get_local $calc
+$label12
+get_global $calc
+0
+diff
+eqz
+not
+br_if $label13
+br $label14
+$label13
+gt
+br_if $label16
+br $label15
+$label16
+get_local 0
+0
+set_local $calc
+br $label17
+$label15
+get_local 0
+1
+set_local $calc
+br $label17
+$label14
+get_local 0
+2
+add
+get_local $calc
+get_global $calc
+add
+get_local 0
+2
+add
+get_local 0
+2
+add
+get_local $calc
+1
+add
+set_local $calc
+get_local 0
+2
+add
+get_local $calc
+br $label12
+$label11
+get_local 0
+1
+add
+get_local $calc
+get_global $calc
+add
+get_local 0
+1
+add
+get_local 0
+1
+add
+get_local $calc
+1
+add
+set_local $calc
+get_local 0
+1
+add
+get_local $calc
+br $label9
+$label17
+End
+
+
+function $$_mayorIgual
+0
+get_local 0
+1
+add
+get_local $calc
+$label18
+get_global $calc
+0
+diff
+eqz
+not
+br_if $label19
+br $label20
+
+$label19
+0
+get_local 0
+2
+add
+get_local $calc
+$label21
+get_global $calc
+0
+diff
+eqz
+not
+br_if $label22
+br $label23
+$label22
+gte
+br_if $label25
+br $label24
+$label25
+get_local 0
+0
+set_local $calc
+br $label26
+$label24
+get_local 0
+1
+set_local $calc
+br $label26
+$label23
+get_local 0
+2
+add
+get_local $calc
+get_global $calc
+add
+get_local 0
+2
+add
+get_local 0
+2
+add
+get_local $calc
+1
+add
+set_local $calc
+get_local 0
+2
+add
+get_local $calc
+br $label21
+$label20
+get_local 0
+1
+add
+get_local $calc
+get_global $calc
+add
+get_local 0
+1
+add
+get_local 0
+1
+add
+get_local $calc
+1
+add
+set_local $calc
+get_local 0
+1
+add
+get_local $calc
+br $label18
+$label26
+End
+
+
+function $$_menor
+0
+get_local 0
+1
+add
+get_local $calc
+$label27
+get_global $calc
+0
+diff
+eqz
+not
+br_if $label28
+br $label29
+
+$label28
+0
+get_local 0
+2
+add
+get_local $calc
+$label30
+get_global $calc
+0
+diff
+eqz
+not
+br_if $label31
+br $label32
+$label31
+lt
+br_if $label34
+br $label33
+$label34
+get_local 0
+0
+set_local $calc
+br $label35
+$label33
+get_local 0
+1
+set_local $calc
+br $label35
+$label32
+get_local 0
+2
+add
+get_local $calc
+get_global $calc
+add
+get_local 0
+2
+add
+get_local 0
+2
+add
+get_local $calc
+1
+add
+set_local $calc
+get_local 0
+2
+add
+get_local $calc
+br $label30
+$label29
+get_local 0
+1
+add
+get_local $calc
+get_global $calc
+add
+get_local 0
+1
+add
+get_local 0
+1
+add
+get_local $calc
+1
+add
+set_local $calc
+get_local 0
+1
+add
+get_local $calc
+br $label27
+$label35
+End
+
+
+function $$_menorIgual
+0
+get_local 0
+1
+add
+get_local $calc
+$label36
+get_global $calc
+0
+diff
+eqz
+not
+br_if $label37
+br $label38
+
+$label37
+0
+get_local 0
+2
+add
+get_local $calc
+$label39
+get_global $calc
+0
+diff
+eqz
+not
+br_if $label40
+br $label41
+$label40
+lte
+br_if $label43
+br $label42
+$label43
+get_local 0
+0
+set_local $calc
+br $label44
+$label42
+get_local 0
+1
+set_local $calc
+br $label44
+$label41
+get_local 0
+2
+add
+get_local $calc
+get_global $calc
+add
+get_local 0
+2
+add
+get_local 0
+2
+add
+get_local $calc
+1
+add
+set_local $calc
+get_local 0
+2
+add
+get_local $calc
+br $label39
+$label38
+get_local 0
+1
+add
+get_local $calc
+get_global $calc
+add
+get_local 0
+1
+add
+get_local 0
+1
+add
+get_local $calc
+1
+add
+set_local $calc
+get_local 0
+1
+add
+get_local $calc
+br $label36
+$label44
+End

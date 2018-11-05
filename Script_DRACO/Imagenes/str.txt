@@ -1,0 +1,192 @@
+clase carro
+{
+	principal()
+    {
+    	imprimir(convertiracadena(12));
+    }
+}
+
+CODIGO INTERMEDIO GENERADO
+
+void principal(){
+//CASTEANDO ENTERO A CADENA
+t139=12;
+t140=p+2; //simulacion de cambio de ambito
+t141=t140+1; //parametro
+stack[t141]=t139;
+p=p+2; //cambio de ambito real
+getStr();
+t142=p+0; //retorno
+t143=stack[t142]; //puntero a pool de la cadena
+p=p-2; //regreso al ambito actual
+//FIN CASTEO ENTERO A CADENA
+
+heap[h]=0;
+h=h+1; 
+//METODO OUTSTR
+p=p+2;  //cambio de ambito real
+t144=p+1; //direccion del parametro del metodo outStr
+stack[t144]=t143;
+$$_outStr();
+p=p-2; //regreso al ambito actual
+//FIN METODO OUTSTR
+
+L103:  ; 
+}
+
+
+void getStr(){
+t79=p+1;
+t80=stack[t79]; //numero a convertir
+if (t80<0) goto L76;
+goto L77;
+L76:
+t78=t80; 
+t81=-1; 
+t82=stack[t79]; //numero a convertir
+t82=t82*t81;
+stack[t79]=t82; 
+t80=stack[t79]; //numero a convertir
+goto L78; 
+L77:
+t78=t80; 
+L78:;
+if(t80==0) goto L72;
+goto L79;
+L72:
+t77=h;
+heap[h]=48;
+h=h+1;
+goto L73;
+L79:
+t83=p+2; //simulacion de cambio de ambito
+t84=t83+1; //parametro del metodo getInt
+stack[t84]=t80;
+p=p+2; //cambio de ambito real
+getInt();
+t85=p+0; //acceso al return del metodo getInt
+t86=stack[t85]; //parte entera
+p=p-2;  //regreso al metodo getStr
+if(t86>0) goto L80;
+goto L81;
+L80:
+t87=t86%10; //extrayendo digito
+t88=t87+48;
+heap[h]=t88; //agregando digito al pool
+h=h+1;
+t80=t80/10;
+goto L79;
+L81:
+heap[h]=0; //caracter de finde cadena
+t89=h; //parte entera al revez
+h=h+1;
+t90=stack[t79]; //numero a convertir
+t91=p+2; //simulacion de cambio de ambito
+t92=t91+1; //parametro del metodo getInt
+stack[t92]=t90;
+p=p+2; //cambio de ambito real
+getInt();
+t93=p+0; //acceso al return del metodo getInt
+t94=stack[t93]; //parte entera
+p=p-2;  //regreso al metodo getStr
+t95=pow(t90,2);
+t96=1.0/2.0;
+t97=pow(t95,t96);
+t98=t97-t94; // decimal
+t99=pow(t98,2);
+t100=pow(t99,t96);
+t101=t100*10000;
+if(t101!=0) goto L82; //si contiene parte decimal
+goto L83; //si no contiene parte decimal
+L82:
+t102=p+2; //simulacion de cambio de ambito
+t103=t102+1; //parametro del metodo getInt
+stack[t103]=t101;
+p=p+2; //cambio de ambito real
+getInt();
+t104=p+0; //acceso al return del metodo getInt
+t105=stack[t104]; //parte entera
+p=p-2;  //regreso al metodo getStr
+if(t105>0) goto L84;
+goto L85;
+L84:
+t106=t105%10; //extrayendo digito
+t107=t106+48; //ascci del digito
+heap[h]=t107; //agregando digito al pool
+h=h+1;
+t101=t101/10;
+goto L82;
+L85:
+t108=46; //simbolo de decimal . 
+heap[h]=t108;
+h=h+1;
+L83:
+t109=h; //parte decimal
+heap[h]=0;
+h=h+1;
+t110=h; //cadena convertida
+t111=stack[t79];
+if(t78<0) goto L86; //si en numero a convertir es negativo
+goto L87;
+L86:
+t112=45;
+heap[h]=t112;
+h=h+1;
+L87:
+t89=t89-1;
+t113=heap[t89];
+if(t113!=0) goto L88;
+goto L89;
+L88:
+heap[h]=t113;
+h=h+1;
+goto L87;
+L89:
+t109=t109-1;
+t114=heap[t109];
+if(t114!=0) goto L90;
+goto L91;
+L90:
+heap[h]=t114;
+h=h+1;
+goto L89;
+L91:
+heap[h]=0;
+h=h+1;
+t115=p+0; //retorno
+stack[t115]=t110;
+goto L74;
+L73:
+heap[h]=0;
+h=h+1;
+t116=p+0; //retorno
+stack[t116]=t77;
+L74:  ;
+}
+
+void getInt(){
+t117=p+1;
+t118=stack[t117];
+t118=t118+0.0000000001;
+t119=0;
+if(t118<0) goto L92;
+goto L93;
+L92:
+t120=-1;
+if(t118>=t120) goto L94;
+goto L95;
+L95:
+t118=t118+1;
+t119=t119+1;
+goto L92;
+L93:
+if(t118<=0) goto L94;
+goto L96;
+L96:
+t118=t118-1;
+t119=t119+1;
+goto L93;
+L94:
+t121=p+0;
+stack[t121]=t119;
+}

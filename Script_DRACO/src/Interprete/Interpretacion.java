@@ -126,10 +126,14 @@ public class Interpretacion {
         ejecutar_metodos();
         
         Xblockes.agregar_AlUltimoBloque(genericas.OUT_STR());
-        System.out.println("*****************************************");
+        Xblockes.agregar_AlUltimoBloque(genericas.mayor());
+        Xblockes.agregar_AlUltimoBloque(genericas.mayorIgual());
+        Xblockes.agregar_AlUltimoBloque(genericas.menor());
+        Xblockes.agregar_AlUltimoBloque(genericas.menorIgual());
+        //System.out.println("*****************************************");
         //System.out.println(control.codigoDASM);
         Xblockes.imprimirBlockes();
-        System.out.println("*****************************************");
+        //System.out.println("*****************************************");
         
         
     }
@@ -183,7 +187,7 @@ public class Interpretacion {
             {
                 String codigo_tmp= "";
                 codigo_tmp += "function principal\n";
-                codigo_tmp += "$$_globales();\n";
+                //codigo_tmp += "$$_globales();\n";
                 
                 Xblockes.agregar(codigo_tmp, metodo);
                 

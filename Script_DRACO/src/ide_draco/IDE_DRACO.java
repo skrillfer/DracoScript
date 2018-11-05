@@ -5,6 +5,7 @@
  */
 package ide_draco;
 
+import INTERPRETE_PILA.Ejecutor;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -20,12 +21,13 @@ public class IDE_DRACO {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws IOException {
-        try {
-            new Interprete.Interpretacion().iniciar_interpretacion();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(IDE_DRACO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        //new IDE_DRACO().potencia(1.234, 2.1);
+        
+        
+        
+        //Interprete.Interpretacion ttt = new Interprete.Interpretacion();
+        //ttt.iniciar_interpretacion();
+        
+        new Ejecutor().ejecutar_dasm("");
     }
     
     public void potencia(double base, double exponente)
