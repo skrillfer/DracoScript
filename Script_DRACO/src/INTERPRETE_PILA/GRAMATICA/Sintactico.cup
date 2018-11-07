@@ -93,7 +93,11 @@ sentencias          ::= sentencias:b sentencia:a
                             RESULT.add(a);
                         :};
 
-sentencia           ::= NUMERO:a
+sentencia           ::= R3T:a
+                        {:
+                            RESULT = parser.crearNodo("nada",a);
+                        :}
+                        |NUMERO:a
                         {:
                             RESULT = parser.crearNodo("numero",a);
                         :}

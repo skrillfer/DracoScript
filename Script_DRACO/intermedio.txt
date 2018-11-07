@@ -1,8 +1,16 @@
 function principal
 
+
+//Declaracion Y Asignacion: entero-entero
+get_local 0
+3
+Add
+7
+set_local $calc
+
 //LLAMANDO A IMPRIMIR
 get_local 0
-3
+4
 add
 1
 add
@@ -11,35 +19,17 @@ add
 
 
 
-//Concantenado a string con string
+
+//Concantenado a string con entero
 get_local 0
-3
+4
 add
 1
 add
-
 
 get_global 0 //obtener el puntero de h3ap
 get_global 0 //obtener el valor puntero de heap
 110 //ascii de caracter:n
-set_global $calc //setear valor en heap
-//incremento el valor de puntero h=h+1
-0
-get_global 0 //obtener el valor puntero de heap
-1
-add
-set_global $calc //setear valor del ptr de heap
-get_global 0 //obtener el valor puntero de heap
-117 //ascii de caracter:u
-set_global $calc //setear valor en heap
-//incremento el valor de puntero h=h+1
-0
-get_global 0 //obtener el valor puntero de heap
-1
-add
-set_global $calc //setear valor del ptr de heap
-get_global 0 //obtener el valor puntero de heap
-109 //ascii de caracter:m
 set_global $calc //setear valor en heap
 //incremento el valor de puntero h=h+1
 0
@@ -60,24 +50,24 @@ set_global $calc //setear valor del ptr de heap
 
 
 get_local 0
-3
+4
 add
 2
 add
 //Castendo numero a string
 get_local 0
-3
+4
 add
 1
 add
 
 
-18.92
+456
 set_local $calc
 //CAMBIO de AMBITO REAL
 0
 get_local 0
-3
+4
 add
 set_local $calc
 //________________________
@@ -96,7 +86,7 @@ get_local $calc
 //REGRESO de AMBITO REAL
 0
 get_local 0
-3
+4
 diff
 set_local $calc
 //________________________
@@ -113,7 +103,7 @@ set_local $calc//C4RAK
 //CAMBIO de AMBITO REAL
 0
 get_local 0
-3
+4
 add
 set_local $calc
 //________________________
@@ -132,21 +122,21 @@ get_local $calc
 //REGRESO de AMBITO REAL
 0
 get_local 0
-3
+4
 diff
 set_local $calc
 //________________________
 set_local $calc
 0
 get_local 0
-3
+4
 add
 set_local $calc
 
 call $$_outStr
 0
 get_local 0
-3
+4
 diff
 set_local $calc
 $label1//etiqueta retorno fncion
@@ -553,864 +543,10 @@ get_local $calc
 br $label33
 $label41
 End
-function $$_getStr
-get_local 0
-get_global 0
-set_local $calc
-//-----------------seteo el numero a convertir sin modificar
 
-get_local 0
-5
-add
 
-//Obtengo el numero a convertir
-get_local 0
-1
-add
-get_local $calc
-//Obtengo el numero a convertir
 
-set_local $calc
 
-//-----------------seteo el numero a convertir sin modificar
-
-
-//Obtengo el numero a convertir
-get_local 0
-1
-add
-get_local $calc
-//Obtengo el numero a convertir
-0
-lt
-br_if $L77
-br $L76
-
-    $L77
-    //--------------
-        //direccion de t78
-        get_local 0
-        8
-        add
-        //direccion de t78
-
-        //Obtengo el numero a convertir
-        get_local 0
-        1
-        add
-        get_local $calc
-        //>>Obtengo el numero a convertir
-
-        set_local $calc
-        br $L78
-    //--------------
-    $L76
-
-        //direccion de t78
-        get_local 0
-        8
-        add
-        //direccion de t78
-
-        //Obtengo el numero a convertir
-        get_local 0
-        1
-        add
-        get_local $calc
-        //>>Obtengo el numero a convertir
-
-        set_local $calc
-
-
-        //direccion del numero a convertir
-        get_local 0
-        1
-        add
-        //>>direccion del numero a convertir
-
-        //Obtengo el numero a convertir
-        get_local 0
-        1
-        add
-        get_local $calc
-        //>>Obtengo el numero a convertir
-        -1
-        MULT
-        set_local $calc
-    $L78
-        //Obtengo el numero a convertir
-        get_local 0
-        1
-        add
-        get_local $calc
-        //>>Obtengo el numero a convertir
-        0
-        diff
-        eqz
-        br_if $L79
-        br $L72
-        $L79
-            //--------------------
-            //Seteando parametro
-            get_local 0
-            9
-            add
-            1
-            add
-            //>seteando parametro
-
-            //Obtengo el numero a convertir
-            get_local 0
-            1
-            add
-            get_local $calc
-            //>>Obtengo el numero a convertir
-
-            set_local $calc
-
-
-            //CAMBIO de AMBITO REAL
-            0
-            get_local 0
-            9
-            add
-            set_local $calc
-            //________________________
-
-
-            call $$_getInt
-
-
-            //-------------------------guardando el return
-            get_local 0
-            9
-            diff
-            2
-            add
-
-            //obteniendo el return
-            get_local 0
-            0
-            add
-            get_local $calc
-            //>>obteniendo return
-
-            set_local $calc
-            //-------------------------guardando el return
-
-            //REGRESO de AMBITO REAL
-            0
-            get_local 0
-            9
-            diff
-            set_local $calc
-            //________________________
-
-            //*************
-            get_local 0
-            2
-            add
-            get_local $calc
-            //*************
-
-            0
-            gt
-            br_if $L81
-            br $L80
-
-            $L81
-            //------------------
-                get_global 0 //obtener el valor puntero de heap
-                0 //fin de cadena
-                set_global $calc //setear valor en heap
-
-                //-----------------seteando t89
-                get_local 0
-                3
-                add
-                get_global 0
-                set_local $calc
-                //-----------------seteando t89
-
-
-                //incremento el valor de puntero h=h+1
-                0
-                get_global 0 //obtener el valor puntero de heap
-                1
-                add
-                set_global $calc //setear valor del ptr de heap
-                //>>>incremento el valor de puntero h=h+1
-
-
-                //Seteando parametro
-                get_local 0
-                9
-                add
-                1
-                add
-                //>seteando parametro
-
-                //Obtengo el numero a convertir
-                get_local 0
-                1
-                add
-                get_local $calc
-                //>>Obtengo el numero a convertir
-
-                set_local $calc
-
-
-                //CAMBIO de AMBITO REAL
-                0
-                get_local 0
-                9
-                add
-                set_local $calc
-                //________________________
-
-
-                call $$_getInt
-
-
-                //-------------------------guardando el return
-                get_local 0
-                9
-                diff
-                2
-                add
-
-                //obteniendo el return
-                get_local 0
-                0
-                add
-                get_local $calc
-                //>>obteniendo return
-
-                set_local $calc
-                //-------------------------guardando el return
-
-                //REGRESO de AMBITO REAL
-                0
-                get_local 0
-                9
-                diff
-                set_local $calc
-                //________________________
-
-
-                //direccion donde ser guardara t101
-                get_local 0
-                4
-                add
-                //----------------------------------
-
-
-                //Obtengo el numero a convertir
-                get_local 0
-                1
-                add
-                get_local $calc
-                //>>Obtengo el numero a convertir
-
-                2
-                pot
-
-
-                1.0
-                2.0
-                div
-
-                pot
-
-                //*************
-                get_local 0
-                2
-                add
-                get_local $calc
-                //*************
-
-
-                diff //decimal
-                2
-                pot
-
-                1.0
-                2.0
-                div
-
-                pot
-
-                10000
-                MULT
-
-                set_local $calc
-
-                //Obtengo el t101
-                get_local 0
-                4
-                add
-                get_local $calc
-                //>>Obtengo el t101
-
-                //-----------------------si != 0
-                0
-                diff
-                eqz
-                not
-                //-----------------------si != 0
-
-                br_if $L83
-                br $L82
-                    $L83
-                        get_global 0 //obtener el valor puntero de heap
-                        0 //fin de cadena
-                        set_global $calc //setear valor en heap
-
-                        //----------------set t109
-                        get_local 0
-                        6
-                        add
-                        get_global 0
-                        set_local $calc
-                        //----------------set t109
-
-                        //incremento el valor de puntero h=h+1
-                        0
-                        get_global 0
-                        1
-                        add
-                        set_global $calc
-                        //incremento el valor de puntero h=h+1
-
-                         //----------------set t110 cadena convertida
-                        get_local 0
-                        7
-                        add
-                        get_global 0
-                        set_local $calc
-                        //----------------set t110 cadena convertida
-
-                        //-----------------obtengo el valor de t78
-                        get_local 0
-                        8
-                        add
-                        get_local $calc
-                        //-----------------obtengo el valor de t78
-
-                        0
-                        lt
-                        br_if $L87
-                        br $L86
-                        $L86
-                          get_global 0 //obtener el valor puntero de heap
-                          45
-                          set_global $calc //setear valor en heap
-
-                          //incremento el valor de puntero h=h+1
-                          0
-                          get_global 0
-                          1
-                          add
-                          set_global $calc
-                          //incremento el valor de puntero h=h+1
-                        $L87
-                          //----------------- direccion de t89
-                          get_local 0
-                          3
-                          add
-                          //----------------- direccion de t89
-
-                          //----------------- valor de t89
-                          get_local 0
-                          3
-                          add
-                          get_local $calc
-                          //----------------- valor de t89
-                          1
-                          diff
-
-                          set_local $calc
-
-                          //----------------- valor de t89
-                          get_local 0
-                          3
-                          add
-                          get_local $calc
-                          //----------------- valor de t89
-                          get_global $calc
-                          0
-                          diff
-                          eqz
-                          not
-
-                          br_if $L89
-                          br $L88
-                                $L89
-                              //----------------- direccion de t109
-                              get_local 0
-                              6
-                              add
-                              //----------------- direccion de t109
-
-                              //----------------- valor de t109
-                              get_local 0
-                              6
-                              add
-                              get_local $calc
-                              //----------------- valor de t109
-                              1
-                              diff
-
-                              set_local $calc
-
-
-                              //----------------- valor de t109
-                              get_local 0
-                              6
-                              add
-                              get_local $calc
-                              //----------------- valor de t109
-                              get_global $calc
-                              0
-                              diff
-                              eqz
-                              not
-
-                              br_if $L91
-                              br $L90
-
-                              $L91
-                                  get_global 0 //obtener el valor puntero de heap
-                                  0//final de cadena
-                                  set_global $calc //setear valor en heap
-
-                                  //incremento el valor de puntero h=h+1
-                                  0
-                                  get_global 0
-                                  1
-                                  add
-                                  set_global $calc
-                                  //incremento el valor de puntero h=h+1
-
-                                  //direccion del retorno
-                                  get_local 0
-                                  0
-                                  add
-                                  //direccion del retorno
-
-                                  //valor de t110
-                                  get_local 0
-                                  7
-                                  add
-                                  get_local $calc
-                                  //valor de t110
-
-                                  set_local $calc
-                                  br $L74
-                              $L90
-                                  get_global 0
-                                  //----------------- valor de t109
-                                  get_local 0
-                                  6
-                                  add
-                                  get_local $calc
-                                  //----------------- valor de t109
-                                  get_global $calc
-
-                                  set_global $calc
-
-
-                                  //incremento el valor de puntero h=h+1
-                                  0
-                                  get_global 0
-                                  1
-                                  add
-                                  set_global $calc
-                                  //incremento el valor de puntero h=h+1
-
-
-                                  br $L89
-                            $L88
-                                  get_global 0
-                                  //----------------- valor de t89
-                                  get_local 0
-                                  3
-                                  add
-                                  get_local $calc
-                                  //----------------- valor de t89
-                                  get_global $calc
-
-                                  set_global $calc
-
-
-                                  //incremento el valor de puntero h=h+1
-                                  0
-                                  get_global 0
-                                  1
-                                  add
-                                  set_global $calc
-                                  //incremento el valor de puntero h=h+1
-                                  br $L87
-                    $L82
-
-                        //Seteando parametro
-                        get_local 0
-                        9
-                        add
-                        1
-                        add
-                        //>seteando parametro
-
-                        //Obtengo el t101
-                        get_local 0
-                        4
-                        add
-                        get_local $calc
-                        //>>Obtengo el t101
-
-                        set_local $calc
-
-
-                        //CAMBIO de AMBITO REAL
-                        0
-                        get_local 0
-                        9
-                        add
-                        set_local $calc
-                        //________________________
-
-
-                        call $$_getInt
-
-
-                        ///-------------------------guardando el return
-                        get_local 0
-                        9
-                        diff
-                        2
-                        add
-
-                        //obteniendo el return
-                        get_local 0
-                        0
-                        add
-                        get_local $calc
-                        //>>obteniendo return
-
-                        set_local $calc
-                        ///-------------------------guardando el return
-
-                        //REGRESO de AMBITO REAL
-                        0
-                        get_local 0
-                        9
-                        diff
-                        set_local $calc
-                        //________________________
-
-
-
-                        //*************
-                        get_local 0
-                        2
-                        add
-                        get_local $calc
-                        //*************
-                        0
-                        gt
-                        br_if $L85
-                        br $L84
-                        $L85
-
-                            get_global 0 //obtener el valor puntero de heap
-                            46//simbolo decimal
-                            set_global $calc //setear valor en heap
-
-                            //incremento el valor de puntero h=h+1
-                            0
-                            get_global 0
-                            1
-                            add
-                            set_global $calc
-                            //incremento el valor de puntero h=h+1
-
-                            br $L83
-            //------------------
-            $L80
-                get_global 0
-
-                //*************
-                get_local 0
-                2
-                add
-                get_local $calc
-                //*************
-
-                10
-                MOD
-                48
-                ADD
-                set_global $calc
-
-
-
-                //incremento el valor de puntero h=h+1
-                0
-                get_global 0
-                1
-                add
-                set_global $calc
-                //incremento el valor de puntero h=h+1
-
-
-                //direccion del numero a convertir
-                get_local 0
-                1
-                add
-                //>>direccion del numero a convertir
-
-                //Obtengo el numero a convertir
-                get_local 0
-                1
-                add
-                get_local $calc
-                //>>Obtengo el numero a convertir
-
-                10
-                div
-
-                set_local $calc
-                br $L79
-            //--------------------
-        $L72
-            //direccion del retorno
-            get_local 0
-            0
-            add
-            //direccion del retorno
-
-            get_global 0
-
-            get_global 0 //obtener el valor puntero de heap
-            48 //ascii de numero 0
-            set_global $calc //setear valor en heap
-
-            //incremento el valor de puntero h=h+1
-            0
-            get_global 0 //obtener el valor puntero de heap
-            1
-            add
-            set_global $calc //setear valor del ptr de heap
-            //>>>incremento el valor de puntero h=h+1
-
-            set_local $calc //seteo el valor a retornar que es el puntero a heap
-            br $L73
-$L73
-  get_global 0 //obtener el valor puntero de heap
-  0 //fin de cadena
-  set_global $calc //setear valor en heap
-
-  //incremento el valor de puntero h=h+1
-  0
-  get_global 0 //obtener el valor puntero de heap
-  1
-  add
-  set_global $calc //setear valor del ptr de heap
-  //>>>incremento el valor de puntero h=h+1
-$L74
-End
-
-
-
-
-
-function $$_getInt
-
-
-  //direccion de t118
-  get_local 0
-  2
-  add
-  //direccion de t118
-
-  //valor del numero
-  get_local 0
-  1
-  add
-  get_local $calc
-  //valor del numero
-
-  0.0000000001
-  add
-
-  set_local $calc
-
-  //direccion de t119
-  get_local 0
-  3
-  add
-  //direccion de t119
-  0
-  set_local $calc
-
-
-  //valor de t118
-  get_local 0
-  2
-  add
-  get_local $calc
-  //valor de t118
-
-  0
-  lt
-  br_if $L93
-  br $L92
-
-  $L93
-      //valor de t118
-      get_local 0
-      2
-      add
-      get_local $calc
-      //valor de t118
-
-      1
-      lte
-      br_if $L96
-      br $L94
-        $L96
-            //----------------decremento de t118
-            //direccion de t118
-            get_local 0
-            2
-            add
-            //direccion de t118
-
-
-            //valor de t118
-            get_local 0
-            2
-            add
-            get_local $calc
-            //valor de t118
-            1
-            diff
-
-            set_local $calc
-            //----------------decremento de t118
-
-
-            //----------------incremento de t119
-            //direccion de t119
-            get_local 0
-            3
-            add
-            //direccion de t119
-
-
-            //valor de t119
-            get_local 0
-            3
-            add
-            get_local $calc
-            //valor de t119
-            1
-            add
-
-            set_local $calc
-            //----------------incremento de t119
-
-            br $L93
-
-  $L92
-      //direccion de t120
-      get_local 0
-      4
-      add
-      //direccion de t120
-      -1
-      set_local $calc
-
-      //valor de t118
-      get_local 0
-      2
-      add
-      get_local $calc
-      //valor de t118
-
-
-
-      //valor de t120
-      get_local 0
-      4
-      add
-      get_local $calc
-      //valor de t120
-
-      gte
-      br_if $L95
-      br $L94
-
-      $L95
-          //----------------incremento de t118
-          //direccion de t118
-          get_local 0
-          2
-          add
-          //direccion de t118
-
-
-          //valor de t118
-          get_local 0
-          2
-          add
-          get_local $calc
-          //valor de t118
-          1
-          add
-
-          set_local $calc
-          //----------------incremento de t118
-
-
-          //----------------incremento de t119
-          //direccion de t119
-          get_local 0
-          3
-          add
-          //direccion de t119
-
-
-          //valor de t119
-          get_local 0
-          3
-          add
-          get_local $calc
-          //valor de t119
-          1
-          add
-
-          set_local $calc
-          //----------------incremento de t119
-
-          br $L92
-
-      $L94
-          //----------------set retorno
-          get_local 0
-          0
-          add
-
-          //valor de t119
-          get_local 0
-          3
-          add
-          get_local $calc
-          //valor de t119
-
-          set_local $calc
-          //----------------set retorno
-End
 
 
 function $$_concat
@@ -1508,4 +644,3 @@ get_local $calc
 br $label43
 $label48
 End
-

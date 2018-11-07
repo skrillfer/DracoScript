@@ -80,6 +80,7 @@ public class Ejecutor {
         {
             metodo_actual = metodo_principal;
             ejecutar(metodo_actual.hijos.get(0));
+            mostrarGrafico("");
         }else 
         {
             System.out.println("No existe el metodo principal");
@@ -104,6 +105,9 @@ public class Ejecutor {
             }
             switch(sentencia.nombre)
             {   
+                case "nada":
+                    x = sentencias.hijos.size()-1;
+                    break;
                 case "f_char":
                     pilaaux.push(1.0);
                     break;
@@ -211,17 +215,25 @@ public class Ejecutor {
                             
                             
                             
+                            if(metodo_actual.valor.equalsIgnoreCase("$$_getStr"))
+                            {
+                                ya=true;
+                            }
                             
+                            if(metodo_actual.valor.equalsIgnoreCase("$$_getInt"))
+                            {
+                                ya=false;
+                            }
                             JOptionPane.showMessageDialog(null, "LLAMANDO A:"+metodo.valor);
                             mostrarGrafico("");
                             ejecutar(metodo.hijos.get(0));
                             JOptionPane.showMessageDialog(null, "FINALIZA LLAMADA A:"+metodo.valor);
                             mostrarGrafico("");
-                            
-                            if(metodo_actual.valor.equalsIgnoreCase("$$_getStr"))
+                            if(metodo_actual.valor.equalsIgnoreCase("$$_getInt"))
                             {
                                 ya=true;
                             }
+                            
                             break;
                     }
                     metodo_actual =metodoAux;

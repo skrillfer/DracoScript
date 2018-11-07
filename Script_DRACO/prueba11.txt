@@ -1,6 +1,7 @@
 
 vacio principal()
 {
-    imprimir("num"+18.92);
+    entero num1=7;
+    imprimir("n"+1234);
 }
 

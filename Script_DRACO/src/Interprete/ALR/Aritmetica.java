@@ -182,7 +182,7 @@ public class Aritmetica extends Interprete.Interpretacion{
                             case "decimal":
                             case "caracter":    
                                 
-                                codigotmp = "\n\n\n\n//Concantenado a string con string\n";
+                                codigotmp = "\n\n\n\n//Concantenado a string con "+r2.tipo+"\n";
                                 codigotmp += "get_local 0\n";
                                 codigotmp += De$pl4z4r()+"\n";
                                 codigotmp += "add\n";
