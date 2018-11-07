@@ -52,7 +52,15 @@ public class PowerFull extends Interprete.Interpretacion{
         XopL = new Logica();
         Resultado condicion_si = XopL.OPERAR(RAIZ.hijos.get(0));
         
-        codigo_tmp = condicion_si.ETV+"\n";
+        if(condicion_si.valor.equals("AND") || condicion_si.valor.equals("OR"))
+        {
+            codigo_tmp = "br_if " + condicion_si.ETF + "\n";
+            codigo_tmp += "br " + condicion_si.ETV + "\n";
+        }else
+        {
+            codigo_tmp = "";
+        }
+        codigo_tmp += condicion_si.ETV+"\n";
             Xblockes.agregar(codigo_tmp,RAIZ);
             ejecutarSentencias(RAIZ.hijos.get(1)); //Sentencias del IF
             codigo_tmp = "br "+eti_Salida+"\n";

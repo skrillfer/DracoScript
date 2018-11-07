@@ -14,10 +14,18 @@ import java.util.ArrayList;
 
 
 public class Blockes {
+    
+    ArrayList<Blocke> LT_NEXT = new ArrayList<>();
+    ArrayList<Boolean> LT_gnext = new ArrayList<>();
+    ArrayList<Boolean> LT_gnextLuego = new ArrayList<>();
+    
     Blocke next = null;
     boolean g_next = false;
     boolean g_nextLuego = false;
     public int     ii = -1;
+    
+    ArrayList<Integer> LT_ii = new ArrayList<>();
+    
     int linea_actual = 0;
     Blocke bloque_actual = null;
     ArrayList<Blocke> Lista = new ArrayList<>();
@@ -25,6 +33,16 @@ public class Blockes {
     public Blockes() {
     }
     
+    public int getII()
+    {
+        if(!LT_ii.isEmpty())
+        {
+            return LT_ii.remove(LT_ii.size()-1);
+        }else
+        {
+            return -1;
+        }
+    }
     
     public void agregar_A_Bloque_AlInicio(String cod , Nodo raiz)
     {
@@ -83,11 +101,15 @@ public class Blockes {
         if(Lista.isEmpty())
         {
             
-            if(g_nextLuego)
+            if(!LT_gnextLuego.isEmpty())
             {
-                ii= bloque_actual.Hacer_Senia();
-                g_nextLuego=false;
-                g_next = true;
+                
+                LT_ii.add(bloque_actual.Hacer_Senia());
+                //ii= bloque_actual.Hacer_Senia();
+                LT_gnextLuego.remove(LT_gnextLuego.size()-1);
+                //g_nextLuego=false;
+                //g_next = true;
+                LT_gnext.add(true);
             }
             
             linea_actual = nodo.linea;
@@ -97,11 +119,14 @@ public class Blockes {
         {
             if(nodo.linea > linea_actual)
             {
-                if(g_nextLuego)
+                if(!LT_gnextLuego.isEmpty())
                 {
-                    ii= bloque_actual.Hacer_Senia();
-                    g_nextLuego=false;
-                    g_next = true;
+                   LT_ii.add(bloque_actual.Hacer_Senia());
+                    //ii= bloque_actual.Hacer_Senia();
+                    LT_gnextLuego.remove(LT_gnextLuego.size()-1);
+                    //g_nextLuego=false;
+                    //g_next = true;
+                    LT_gnext.add(true);
                 }
                 
                 linea_actual = nodo.linea;
@@ -111,26 +136,31 @@ public class Blockes {
                 
             }else
             {
-                if(g_nextLuego)
+                if(!LT_gnextLuego.isEmpty())
                 {
-                    ii= bloque_actual.Hacer_Senia();
-                    g_nextLuego=false;
-                    g_next = true;
+                    LT_ii.add(bloque_actual.Hacer_Senia());
+                    //ii= bloque_actual.Hacer_Senia();
+                    LT_gnextLuego.remove(LT_gnextLuego.size()-1);
+                    //g_nextLuego=false;
+                    //g_next = true;
+                    LT_gnext.add(true);
                 }
                 bloque_actual.add(codigoASM);
             }
         }
         
-        if (g_next)
+        if (!LT_gnext.isEmpty())
         {
-            next=bloque_actual;
-            g_next=false;
+            LT_NEXT.add(bloque_actual);
+            LT_gnext.remove(LT_gnext.size()-1);
+            //next=bloque_actual;
+            //g_next=false;
         }
     }
     
     public  Blocke get_Next()
     {
-        return this.next;
+        return this.LT_NEXT.remove(LT_NEXT.size()-1);
     }
     
     
@@ -150,13 +180,17 @@ public class Blockes {
     
     public void senia()
     {
-        this.g_next=true;
+        LT_gnext.add(true);
+        //this.g_next=true;
     }
     
     public void seniaLuego()
     {
-        this.g_nextLuego=true;
+        LT_gnextLuego.add(true);
+        //this.g_nextLuego=true;
     }
+    
+    
 }
 
 

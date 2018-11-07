@@ -1,131 +1,37 @@
 digraph G {
 node[shape=Mrecord]
-64[label="inicio | DRACO_ENTRADA.djs",style=bold]
-9[label="cuerpo | ",style=bold]
-{64}->{9}
-8[label="primitiva | ",style=bold]
-{9}->{8}
-4[label="lista_id | ",style=bold]
-{8}->{4}
-2[label="id_valor | ",style=bold]
-{4}->{2}
-3[label="id | contador1",style=bold]
-{2}->{3}
-1[label="NUM_LITERAL | 0",style=bold]
-{2}->{1}
-6[label="id_valor | ",style=bold]
-{4}->{6}
-7[label="id | contador2",style=bold]
-{6}->{7}
-5[label=" | ",style=bold]
-{6}->{5}
-63[label="mientras | ",style=bold]
-{9}->{63}
-13[label="MENQ | ",style=bold]
-{63}->{13}
-11[label="acceso | ",style=bold]
-{13}->{11}
-10[label="id | contador1",style=bold]
+17[label="cuerpo | ",style=bold]
+12[label="metodo | ",style=bold]
+{17}->{12}
+13[label="tipo | vacio",style=bold]
+{12}->{13}
+14[label="id | principal",style=bold]
+{12}->{14}
+15[label="parametros | ",style=bold]
+{12}->{15}
+11[label="sentencias | ",style=bold]
+{12}->{11}
+10[label="imprimir | ",style=bold]
 {11}->{10}
-12[label="NUM_LITERAL | 10",style=bold]
-{13}->{12}
-22[label="sentencias | ",style=bold]
-{63}->{22}
-21[label="si | ",style=bold]
-{22}->{21}
-17[label="IG_IG | ",style=bold]
-{21}->{17}
-15[label="acceso | ",style=bold]
-{17}->{15}
-14[label="id | contador1",style=bold]
-{15}->{14}
-16[label="NUM_LITERAL | 7",style=bold]
-{17}->{16}
-19[label="sentencias | ",style=bold]
-{21}->{19}
-18[label="detener | ",style=bold]
-{19}->{18}
-20[label="partefinal | ",style=bold]
-{21}->{20}
-58[label="Sino | ",style=bold]
-{20}->{58}
-28[label="sentencias | ",style=bold]
-{58}->{28}
-27[label="imprimir | ",style=bold]
-{28}->{27}
-26[label="MAS | ",style=bold]
-{27}->{26}
-23[label="STRING_LITERAL | contador1:",style=bold]
-{26}->{23}
-25[label="acceso | ",style=bold]
-{26}->{25}
-24[label="id | contador1",style=bold]
-{25}->{24}
-32[label="asignacion | ",style=bold]
-{28}->{32}
-30[label="acceso | ",style=bold]
-{32}->{30}
-29[label="id | contador2",style=bold]
-{30}->{29}
-31[label="NUM_LITERAL | 0",style=bold]
-{32}->{31}
-57[label="mientras | ",style=bold]
-{28}->{57}
-36[label="MENQ | ",style=bold]
-{57}->{36}
-34[label="acceso | ",style=bold]
-{36}->{34}
-33[label="id | contador2",style=bold]
-{34}->{33}
-35[label="NUM_LITERAL | 10",style=bold]
-{36}->{35}
-45[label="sentencias | ",style=bold]
-{57}->{45}
-44[label="si | ",style=bold]
-{45}->{44}
-40[label="IG_IG | ",style=bold]
-{44}->{40}
-38[label="acceso | ",style=bold]
-{40}->{38}
-37[label="id | contador2",style=bold]
-{38}->{37}
-39[label="NUM_LITERAL | 7",style=bold]
-{40}->{39}
-42[label="sentencias | ",style=bold]
-{44}->{42}
-41[label="detener | ",style=bold]
-{42}->{41}
-43[label="partefinal | ",style=bold]
-{44}->{43}
-52[label="Sino | ",style=bold]
-{43}->{52}
-51[label="sentencias | ",style=bold]
-{52}->{51}
-50[label="imprimir | ",style=bold]
-{51}->{50}
-49[label="MAS | ",style=bold]
-{50}->{49}
-46[label="STRING_LITERAL | contador2:",style=bold]
-{49}->{46}
-48[label="acceso | ",style=bold]
-{49}->{48}
-47[label="id | contador2",style=bold]
-{48}->{47}
-53[label=" | ",style=bold]
-{45}->{53}
-56[label="simplificada | incremento",style=bold]
-{45}->{56}
-55[label="acceso | ",style=bold]
-{56}->{55}
-54[label="id | contador2",style=bold]
-{55}->{54}
-59[label=" | ",style=bold]
-{22}->{59}
-62[label="simplificada | incremento",style=bold]
-{22}->{62}
-61[label="acceso | ",style=bold]
-{62}->{61}
-60[label="id | contador1",style=bold]
-{61}->{60}
+9[label="MAS | ",style=bold]
+{10}->{9}
+7[label="MAS | ",style=bold]
+{9}->{7}
+5[label="MAS | ",style=bold]
+{7}->{5}
+3[label="MAS | ",style=bold]
+{5}->{3}
+1[label="STRING_LITERAL | Dios ",style=bold]
+{3}->{1}
+2[label="STRING_LITERAL | es ",style=bold]
+{3}->{2}
+4[label="STRING_LITERAL | amor",style=bold]
+{5}->{4}
+6[label="STRING_LITERAL |  nos da",style=bold]
+{7}->{6}
+8[label="STRING_LITERAL |  sabiduria",style=bold]
+{9}->{8}
+16[label="SimArr | ",style=bold]
+{12}->{16}
 
 }

@@ -38,7 +38,7 @@ parser code {:
 
 terminal token ADD,DIFF,MULT,DIV,POT,MOD,EQZ,LT,LTE,GT,GTE,OR,AND,NOT,FUNCTION,SET_LOCAL,SET_GLOBAL,GET_LOCAL,
                GET_GLOBAL,C4LC,R3T,ETIQUETA,NUMERO,DECIMAL,ID,BR_IF,BR,END,PRINT,F_CHAR,D_CHAR,CALL,OUT_STR,
-               IGUALIGUAL,NOIGUAL,MENOR,MENORIGUAL,MAYOR,MAYORIGUAL;
+               IGUALIGUAL,NOIGUAL,MENOR,MENORIGUAL,MAYOR,MAYORIGUAL,GETSTR,GETINT,SIG_MENOS,CONCAT;
 
 
 non terminal Nodo codigo,contenido,funcion,sentencias,sentencia,valor,nombreF;
@@ -77,7 +77,10 @@ nombreF              ::=  ID:a             {:  RESULT = parser.crearNodo("id",a)
                         |MENOR:a           {:  RESULT = parser.crearNodo("id",a);  :}
                         |MENORIGUAL:a      {:  RESULT = parser.crearNodo("id",a);  :}
                         |MAYOR:a           {:  RESULT = parser.crearNodo("id",a);  :}
-                        |MAYORIGUAL:a      {:  RESULT = parser.crearNodo("id",a);  :};    
+                        |MAYORIGUAL:a      {:  RESULT = parser.crearNodo("id",a);  :}
+                        |GETSTR:a          {:  RESULT = parser.crearNodo("id",a);  :}
+                        |GETINT:a          {:  RESULT = parser.crearNodo("id",a);  :}
+                        |CONCAT:a          {:  RESULT = parser.crearNodo("id",a);  :};
 
 sentencias          ::= sentencias:b sentencia:a
                         {:
@@ -93,6 +96,10 @@ sentencias          ::= sentencias:b sentencia:a
 sentencia           ::= NUMERO:a
                         {:
                             RESULT = parser.crearNodo("numero",a);
+                        :}
+                        |SIG_MENOS NUMERO:a
+                        {:
+                            RESULT = parser.crearNodo("unario",a);
                         :}
                         |DECIMAL:a
                         {:
@@ -207,6 +214,10 @@ valor   ::= C4LC:a
             |NUMERO:a
             {:
                 RESULT = parser.crearNodo("numero",a);
+            :}
+            |SIG_MENOS NUMERO:a
+            {:
+                RESULT = parser.crearNodo("unario",a);
             :}
             |R3T:a
             {:

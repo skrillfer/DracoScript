@@ -29,6 +29,7 @@ import javax.swing.JTextArea;
  * @author fernando
  */
 public class Ejecutor {
+    boolean ya=false;
     String MI_SALIDA = "";
     Nodo raizX = null;
     String archivo ="";
@@ -79,6 +80,9 @@ public class Ejecutor {
         {
             metodo_actual = metodo_principal;
             ejecutar(metodo_actual.hijos.get(0));
+        }else 
+        {
+            System.out.println("No existe el metodo principal");
         }
     }
     
@@ -87,7 +91,17 @@ public class Ejecutor {
         
         for (int x =0; x< sentencias.hijos.size();x++) {
             Nodo sentencia = sentencias.hijos.get(x);
-            System.out.println("|"+sentencia.nombre+"|");
+            //if(metodo_actual.valor.equalsIgnoreCase("$$_outStr"))
+            //{
+                //JOptionPane.showMessageDialog(null, sentencia.nombre);
+            //}
+            
+            if(ya)
+            {
+                //mostrarGrafico("Antes:  "+sentencia.nombre);
+                //System.out.println("|"+sentencia.nombre+"|");
+            
+            }
             switch(sentencia.nombre)
             {   
                 case "f_char":
@@ -110,7 +124,9 @@ public class Ejecutor {
                     break;    
                 case "set_local":
                     try {
+                        //mostrarGrafico();
                         set_local(sentencia);
+                        //mostrarGrafico();
                     } catch (Exception e) {
                     }
                     
@@ -138,6 +154,10 @@ public class Ejecutor {
                         Print();
                     } catch (Exception e) {
                     }
+                    break;
+                
+                case "unario":
+                    pilaaux.push(Double.valueOf(sentencia.valor)*-1);
                     break;
                 
                 case "numero":
@@ -174,41 +194,53 @@ public class Ejecutor {
                     switch(metodo.valor)
                     {
                         case "$$_outStr":
-                            heap.imprimir();
-                            stack.imprimir();
+                            //heap.imprimir();
+                            //stack.imprimir();
                             JOptionPane.showMessageDialog(null, "LLAMANDO A:"+metodo.valor);
-                            mostrarGrafico();
+                            mostrarGrafico("");
                             ejecutar(metodo.hijos.get(0));
                             JOptionPane.showMessageDialog(null, "FINALIZA LLAMADA A:"+metodo.valor);
-                            mostrarGrafico();
+                            mostrarGrafico("");
 
                             //mostrarGrafico();
                             //JOptionPane.showMessageDialog(null, "HE SALIDO");
                             break;
                         default:
-                            heap.imprimir();
-                            stack.imprimir();
+                            //heap.imprimir();
+                            //stack.imprimir();
+                            
+                            
+                            
                             
                             JOptionPane.showMessageDialog(null, "LLAMANDO A:"+metodo.valor);
-                            mostrarGrafico();
+                            mostrarGrafico("");
                             ejecutar(metodo.hijos.get(0));
                             JOptionPane.showMessageDialog(null, "FINALIZA LLAMADA A:"+metodo.valor);
-                            mostrarGrafico();
-
+                            mostrarGrafico("");
+                            
+                            if(metodo_actual.valor.equalsIgnoreCase("$$_getStr"))
+                            {
+                                ya=true;
+                            }
                             break;
                     }
                     metodo_actual =metodoAux;
                     break;
             }
+            if(ya)
+            {
+                //mostrarGrafico("Despues:  "+sentencia.nombre);
+            }
+            
         }
     }
     
-    public void mostrarGrafico()
+    public void mostrarGrafico(String title)
     {
-        JPanel pan = new JPanel();
         
+        JPanel pan = new JPanel();
         for (int i = 0; i < 3; i++) {
-            JTextArea area = new JTextArea();
+            JTextArea area = new JTextArea(30,10);
             if(i==0)
             {
                 area.setText(stack.imprimir());
@@ -227,7 +259,7 @@ public class Ejecutor {
         }
         
         
-        JOptionPane.showMessageDialog(null, pan);
+        JOptionPane.showMessageDialog(null,pan, title, JOptionPane.INFORMATION_MESSAGE);
         
     }
     public void Print()
@@ -236,7 +268,7 @@ public class Ejecutor {
         v1=pilaaux.pop();
         v2=pilaaux.pop();
         
-        mostrarGrafico();
+        //mostrarGrafico();
         
         MI_SALIDA+=Character.toString((char)v1.intValue());
         JOptionPane.showMessageDialog(null, MI_SALIDA);

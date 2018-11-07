@@ -17,7 +17,7 @@ public class Resultado {
     public Simbolo simbolo = null;
     public int tamanio = 0;
     public boolean ref = false;
-
+    Blocke block = null;
     public Resultado(String tipo , Object valor, String ETV, String ETF) {
         this.tipo = tipo;
         this.valor = valor;
@@ -26,6 +26,12 @@ public class Resultado {
         
     }
 
+    public Resultado(String tipo, Object valor,Blocke block) {
+        this.tipo = tipo;
+        this.valor = valor;
+        this.block = block;
+    }
+    
     public Resultado(String tipo, Object valor) {
         this.tipo = tipo;
         this.valor = valor;

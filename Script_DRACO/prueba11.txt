@@ -1,12 +1,6 @@
 
 vacio principal()
 {
-    Si("hkz">="hkz")
-    {
-        imprimir("es mayor o igual");
-    }Sino
-    {
-        imprimir("no es mayor o igual");
-    }
+    imprimir("num"+18.92);
 }
 

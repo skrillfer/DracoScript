@@ -7,6 +7,7 @@ package Interprete;
 
 import ANALIZADORES.LenguajeD_PP.Analizador_LD;
 import ANALIZADORES.LenguajeD_PP.Analizador_SD;
+import ESTRUCTURAS.Arbol;
 import ESTRUCTURAS.Blockes;
 import ESTRUCTURAS.Nodo;
 import ESTRUCTURAS.Resultado;
@@ -86,6 +87,8 @@ public class Interpretacion {
             
             //Arbol_CCSS gen_arbol = new Arbol_CCSS();
             if(raiz!=null){
+                //Arbol xx = new Arbol();
+                //xx.generacion_arbol(raiz);
                 System.out.println("RAIZ NO NULA");
                 //gen_arbol.generacion_arbolCCSS(raiz);
             }
@@ -130,6 +133,10 @@ public class Interpretacion {
         Xblockes.agregar_AlUltimoBloque(genericas.mayorIgual());
         Xblockes.agregar_AlUltimoBloque(genericas.menor());
         Xblockes.agregar_AlUltimoBloque(genericas.menorIgual());
+        Xblockes.agregar_AlUltimoBloque(genericas.CasteoNumero());
+        Xblockes.agregar_AlUltimoBloque(genericas.concat());
+        
+        
         //System.out.println("*****************************************");
         //System.out.println(control.codigoDASM);
         Xblockes.imprimirBlockes();

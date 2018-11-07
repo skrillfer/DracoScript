@@ -41,10 +41,19 @@ public class Blocke{
         try {
             lineas.set(senia,codigo+lineas.get(senia));
         } catch (Exception e) {
+            System.out.println("no se puedo intercalar:"+e.getMessage());
         }
         
     }
     
+    public void intercalarF(int senia, String codigo)
+    {
+        try {
+            lineas.set(senia,lineas.get(senia)+codigo);
+        } catch (Exception e) {
+        }
+        
+    }
     public int Hacer_Senia()
     {
         lineas.add("");

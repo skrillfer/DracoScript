@@ -33,6 +33,8 @@ Comentario1 = "//" [^\r\n]* [^\r\n]
 /*ARITMETICOS*/
 {Comentario1}   {/* ignorar */}
 
+<YYINITIAL> "-" {return new Symbol(sym.SIG_MENOS, new token(yycolumn, yyline, yytext()));}
+
 <YYINITIAL> "add" {return new Symbol(sym.ADD, new token(yycolumn, yyline, yytext()));}
 <YYINITIAL> "diff" {return new Symbol(sym.DIFF, new token(yycolumn, yyline, yytext()));}
 <YYINITIAL> "mult" {return new Symbol(sym.MULT, new token(yycolumn, yyline, yytext()));}
@@ -50,6 +52,9 @@ Comentario1 = "//" [^\r\n]* [^\r\n]
 <YYINITIAL> "$$_menorIgual" {return new Symbol(sym.MENORIGUAL, new token(yycolumn, yyline, yytext()));}
 <YYINITIAL> "$$_mayor" {return new Symbol(sym.MAYOR, new token(yycolumn, yyline, yytext()));}
 <YYINITIAL> "$$_mayorIgual" {return new Symbol(sym.MAYORIGUAL, new token(yycolumn, yyline, yytext()));}
+<YYINITIAL> "$$_getStr" {return new Symbol(sym.GETSTR, new token(yycolumn, yyline, yytext()));}
+<YYINITIAL> "$$_getInt" {return new Symbol(sym.GETINT, new token(yycolumn, yyline, yytext()));}
+<YYINITIAL> "$$_concat" {return new Symbol(sym.CONCAT, new token(yycolumn, yyline, yytext()));}
 
 
 <YYINITIAL> "eqz" {return new Symbol(sym.EQZ, new token(yycolumn, yyline, yytext()));}

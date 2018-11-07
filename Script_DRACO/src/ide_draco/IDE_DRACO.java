@@ -39,7 +39,7 @@ public class IDE_DRACO {
             for (int i = 1; i < exponente; i++) {
                 resultado *= base;
             }
-        }else
+        }else 
         {
             double tmp = base;
             while(tmp%1!=0)

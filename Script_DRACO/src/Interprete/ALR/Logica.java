@@ -75,7 +75,7 @@ public class Logica extends Interprete.Interpretacion{
                
             case "OR":
                 
-               r1 = this.OPERAR(RAIZ.hijos.get(0));
+                r1 = this.OPERAR(RAIZ.hijos.get(0));
                 
                 ETQ_SALIDA = control.generar_etiqueta();
                 
@@ -109,6 +109,23 @@ public class Logica extends Interprete.Interpretacion{
                 res =new Resultado("booleano", "OR",control.generar_etiqueta(),control.generar_etiqueta());
                 return res;
             case "NOT":
+                r1 = this.OPERAR(RAIZ.hijos.get(0));
+                
+                ETQ_SALIDA = control.generar_etiqueta();
+                
+                codigo_tmp = r1.ETV+" //----> ETV\n";
+                codigo_tmp += "1\n";
+                codigo_tmp += "br "+ETQ_SALIDA+"\n";
+                
+                codigo_tmp += r1.ETF+" //----> ETF\n";
+                codigo_tmp += "0\n";
+                codigo_tmp += ETQ_SALIDA+"\n";
+                codigo_tmp += "NOT \n";
+
+                Xblockes.agregar(codigo_tmp, RAIZ);
+                res =new Resultado("booleano", "OR",control.generar_etiqueta(),control.generar_etiqueta());
+                return res;
+
                 /*r1 = this.OPERAR(RAIZ.hijos.get(0));
                 return new Resultado("booleano", "",r1.ETF,r1.ETV);*/
             default:

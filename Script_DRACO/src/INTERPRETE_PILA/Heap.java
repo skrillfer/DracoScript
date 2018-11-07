@@ -82,11 +82,11 @@ public class Heap {
         for (int i = tope; i >= 0 ; i--) {
             if(lista.get(i)!=null)
             {
-                cad += "["+lista.get(i)+"]\n";
+                cad += "["+lista.get(i)+"]{"+i+"}\n"; 
                 System.out.println("["+lista.get(i)+"]");
             }else
             {
-                cad += "[]\n";
+                cad += "[]{"+i+"}\n";
                 System.out.println("[]");
             }
         }

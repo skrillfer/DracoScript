@@ -309,7 +309,7 @@ expa ::= expa:a MAS expa:b    {: RESULT = parser.crearNodo("MAS","",a.linea,a.co
 
 
 //------------------------------------------------------------------------------
-dato ::= STRING_LITERAL:a  {: RESULT = parser.crearNodo("STRING_LITERAL",a);    :}
+dato ::= STRING_LITERAL:a  {: a.cadena=a.cadena.substring(1, a.cadena.length()-1); RESULT = parser.crearNodo("STRING_LITERAL",a);    :}
         |CHAR_LITERAL:a    {: RESULT = parser.crearNodo("CHAR_LITERAL",a);    :}
         |NUM_LITERAL:a     {: RESULT = parser.crearNodo("NUM_LITERAL",a);       :}
         |DECIMAL_LITERAL:a {: RESULT = parser.crearNodo("DECIMAL_LITERAL",a);   :}

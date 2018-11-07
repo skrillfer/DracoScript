@@ -20,6 +20,7 @@ import LENGUAJE_DRACO.TablaSimbolo_S;
 public class Si extends Compilador_S{
     public Metodo_S ejecutar(Nodo raiz) {
 
+        
         Nodo exp = raiz.hijos.get(0);
         Nodo sentenciasSi = raiz.hijos.get(1);
         

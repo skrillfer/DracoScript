@@ -5,6 +5,7 @@
  */
 package Interprete.ALR;
 
+import ESTRUCTURAS.Blocke;
 import ESTRUCTURAS.Nodo;
 import ESTRUCTURAS.Resultado;
 import ESTRUCTURAS.Simbolo;
@@ -15,8 +16,16 @@ import java.util.ArrayList;
  * @author fernando
  */
 public class Aritmetica extends Interprete.Interpretacion{
+    Blocke blq1 = null;
+    Blocke blq2 = null;
+    int    i1   = -1;
+    int    i2   = -1;
+    
+    int    d1   = -1;
+    int    d2   = -1;
     public Resultado OPERAR(Nodo raiz)
     {
+        String codigotmp ="";
         Resultado r1=null;
         Resultado r2=null;
         switch(raiz.nombre)
@@ -26,10 +35,27 @@ public class Aritmetica extends Interprete.Interpretacion{
             case "POR":
             case "DIV":
             case "POT":
+                //--------------------------------------------------------------
+                Xblockes.seniaLuego();
+                Xblockes.agregar("", raiz);
                 r1 = this.OPERAR(raiz.hijos.get(0));
-                r1 = Val_Rel_Logic(r1);
+                
+                
+                
+                blq1 = Xblockes.get_Next();
+                i1   = Xblockes.getII();
+                //d1   = blq1.Hacer_Senia();
+                
+                //--------------------------------------------------------------
+                Xblockes.seniaLuego();
+                Xblockes.agregar("", raiz);
                 r2 = this.OPERAR(raiz.hijos.get(1));
-                r2 = Val_Rel_Logic(r2);
+                
+                
+                blq2 = Xblockes.get_Next();
+                i2   = Xblockes.getII();
+                //d2   = blq2.Hacer_Senia();
+                
                 break;    
             case "MENQ":
             case "MENIQ":
@@ -45,7 +71,7 @@ public class Aritmetica extends Interprete.Interpretacion{
                 
             case "STRING_LITERAL":
                 String codigo_tmp = "\n\nget_global 0 //obtener el puntero de h3ap\n";
-                raiz.valor = raiz.valor.substring(1, raiz.valor.length()-1);
+                //raiz.valor = raiz.valor.substring(1, raiz.valor.length()-1);
                 for (char c : raiz.valor.toCharArray()) {
                     codigo_tmp   += "get_global 0 //obtener el valor puntero de heap\n";
                     codigo_tmp   += (int)c +" //ascii de caracter:"+c+"\n";
@@ -155,10 +181,169 @@ public class Aritmetica extends Interprete.Interpretacion{
                             case "entero":
                             case "decimal":
                             case "caracter":    
-                                //return Retorno("cadena","","Add\n",raiz);
-                            
+                                
+                                codigotmp = "\n\n\n\n//Concantenado a string con string\n";
+                                codigotmp += "get_local 0\n";
+                                codigotmp += De$pl4z4r()+"\n";
+                                codigotmp += "add\n";
+                                codigotmp += "1\n";
+                                codigotmp += "add\n";
+                                
+                                
+                                blq1.intercalar(i1, codigotmp);
+                                
+                                codigotmp = "";
+                                if(r1.ref && r1.tipo.equals("cadena"))
+                                {
+                                    codigotmp += "get_global $calc\n";
+                                    
+                                }
+                                codigotmp +="set_local $calc//C4RAK\n";
+                                String cod12= codigotmp;
+                                
+                                
+                                codigotmp = "\n\n\nget_local 0\n";
+                                codigotmp += De$pl4z4r()+"\n";
+                                codigotmp += "add\n";
+                                codigotmp += "2\n";
+                                codigotmp += "add\n";
+                                
+                                codigotmp += "//Castendo numero a string\n";
+                                codigotmp += "get_local 0\n";
+                                codigotmp += De$pl4z4r()+"\n";
+                                codigotmp += "add\n";
+                                codigotmp += "1\n";
+                                codigotmp += "add\n";
+                                
+                                blq2.intercalar(i2, codigotmp);
+                                
+                                codigotmp = "set_local $calc\n";
+                                blq2.add(codigotmp);
+                                
+                                /*
+                                */
+                                codigotmp = "//CAMBIO de AMBITO REAL\n" +
+                                            "0\n" +
+                                            "get_local 0\n" +
+                                             De$pl4z4r() + "\n" +
+                                            "add\n" +
+                                            "set_local $calc\n" +
+                                            "//________________________\n";
+                                
+                                codigotmp += "call $$_getStr\n";
+                                
+                                codigotmp += "\n\n//Obtengo el retorno de outstr\n\n"+
+                                             "get_local 0\n" +
+                                             "0\n" +
+                                             "add\n" +
+                                             "get_local $calc\n"+
+                                             "//Obtengo el retorno de outstr\n";
+                                
+                                codigotmp += "\n\n//REGRESO de AMBITO REAL\n" +
+                                            "0\n" +
+                                            "get_local 0\n" +
+                                             De$pl4z4r() + "\n" +
+                                            "diff\n" +
+                                            "set_local $calc\n" +
+                                            "//________________________\n\n\n\n\n\n\n";
+                                
+                                codigotmp += cod12;
+                                codigotmp += "set_local $calc//C4RAK\n";
+                                codigotmp += "\n\n//CAMBIO de AMBITO REAL\n" +
+                                            "0\n" +
+                                            "get_local 0\n" +
+                                             De$pl4z4r() + "\n" +
+                                            "add\n" +
+                                            "set_local $calc\n" +
+                                            "//________________________\n";
+                                
+                                codigotmp += "call $$_concat\n";
+                                
+                                codigotmp += "\n\n//Obtengo el retorno de concat\n\n"+
+                                             "get_local 0\n" +
+                                             "0\n" +
+                                             "add\n" +
+                                             "get_local $calc\n"+
+                                             "//Obtengo el retorno de concat\n";
+                                
+                                codigotmp += "\n\n//REGRESO de AMBITO REAL\n" +
+                                            "0\n" +
+                                            "get_local 0\n" +
+                                             De$pl4z4r() + "\n" +
+                                            "diff\n" +
+                                            "set_local $calc\n" +
+                                            "//________________________\n\n\n\n\n\n\n";
+                                
+                                return Retorno("cadena","",codigotmp,raiz);
+                                
                             case "cadena":
-                                //return Retorno("cadena","","Add\n",raiz);
+                                codigotmp = "\n\n\n\n//Concantenado a string con string\n";
+                                codigotmp += "get_local 0\n";
+                                codigotmp += De$pl4z4r()+"\n";
+                                codigotmp += "add\n";
+                                codigotmp += "1\n";
+                                codigotmp += "add\n";
+                                
+                                
+                                blq1.intercalar(i1, codigotmp);
+                                
+                                codigotmp = "";
+                                if(r1.ref && r1.tipo.equals("cadena"))
+                                {
+                                    codigotmp += "get_global $calc\n";
+                                    
+                                }
+                                codigotmp +="set_local $calc//C4RAK\n";
+                                String cod2= codigotmp;
+                                //blq1.intercalarF(d1,codigotmp);
+                                
+                                
+
+                                codigotmp = "\n\n\nget_local 0\n";
+                                codigotmp += De$pl4z4r()+"\n";
+                                codigotmp += "add\n";
+                                codigotmp += "2\n";
+                                codigotmp += "add\n";
+                                
+                                blq2.intercalar(i2, codigotmp);
+                                
+                                codigotmp = cod2;
+                                if(r2.ref && r2.tipo.equals("cadena"))
+                                {
+                                    codigotmp += "get_global $calc\n";
+                                    
+                                }
+                                codigotmp +="set_local $calc//C4RAK\n";
+                                //blq2.intercalarF(d2,codigotmp);
+                                
+                                
+                                
+                                codigotmp += "\n\n//CAMBIO de AMBITO REAL\n" +
+                                            "0\n" +
+                                            "get_local 0\n" +
+                                             De$pl4z4r() + "\n" +
+                                            "add\n" +
+                                            "set_local $calc\n" +
+                                            "//________________________\n";
+                                
+                                codigotmp += "call $$_concat\n";
+                                
+                                codigotmp += "\n\n//Obtengo el retorno de concat\n\n"+
+                                             "get_local 0\n" +
+                                             "0\n" +
+                                             "add\n" +
+                                             "get_local $calc\n"+
+                                             "//Obtengo el retorno de concat\n";
+                                
+                                codigotmp += "\n\n//REGRESO de AMBITO REAL\n" +
+                                            "0\n" +
+                                            "get_local 0\n" +
+                                             De$pl4z4r() + "\n" +
+                                            "diff\n" +
+                                            "set_local $calc\n" +
+                                            "//________________________\n\n\n\n\n\n\n";
+                                
+                                return Retorno("cadena","",codigotmp,raiz);
                             default:
                                 Interprete.Interpretacion.Lista_Errores.add(raiz.linea, raiz.columna, "Semantico", "Error de tipos entre:" + r1.tipo+"-"+r2.tipo + " operacion:"+raiz.nombre, raiz.archivo);
                                 break;
