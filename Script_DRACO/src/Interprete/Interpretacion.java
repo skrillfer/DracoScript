@@ -13,6 +13,7 @@ import ESTRUCTURAS.Nodo;
 import ESTRUCTURAS.Resultado;
 import ESTRUCTURAS.Simbolo;
 import ESTRUCTURAS.TablaSimbolo;
+import INTERPRETE_PILA.Ejecutor;
 import Interprete.Sentencias.Declaracion;
 import Interprete.ALR.Aritmetica;
 import Interprete.ALR.Logica;
@@ -25,9 +26,15 @@ import Interprete.Sentencias.PowerFull;
 import ManejoErrores.Errores;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Stack;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -139,10 +146,41 @@ public class Interpretacion {
         
         //System.out.println("*****************************************");
         //System.out.println(control.codigoDASM);
-        Xblockes.imprimirBlockes();
+        String codDASM=Xblockes.imprimirBlockes();
         //System.out.println("*****************************************");
         
+        try {
+            
+            escribir(codDASM, "intermedio.txt");
+            JOptionPane.showMessageDialog(null, "A ejecutar cabron");
+            
+            new Ejecutor().ejecutar_dasm();
+        } catch (Exception e) {
+            System.out.println("error al ejecutar");
+        }
         
+    }
+    
+    public void escribir(String texto, String ruta)
+    {
+        FileWriter fichero = null;
+        PrintWriter pw = null;
+        try
+        {
+            fichero = new FileWriter(ruta);
+            pw = new PrintWriter(fichero);
+            
+            pw.println(texto);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+           try {
+           if (null != fichero)
+              fichero.close();
+           } catch (Exception e2) {
+              e2.printStackTrace();
+           }
+        }
     }
     
     
@@ -193,7 +231,7 @@ public class Interpretacion {
             if(id_metodo.toLowerCase().equals("principal"))
             {
                 String codigo_tmp= "";
-                codigo_tmp += "function principal\n";
+                codigo_tmp += "\n\nfunction principal\n";
                 //codigo_tmp += "$$_globales();\n";
                 
                 Xblockes.agregar(codigo_tmp, metodo);
@@ -278,6 +316,9 @@ public class Interpretacion {
                     break;
                 case "imprimir":
                     Xprimitivas.Imprimir(sentencia);
+                    break;
+                case "asignacion":
+                    
                     break;
             }
         }

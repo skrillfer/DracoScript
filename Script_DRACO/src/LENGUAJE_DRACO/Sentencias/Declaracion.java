@@ -59,7 +59,7 @@ public class Declaracion extends Compilador_S{
             
             if(exp.nombre.equals(""))
             {
-                Simbolo_S simbolo = new Simbolo_S("", nombre,"", "");
+                Simbolo_S simbolo = new Simbolo_S("", nombre,"", (int)-111111);
                 simbolo.inicializado = false;
                 if (!global.setSimbolo(simbolo)) {
                     Inicio.reporteError.agregar("Semantico", raiz.linea, raiz.columna, "La variable " + nombre + " ya existe");
@@ -88,7 +88,7 @@ public class Declaracion extends Compilador_S{
             
             if(exp.nombre.equals(""))
             {
-                Simbolo_S simbolo = new Simbolo_S("", nombre,"", "");
+                Simbolo_S simbolo = new Simbolo_S("", nombre, (int)-111111);
                 simbolo.inicializado = false;
                 if (!tabla.setSimbolo(simbolo)) {
                     Inicio.reporteError.agregar("Semantico", raiz.linea, raiz.columna, "La variable " + nombre + " ya existe");

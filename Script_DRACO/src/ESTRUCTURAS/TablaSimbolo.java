@@ -346,7 +346,7 @@ public class TablaSimbolo {
         for (Simbolo simbolo : simbolos) {
             if(simbolo.tipo.equals("struct"))
             {
-                if(simbolo.nombre.equals(sim.nombre) && simbolo.ambito.equals("global"))
+                if(simbolo.nombre.equals(sim.tipo) && simbolo.ambito.equals("global"))
                 {
                     return simbolo;
                 }

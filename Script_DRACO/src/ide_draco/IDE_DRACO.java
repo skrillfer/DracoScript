@@ -24,10 +24,10 @@ public class IDE_DRACO {
         
         
         
-        //Interprete.Interpretacion ttt = new Interprete.Interpretacion();
-        //ttt.iniciar_interpretacion();
+        Interprete.Interpretacion ttt = new Interprete.Interpretacion();
+        ttt.iniciar_interpretacion();
         
-        new Ejecutor().ejecutar_dasm("");
+        
     }
     
     public void potencia(double base, double exponente)

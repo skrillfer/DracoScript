@@ -29,7 +29,7 @@ import javax.swing.JTextArea;
  * @author fernando
  */
 public class Ejecutor {
-    boolean ya=false;
+    boolean ya=true;
     String MI_SALIDA = "";
     Nodo raizX = null;
     String archivo ="";
@@ -39,14 +39,8 @@ public class Ejecutor {
     XStack stack = new XStack();
     PilaAuxiliar pilaaux = new PilaAuxiliar();
     
-    public void ejecutar_dasm(String codigo) throws FileNotFoundException
+    public void ejecutar_dasm() throws FileNotFoundException
     {
-        /*codigo = "function principal\n" 
-                + "4\n"
-                + "5\n"
-                + "add\n"
-                + "end";*/
-        //escribir("intermedio.txt", codigo);
         LexicoDasm lex = new LexicoDasm(new FileReader("intermedio.txt"));//se le pasa al analizador lexico lo que se escribio
         SintacticaDasm parser = new SintacticaDasm(lex);
         Nodo RAIZ=null;
@@ -64,6 +58,7 @@ public class Ejecutor {
         if(RAIZ!=null)
         {
             EJECUCION_PRINCIPAL(RAIZ);
+            
             
             heap.imprimir();
             stack.imprimir();
@@ -83,9 +78,11 @@ public class Ejecutor {
             mostrarGrafico("");
         }else 
         {
+            
             System.out.println("No existe el metodo principal");
         }
     }
+    
     
     public void ejecutar(Nodo sentencias)
     {

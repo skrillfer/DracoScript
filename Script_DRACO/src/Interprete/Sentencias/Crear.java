@@ -31,7 +31,7 @@ public class Crear extends Interprete.Interpretacion{
         ambito = new ArrayList<>();
         ambito.add(simbolo.nombre);
         
-        String codigo_tmp = "funcion struct_"+simbolo.nombre+"\n";
+        String codigo_tmp = "function struct_"+simbolo.nombre+"\n";
         Xblockes.agregar(codigo_tmp, estructura);
         for (Nodo sentencia : sentencias) {
             switch(sentencia.nombre)
@@ -44,7 +44,7 @@ public class Crear extends Interprete.Interpretacion{
             }
         }
         
-        codigo_tmp = "End\n\n\n";
+        codigo_tmp = "End";
         Xblockes.agregar_AlUltimoBloque(codigo_tmp);
         ambito.remove(ambito.size()-1);
         ambito = ambito_aux;

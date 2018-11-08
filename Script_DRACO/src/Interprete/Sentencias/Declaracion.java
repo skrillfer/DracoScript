@@ -10,12 +10,15 @@ import ESTRUCTURAS.Resultado;
 import ESTRUCTURAS.Simbolo;
 import Interprete.ALR.Aritmetica;
 import Interprete.ALR.Logica;
+import java.util.ArrayList;
 
 /**
  *
  * @author fernando
  */
 public class Declaracion extends Interprete.Interpretacion{
+    
+    
     public int declaracionEstructuraD(Nodo RAIZ)
     {
         Nodo listaids = RAIZ.hijos.get(1);
@@ -31,13 +34,55 @@ public class Declaracion extends Interprete.Interpretacion{
                 return 0;
             }
             
+            Simbolo estructura = Interprete.Interpretacion.tabla.obtener_Estructura(simbolo, new ArrayList<>());
+            
+            if(estructura==null)
+            {
+                return 0;
+            }
+            
+            simbolo.inicializado=true;
+            
             String codigo_tmp = "get_local 0\n";
-            codigo_tmp += simbolo.direccion + " //Posicion de la variable:"+simbolo.nombre+"\n";
-            codigo_tmp +=  "Add \n";
+            codigo_tmp   += simbolo.direccion  + "\n";
+            codigo_tmp   += "add\n";
+            codigo_tmp   += "get_global 0\n";
+            codigo_tmp   += "set_local $calc\n\n\n";
             
-            codigo_tmp += (int)nulo+"\n";
             
-            codigo_tmp += "set_local $calc //Asignacion a la variable:"+simbolo.nombre+"\n";
+            
+            
+            
+            
+            codigo_tmp += "get_local 0\n";
+            codigo_tmp += De$pl4z4r()+"\n";
+            codigo_tmp += "add\n";
+            codigo_tmp += "1\n";
+            codigo_tmp += "add\n\n";
+            codigo_tmp   += "get_global 0\n";
+
+            codigo_tmp += "set_local $calc\n";
+            
+            
+            codigo_tmp += "\n\n\n" ;
+            codigo_tmp += "get_local 0\n" ;
+            codigo_tmp += De$pl4z4r() + "\n" ;
+            codigo_tmp += "add\n" ;
+            codigo_tmp += "set_local 0\n";
+            
+            codigo_tmp += "call struct_"+estructura.nombre+"\n";
+            
+            codigo_tmp += "\n\n\n" ;
+            codigo_tmp += "get_local 0\n" ;
+            codigo_tmp += De$pl4z4r() + "\n" ;
+            codigo_tmp += "diff\n" ;
+            codigo_tmp += "set_local 0\n\n\n";
+            
+            codigo_tmp   += "get_global 0\n";
+            codigo_tmp   += estructura.tamanio + "\n";
+            codigo_tmp   += "add\n";
+            codigo_tmp   += "set_global 0\n\n";
+            
             Xblockes.agregar(codigo_tmp, nodo);
         }
         return 0;
@@ -87,7 +132,7 @@ public class Declaracion extends Interprete.Interpretacion{
             Xcastear.castear_atributo(simbolo, r1, nodo);
         }
         return 0;
-    }
+    } 
     
     public int declaracionPrimitivaD(Nodo RAIZ)
     {
@@ -104,7 +149,7 @@ public class Declaracion extends Interprete.Interpretacion{
                 return 0;
             }
             
-            String codigo_tmp = "get_local 0\n";
+            String codigo_tmp = "\n\nget_local 0\n";
             codigo_tmp += simbolo.direccion + " //Posicion de la variable:"+simbolo.nombre+"\n";
             codigo_tmp +=  "Add \n";
             
@@ -119,7 +164,7 @@ public class Declaracion extends Interprete.Interpretacion{
                     codigo_tmp += (int)nulo+"\n";
                     break;        
             }
-            codigo_tmp += "set_local $calc //Asignacion a la variable:"+simbolo.nombre+"\n";
+            codigo_tmp += "set_local $calc //Asignacion a la variable:"+simbolo.nombre+"\n\n";
             Xblockes.agregar(codigo_tmp, nodo);
         }
         return 0;
@@ -140,14 +185,15 @@ public class Declaracion extends Interprete.Interpretacion{
                 return 0;
             }
             
-            String codigo_tmp  = "\n//Inicializacion\n";
-            codigo_tmp += "get_local 0\n";
+            String codigo_tmp  = "";
+            
+            codigo_tmp += "\n\nget_local 0\n";
             codigo_tmp +=  "1\n";
             codigo_tmp +=  "Add \n";
-            codigo_tmp +=  "get_local $calc \n";
+            codigo_tmp +=  "get_local $calc \n\n";
             
             codigo_tmp += simbolo.direccion + " //direccion del atributo:"+simbolo.nombre+"\n";
-            codigo_tmp +=  "Add \n";
+            codigo_tmp +=  "Add \n\n";
             
             switch(simbolo.tipo)
             {
@@ -160,8 +206,8 @@ public class Declaracion extends Interprete.Interpretacion{
                     codigo_tmp += (int)nulo+"\n";
                     break;        
             }
-            codigo_tmp += "set_global $calc\n";
-            codigo_tmp += "//Fin inicializacion\n";
+            codigo_tmp += "\n\nset_global $calc\n\n";
+            
             Xblockes.agregar(codigo_tmp, nodo);
         }
         return 0;
@@ -181,4 +227,9 @@ public class Declaracion extends Interprete.Interpretacion{
             }
         }
     }
+    
+    
+    
+    
+   
 }

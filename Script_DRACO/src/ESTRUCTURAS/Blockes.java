@@ -171,12 +171,14 @@ public class Blockes {
         for (Blocke block : Lista) {
             //System.out.println("\n\nLinea:"+block.linea);
             for (String linea : block.lineas) {
-                cad +=  linea;
+                cad +=  linea +"\n";
                 System.out.println(linea);
             }
         }
         return cad;
     }
+    
+    
     
     public void senia()
     {
