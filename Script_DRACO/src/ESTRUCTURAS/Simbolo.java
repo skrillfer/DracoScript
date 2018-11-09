@@ -26,6 +26,7 @@ public class Simbolo {
     public boolean inicializado = false;
     public boolean declarado = false;
     public Object retornado = null;
+    public boolean posicion_arreglo = false;
 
     String archivo = "";
     public Simbolo() {

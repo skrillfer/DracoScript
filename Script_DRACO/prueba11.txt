@@ -1,17 +1,9 @@
 
-estructura casa
-{
-    entero num;
-    cadena direccion;
-    caracter local;
-    decimal d1;
-    booleano vacia; 
-}
 
 vacio principal()
 {
 
-    entero meida = 666;
-    imprimir("las medidas "+" de faviola "+"son "+meida);
+
+    entero num1 [4][5]= {333,444};
 }
 

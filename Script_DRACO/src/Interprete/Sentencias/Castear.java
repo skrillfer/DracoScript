@@ -16,6 +16,211 @@ import static Interprete.Interpretacion.XopA;
  * @author fernando
  */
 public class Castear extends Interprete.Interpretacion{
+    
+    public void castearAsignacion(Resultado var, Resultado resultado , Nodo raiz)
+    {
+        String cod= "";
+        switch(var.tipo)
+        {
+            case "entero":
+                switch(resultado.tipo)
+                {
+                    case "entero":
+                    case "decimal":    
+                    case "caracter":  
+                    case "booleano": 
+                        if(!var.simbolo.dimension.isEmpty())
+                        {
+                            if(Xnivel==0 && !var.simbolo.posicion_arreglo)
+                            {
+                                cod = "set_local $calc";
+                            }else
+                            {
+                                cod = "set_global $calc";
+                            }
+                        }else
+                        {
+                            if(Xnivel==0)
+                            {
+                                cod = "set_local $calc";
+                            }else
+                            {
+                                cod = "set_global $calc";
+                            }
+                        }
+                        var.simbolo.inicializado=true;
+                        Xblockes.agregar(cod, raiz);
+                    default:
+                        Lista_Errores.add(raiz.linea, raiz.columna, "Semantico", "Imposible asignar " + resultado.tipo+" a variable "+var.simbolo.tipo, cod);
+                }
+                break;
+            case "decimal":    
+                switch(resultado.tipo)
+                {
+                    case "entero":
+                    case "decimal":
+                    case "caracter":  
+                    case "booleano": 
+                        if(!var.simbolo.dimension.isEmpty())
+                        {
+                            if(Xnivel==0 && !var.simbolo.posicion_arreglo)
+                            {
+                                cod = "set_local $calc";
+                            }else
+                            {
+                                cod = "set_global $calc";
+                            }
+                        }else
+                        {
+                            if(Xnivel==0)
+                            {
+                                cod = "set_local $calc";
+                            }else
+                            {
+                                cod = "set_global $calc";
+                            }
+                        }
+                        var.simbolo.inicializado=true;
+                        Xblockes.agregar(cod, raiz);
+                    default:
+                        Lista_Errores.add(raiz.linea, raiz.columna, "Semantico", "Imposible asignar " + resultado.tipo+" a variable "+var.simbolo.tipo, cod);
+                }
+                break;
+            case "caracter":    
+                switch(resultado.tipo)
+                {
+                    case "entero":
+                    case "caracter":  
+                    case "booleano": 
+                        if(!var.simbolo.dimension.isEmpty())
+                        {
+                            if(Xnivel==0 && !var.simbolo.posicion_arreglo)
+                            {
+                                cod = "set_local $calc";
+                            }else
+                            {
+                                cod = "set_global $calc";
+                            }
+                        }else
+                        {
+                            if(Xnivel==0)
+                            {
+                                cod = "set_local $calc";
+                            }else
+                            {
+                                cod = "set_global $calc";
+                            }
+                        }
+                        var.simbolo.inicializado=true;
+                        Xblockes.agregar(cod, raiz);
+                    default:
+                        Lista_Errores.add(raiz.linea, raiz.columna, "Semantico", "Imposible asignar " + resultado.tipo+" a variable "+var.simbolo.tipo, cod);
+                }
+                break;
+            case "booleano":    
+                switch(resultado.tipo)
+                {
+                    case "entero":
+                    case "caracter":  
+                    case "booleano": 
+                        if(!var.simbolo.dimension.isEmpty())
+                        {
+                            if(Xnivel==0 && !var.simbolo.posicion_arreglo)
+                            {
+                                cod = "set_local $calc";
+                            }else
+                            {
+                                cod = "set_global $calc";
+                            }
+                        }else
+                        {
+                            if(Xnivel==0)
+                            {
+                                cod = "set_local $calc";
+                            }else
+                            {
+                                cod = "set_global $calc";
+                            }
+                        }
+                        var.simbolo.inicializado=true;
+                        Xblockes.agregar(cod, raiz);
+                    default:
+                        Lista_Errores.add(raiz.linea, raiz.columna, "Semantico", "Imposible asignar " + resultado.tipo+" a variable "+var.simbolo.tipo, cod);
+                }
+                break;    
+            case "cadena":    
+                switch(resultado.tipo)
+                {
+                    
+                    case "cadena": 
+                        if(resultado.ref)
+                        {
+                            cod = "get_global $calc";
+                        }
+                        if(!var.simbolo.dimension.isEmpty())
+                        {
+                            if(Xnivel==0 && !var.simbolo.posicion_arreglo)
+                            {
+                                cod += "set_local $calc";
+                            }else
+                            {
+                                cod += "set_global $calc";
+                            }
+                        }else
+                        {
+                            
+                            if(Xnivel==0)
+                            {
+                                cod += "set_local $calc";
+                            }else
+                            {
+                                cod += "set_global $calc";
+                            }
+                        }
+                        var.simbolo.inicializado=true;
+                        Xblockes.agregar(cod, raiz);
+                    default:
+                        Lista_Errores.add(raiz.linea, raiz.columna, "Semantico", "Imposible asignar " + resultado.tipo+" a variable "+var.simbolo.tipo, cod);
+                }
+                break;
+            default:
+                if(es_primitivo(resultado.tipo))
+                {
+                    Lista_Errores.add(raiz.linea, raiz.columna, "Semantico", "Imposible asignar " + resultado.tipo+" a variable "+var.simbolo.tipo, cod);
+                }else
+                {
+                    if(var.tipo.equals(resultado.tipo))
+                    {
+                        if(Xnivel==0)
+                        {
+                            cod = "set_local $calc";
+                        }else
+                        {
+                            cod = "set_global $calc";
+                        }
+                        var.simbolo.inicializado=true;
+                        Xblockes.agregar(cod, raiz);
+                    }else if(resultado.tipo.equals("nulo"))
+                    {
+                        if(Xnivel==0)
+                        {
+                            cod = "set_local $calc";
+                        }else
+                        {
+                            cod = "set_global $calc";
+                        }
+                        var.simbolo.inicializado=true;
+                        Xblockes.agregar(cod, raiz);
+                    }
+                    else
+                    {
+                        Lista_Errores.add(raiz.linea, raiz.columna, "Semantico", "Imposible asignar " + resultado.tipo+" a variable "+var.simbolo.tipo, cod);
+                    }
+                }
+                break;
+        }
+    }
+    
     public void castear (Simbolo simbolo, Resultado resultado, Nodo RAIZ)
     {
             

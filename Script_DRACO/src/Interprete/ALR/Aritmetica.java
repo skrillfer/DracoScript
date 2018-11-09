@@ -10,6 +10,7 @@ import ESTRUCTURAS.Nodo;
 import ESTRUCTURAS.Resultado;
 import ESTRUCTURAS.Simbolo;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -182,7 +183,7 @@ public class Aritmetica extends Interprete.Interpretacion{
                             case "decimal":
                             case "caracter":    
                                 
-                                codigotmp = "\n\n\n\n//Concantenado a string con "+r2.tipo+"\n";
+                                codigotmp = "\n\n\n\n//PARAM1 Concantenado a string con "+r2.tipo+"\n";
                                 codigotmp += "get_local 0\n";
                                 codigotmp += De$pl4z4r()+"\n";
                                 codigotmp += "add\n";
@@ -202,7 +203,7 @@ public class Aritmetica extends Interprete.Interpretacion{
                                 String cod12= codigotmp;
                                 
                                 
-                                codigotmp = "\n\n\nget_local 0\n";
+                                codigotmp = "\n\n\nget_local 0//PARAM2\n";
                                 codigotmp += De$pl4z4r()+"\n";
                                 codigotmp += "add\n";
                                 codigotmp += "2\n";
@@ -274,7 +275,9 @@ public class Aritmetica extends Interprete.Interpretacion{
                                             "set_local $calc\n" +
                                             "//________________________\n\n\n\n\n\n\n";
                                 
-                                return Retorno("cadena","",codigotmp,raiz);
+                                blq2.add(codigotmp);
+                                return new Resultado("cadena", "");
+                                //return Retorno("cadena","",codigotmp,raiz);
                                 
                             case "cadena":
                                 codigotmp = "\n\n\n\n//Concantenado a string con string\n";
@@ -612,6 +615,7 @@ public class Aritmetica extends Interprete.Interpretacion{
     
     public Resultado acceso(Nodo RAIZ)
     {
+        JOptionPane.showMessageDialog(null, "joli");
         String codigo_tmp = "";
         ArrayList<String> ambitoTMP = ambito;
         Simbolo simbolo = null;
@@ -620,15 +624,19 @@ public class Aritmetica extends Interprete.Interpretacion{
         Resultado resultado1  = new Resultado("-1", null);
         for (int i = 0; i < RAIZ.hijos.size(); i++) {
             Nodo nodo_acc = RAIZ.hijos.get(i);
+            codigo_tmp="";
             switch(nodo_acc.nombre)
             {
                 case "AccesoId":
                     simbolo = tabla.ObtenerSimboloDeclarado(nodo_acc.hijos.get(0).valor, ambito);
                     if(simbolo==null)
                     {
+                        JOptionPane.showMessageDialog(null, "joliSHITG:"+nodo_acc.hijos.get(0).valor);
+
                         Lista_Errores.add(nodo_acc.hijos.get(0).linea, nodo_acc.hijos.get(0).columna, "Semantico","La variable "+nodo_acc.hijos.get(0).valor+" no existe", nodo_acc.hijos.get(0).archivo);
                         return new Resultado("-1",null);	
                     }
+
                     if(simbolo.ambito.equals("global"))
                     {
                         constructor = true;
@@ -638,21 +646,27 @@ public class Aritmetica extends Interprete.Interpretacion{
                         if(simbolo.ambito.equals("global"))
                         {
                             constructor = true;
+                            codigo_tmp  += simbolo.direccion+"\n";
                         }else
                         {
                             if(constructor)
                             {
-
+                                codigo_tmp  += "get_local 0\n";
+                                codigo_tmp  += "1\n";
+                                codigo_tmp  += "add\n";
+                                codigo_tmp  += "get_local $calc\n";
+                                codigo_tmp  += "add\n";
+                                
                             }else
                             {
-                                codigo_tmp  = "get_local 0\n";
+                                codigo_tmp += "get_local 0\n";
                                 codigo_tmp += simbolo.direccion+"\n";
                                 codigo_tmp += "add\n";
                             }
                         }
                         if(constructor)
                         {
-
+                            codigo_tmp  += "get_global $calc\n";
                         }else
                         {
                             codigo_tmp  += "get_local $calc\n";
@@ -662,13 +676,27 @@ public class Aritmetica extends Interprete.Interpretacion{
                         resultado1.simbolo = simbolo;
                     }else
                     {
+                        if(constructor)
+                        {
+                        }else
+                        {
+                            codigo_tmp  += simbolo.direccion+"\n";
+                            codigo_tmp  += "add\n";
+                            
+                            if(!simbolo.tipo.equals("cadena") || !simbolo.dimension.isEmpty())
+                            {
+                                codigo_tmp  += "get_global $calc\n";
+                            }
+                        }
+                        resultado1 = new Resultado(simbolo.tipo, "",true);
+                        resultado1.simbolo = simbolo;
                     }
                     if(i==0)
                     {
                         ambito = new ArrayList<>();
                     }
-                    Xblockes.agregar("\n\n<<<\n"+codigo_tmp+"\n\n>>>\n", nodo_acc);
-                    if(es_primitivo(simbolo.tipo) && i!=RAIZ.hijos.size()-1)
+
+                    if(!es_primitivo(simbolo.tipo) && i!=RAIZ.hijos.size()-1)
                     {
                         Xnivel++;
                         Simbolo struct = tabla.obtener_Estructura(simbolo, ambito);
@@ -680,6 +708,7 @@ public class Aritmetica extends Interprete.Interpretacion{
                         }
                         ambito.add(simbolo.tipo);
                     }
+                    Xblockes.agregar("\n\n\n"+codigo_tmp+"\n\n\n", nodo_acc);
                     break;
                 case "llamada":
                     resultado1 = llamada_metodo(nodo_acc);
@@ -704,6 +733,9 @@ public class Aritmetica extends Interprete.Interpretacion{
                     break;    
             }
         }
+        //JOptionPane.showMessageDialog(null, codigo_tmp);
+        
+
         ambito = ambito_tmp;
         Xnivel = 0;
         return resultado1;

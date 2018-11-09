@@ -5,231 +5,459 @@
  */
 package Interprete.Sentencias;
 
+import ESTRUCTURAS.Blocke;
 import ESTRUCTURAS.Nodo;
 import ESTRUCTURAS.Resultado;
 import ESTRUCTURAS.Simbolo;
 import Interprete.ALR.Aritmetica;
 import Interprete.ALR.Logica;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author fernando
  */
-public class Declaracion extends Interprete.Interpretacion{
-    
-    
-    public int declaracionEstructuraD(Nodo RAIZ)
-    {
+public class Declaracion extends Interprete.Interpretacion {
+
+    public int declaracionEstructuraD(Nodo RAIZ) {
         Nodo listaids = RAIZ.hijos.get(1);
         for (Nodo nodo : listaids.hijos) {
             Simbolo simbolo = Interprete.Interpretacion.tabla.obtener_Simbolo(nodo.valor, Interprete.Interpretacion.ambito);
-            if(simbolo==null)
-            {
+            if (simbolo == null) {
                 return 0;
-            }            
+            }
             Simbolo sim_declarado = Interprete.Interpretacion.tabla.HacerSimboloDeclarado(simbolo);
-            if(sim_declarado==null)
-            {
+            if (sim_declarado == null) {
                 return 0;
             }
-            
+
             Simbolo estructura = Interprete.Interpretacion.tabla.obtener_Estructura(simbolo, new ArrayList<>());
-            
-            if(estructura==null)
-            {
+
+            if (estructura == null) {
                 return 0;
             }
-            
-            simbolo.inicializado=true;
-            
+
+            simbolo.inicializado = true;
+
             String codigo_tmp = "get_local 0\n";
-            codigo_tmp   += simbolo.direccion  + "\n";
-            codigo_tmp   += "add\n";
-            codigo_tmp   += "get_global 0\n";
-            codigo_tmp   += "set_local $calc\n\n\n";
-            
-            
-            
-            
-            
-            
+            codigo_tmp += simbolo.direccion + "\n";
+            codigo_tmp += "add\n";
+            codigo_tmp += "get_global 0\n";
+            codigo_tmp += "set_local $calc\n\n\n";
+
             codigo_tmp += "get_local 0\n";
-            codigo_tmp += De$pl4z4r()+"\n";
+            codigo_tmp += De$pl4z4r() + "\n";
             codigo_tmp += "add\n";
             codigo_tmp += "1\n";
             codigo_tmp += "add\n\n";
-            codigo_tmp   += "get_global 0\n";
-
+            codigo_tmp += "get_global 0\n";
             codigo_tmp += "set_local $calc\n";
-            
-            
-            codigo_tmp += "\n\n\n" ;
-            codigo_tmp += "get_local 0\n" ;
-            codigo_tmp += De$pl4z4r() + "\n" ;
-            codigo_tmp += "add\n" ;
-            codigo_tmp += "set_local 0\n";
-            
-            codigo_tmp += "call struct_"+estructura.nombre+"\n";
-            
-            codigo_tmp += "\n\n\n" ;
-            codigo_tmp += "get_local 0\n" ;
-            codigo_tmp += De$pl4z4r() + "\n" ;
-            codigo_tmp += "diff\n" ;
-            codigo_tmp += "set_local 0\n\n\n";
-            
-            codigo_tmp   += "get_global 0\n";
-            codigo_tmp   += estructura.tamanio + "\n";
-            codigo_tmp   += "add\n";
-            codigo_tmp   += "set_global 0\n\n";
-            
+
+            codigo_tmp += "get_global 0\n";
+            codigo_tmp += estructura.tamanio + "\n";
+            codigo_tmp += "add\n";
+            codigo_tmp += "set_global 0\n\n";
+
+            codigo_tmp += "0\n";
+            codigo_tmp += "get_local 0\n";
+            codigo_tmp += De$pl4z4r() + "\n";
+            codigo_tmp += "add\n";
+            codigo_tmp += "set_local $calc\n\n";
+
+            codigo_tmp += "call struct_" + estructura.nombre + "\n";
+
+            codigo_tmp += "0\n";
+            codigo_tmp += "get_local 0\n";
+            codigo_tmp += De$pl4z4r() + "\n";
+            codigo_tmp += "diff\n";
+            codigo_tmp += "set_local $calc\n\n";
+
             Xblockes.agregar(codigo_tmp, nodo);
         }
         return 0;
     }
-    
-    public int declaracionPrimitivaDA(Nodo RAIZ)
-    {
+
+    public int declaracionEstructuraGlobal(Nodo RAIZ) {
         Nodo listaids = RAIZ.hijos.get(1);
         for (Nodo nodo : listaids.hijos) {
             Simbolo simbolo = Interprete.Interpretacion.tabla.obtener_Simbolo(nodo.valor, Interprete.Interpretacion.ambito);
-            if(simbolo==null)
-            {
-                return 0;
-            }            
-            Simbolo sim_declarado = Interprete.Interpretacion.tabla.HacerSimboloDeclarado(simbolo);
-            if(sim_declarado==null)
-            {
+            if (simbolo == null) {
                 return 0;
             }
-            
-            XopL = new Logica();
-            Resultado r1 = XopL.OPERAR(RAIZ.hijos.get(RAIZ.hijos.size()-1));
-            //r1 = Val_Rel_Logic(r1);
-            Xcastear.castear(simbolo, r1, nodo);
-            
+            Simbolo sim_declarado = Interprete.Interpretacion.tabla.HacerSimboloDeclarado(simbolo);
+            if (sim_declarado == null) {
+                return 0;
+            }
+
+            Simbolo estructura = Interprete.Interpretacion.tabla.obtener_Estructura(simbolo, new ArrayList<>());
+
+            if (estructura == null) {
+                return 0;
+            }
+
+            simbolo.inicializado = true;
+
+            String codigo_tmp = "\n\n\nget_local 0\n";
+            codigo_tmp += "1\n";
+            codigo_tmp += "add\n";
+            codigo_tmp += "get_local $calc\n";
+            codigo_tmp += simbolo.direccion + "//direccion de " + simbolo.nombre + "\n";
+            codigo_tmp += "add\n";
+            codigo_tmp += "get_global 0\n";
+            codigo_tmp += "set_global $calc\n\n\n";
+
+            codigo_tmp += "get_local 0\n";
+            codigo_tmp += De$pl4z4r() + "\n";
+            codigo_tmp += "add\n";
+            codigo_tmp += "1\n";
+            codigo_tmp += "add\n\n";
+            codigo_tmp += "get_global 0\n";
+            codigo_tmp += "set_local $calc\n";
+
+            codigo_tmp += "get_global 0\n";
+            codigo_tmp += estructura.tamanio + "\n";
+            codigo_tmp += "add\n";
+            codigo_tmp += "set_global 0\n\n";
+
+            codigo_tmp += "0\n";
+            codigo_tmp += "get_local 0\n";
+            codigo_tmp += De$pl4z4r() + "\n";
+            codigo_tmp += "add\n";
+            codigo_tmp += "set_local $calc\n\n";
+
+            codigo_tmp += "call struct_" + estructura.nombre + "\n";
+
+            codigo_tmp += "0\n";
+            codigo_tmp += "get_local 0\n";
+            codigo_tmp += De$pl4z4r() + "\n";
+            codigo_tmp += "diff\n";
+            codigo_tmp += "set_local $calc\n\n";
+
+            Xblockes.agregar(codigo_tmp, nodo);
         }
         return 0;
     }
-    
-    public int declaracionPrimitivaDA_GLOBAL(Nodo RAIZ)
-    {
+
+    public int declaracionPrimitivaDA(Nodo RAIZ) {
         Nodo listaids = RAIZ.hijos.get(1);
         for (Nodo nodo : listaids.hijos) {
             Simbolo simbolo = Interprete.Interpretacion.tabla.obtener_Simbolo(nodo.valor, Interprete.Interpretacion.ambito);
-            if(simbolo==null)
-            {
-                return 0;
-            }            
-            Simbolo sim_declarado = Interprete.Interpretacion.tabla.HacerSimboloDeclarado(simbolo);
-            if(sim_declarado==null)
-            {
+            if (simbolo == null) {
                 return 0;
             }
-            
+            Simbolo sim_declarado = Interprete.Interpretacion.tabla.HacerSimboloDeclarado(simbolo);
+            if (sim_declarado == null) {
+                return 0;
+            }
+
             XopL = new Logica();
-            Resultado r1 = XopL.OPERAR(RAIZ.hijos.get(RAIZ.hijos.size()-1));
+            Resultado r1 = XopL.OPERAR(RAIZ.hijos.get(RAIZ.hijos.size() - 1));
+            Xcastear.castear(simbolo, r1, nodo);
+
+        }
+        return 0;
+    }
+
+    public int declaracionPrimitivaDA_GLOBAL(Nodo RAIZ) {
+        Nodo listaids = RAIZ.hijos.get(1);
+        for (Nodo nodo : listaids.hijos) {
+            Simbolo simbolo = Interprete.Interpretacion.tabla.obtener_Simbolo(nodo.valor, Interprete.Interpretacion.ambito);
+            if (simbolo == null) {
+                return 0;
+            }
+            Simbolo sim_declarado = Interprete.Interpretacion.tabla.HacerSimboloDeclarado(simbolo);
+            if (sim_declarado == null) {
+                return 0;
+            }
+
+            XopL = new Logica();
+            Resultado r1 = XopL.OPERAR(RAIZ.hijos.get(RAIZ.hijos.size() - 1));
             Xcastear.castear_atributo(simbolo, r1, nodo);
         }
         return 0;
-    } 
-    
-    public int declaracionPrimitivaD(Nodo RAIZ)
-    {
+    }
+
+    public int declaracionPrimitivaD(Nodo RAIZ) {
         Nodo listaids = RAIZ.hijos.get(1);
         for (Nodo nodo : listaids.hijos) {
             Simbolo simbolo = Interprete.Interpretacion.tabla.obtener_Simbolo(nodo.valor, Interprete.Interpretacion.ambito);
-            if(simbolo==null)
-            {
-                return 0;
-            }            
-            Simbolo sim_declarado = Interprete.Interpretacion.tabla.HacerSimboloDeclarado(simbolo);
-            if(sim_declarado==null)
-            {
+            if (simbolo == null) {
                 return 0;
             }
-            
+            Simbolo sim_declarado = Interprete.Interpretacion.tabla.HacerSimboloDeclarado(simbolo);
+            if (sim_declarado == null) {
+                return 0;
+            }
+
             String codigo_tmp = "\n\nget_local 0\n";
-            codigo_tmp += simbolo.direccion + " //Posicion de la variable:"+simbolo.nombre+"\n";
-            codigo_tmp +=  "Add \n";
-            
-            switch(simbolo.tipo)
-            {
+            codigo_tmp += simbolo.direccion + " //Posicion de la variable:" + simbolo.nombre + "\n";
+            codigo_tmp += "Add \n";
+
+            switch (simbolo.tipo) {
                 case "decimal":
                 case "booleano":
                 case "entero":
                     codigo_tmp += "0\n";
-                    break;    
+                    break;
                 default:
-                    codigo_tmp += (int)nulo+"\n";
-                    break;        
+                    codigo_tmp += (int) nulo + "\n";
+                    break;
             }
-            codigo_tmp += "set_local $calc //Asignacion a la variable:"+simbolo.nombre+"\n\n";
+            codigo_tmp += "set_local $calc //Asignacion a la variable:" + simbolo.nombre + "\n\n";
             Xblockes.agregar(codigo_tmp, nodo);
         }
         return 0;
     }
-    
-    public int declaracionPrimitivaDGlobal(Nodo RAIZ)
-    {
+
+    public int declaracionPrimitivaDGlobal(Nodo RAIZ) {
         Nodo listaids = RAIZ.hijos.get(1);
         for (Nodo nodo : listaids.hijos) {
             Simbolo simbolo = Interprete.Interpretacion.tabla.obtener_Simbolo(nodo.valor, Interprete.Interpretacion.ambito);
-            if(simbolo==null)
-            {
-                return 0;
-            }            
-            Simbolo sim_declarado = Interprete.Interpretacion.tabla.HacerSimboloDeclarado(simbolo);
-            if(sim_declarado==null)
-            {
+            if (simbolo == null) {
                 return 0;
             }
-            
-            String codigo_tmp  = "";
-            
+            Simbolo sim_declarado = Interprete.Interpretacion.tabla.HacerSimboloDeclarado(simbolo);
+            if (sim_declarado == null) {
+                return 0;
+            }
+
+            String codigo_tmp = "";
+
             codigo_tmp += "\n\nget_local 0\n";
-            codigo_tmp +=  "1\n";
-            codigo_tmp +=  "Add \n";
-            codigo_tmp +=  "get_local $calc \n\n";
-            
-            codigo_tmp += simbolo.direccion + " //direccion del atributo:"+simbolo.nombre+"\n";
-            codigo_tmp +=  "Add \n\n";
-            
-            switch(simbolo.tipo)
-            {
+            codigo_tmp += "1\n";
+            codigo_tmp += "Add \n";
+            codigo_tmp += "get_local $calc \n\n";
+
+            codigo_tmp += simbolo.direccion + " //direccion del atributo:" + simbolo.nombre + "\n";
+            codigo_tmp += "Add \n\n";
+
+            switch (simbolo.tipo) {
                 case "decimal":
                 case "booleano":
                 case "entero":
                     codigo_tmp += "0\n";
-                    break;    
+                    break;
                 default:
-                    codigo_tmp += (int)nulo+"\n";
-                    break;        
+                    codigo_tmp += (int) nulo + "\n";
+                    break;
             }
             codigo_tmp += "\n\nset_global $calc\n\n";
-            
+
             Xblockes.agregar(codigo_tmp, nodo);
         }
         return 0;
     }
-    
-    public void declaracionYasignacion1_MANU(Nodo RAIZ)
-    {
-        for (int i = 0; i < RAIZ.hijos.get(1).hijos.size(); i++) {
-            Nodo nodo = RAIZ.hijos.get(1).hijos.get(i);
+
+    public int declaracionArreglo(Nodo RAIZ) {
+        Nodo listaids = RAIZ.hijos.get(1);
+        for (Nodo nodo : listaids.hijos) {
             Simbolo simbolo = Interprete.Interpretacion.tabla.obtener_Simbolo(nodo.valor, Interprete.Interpretacion.ambito);
-            if(simbolo!=null)
-            {   
-                if(Interprete.Interpretacion.tabla.HacerSimboloDeclarado(simbolo)!=null)
+            if (simbolo == null) {
+                return 0;
+            }
+            Simbolo sim_declarado = Interprete.Interpretacion.tabla.HacerSimboloDeclarado(simbolo);
+            if (sim_declarado == null) {
+                return 0;
+            }
+            
+            Xblockes.agregar("\n", nodo);
+            
+            Blocke last = Xblockes.obtener_UltimoBlock();
+            
+            String cod = "\n\n\n";
+            cod += "get_local 0\n";
+            cod += simbolo.direccion+"\n";
+            cod += "add\n";
+            
+            cod += "get_global 0\n";
+            cod += "set_local $calc\n";
+            
+            
+            
+            cod += "get_local 0\n";
+            cod += simbolo.direccion+"\n";
+            cod += "add\n";
+            cod += "get_local $calc\n";
+                
+            cod += "\n\n\n1\n";
+            
+            String cod2 = "";
+            XopL = new Logica();
+            Resultado rr=null;
+            for (Nodo nodo1 : simbolo.dimension) {
+                rr=XopL.OPERAR(nodo1);
+                if(!R_IS_NULL(rr))
                 {
-                    System.out.println("Todo bien");
+                    if(rr.tipo.equals("entero"))
+                    {
+                        cod2 += "MULT\n";
+                    }else
+                    {
+                        cod2 = "";
+                        break;
+                    }
                 }
             }
+            if(!cod2.equals(""))
+            {
+                cod2 += "2\n";
+                cod2 += "add\n";
+                
+                cod2 += "set_global $calc\n\n";
+                last.add(cod2);
+                
+                last.agregarAl_Inicio(cod);
+                
+                cod2 = "\n\n\nget_local 0\n";
+                cod2 += simbolo.direccion+"\n";
+                cod2 += "add\n";
+                cod2 += "get_local $calc\n";
+                cod2 += "get_global $calc\n\n";
+                
+                
+                cod2 += "set_global 0\n\n\n";
+                last.add(cod2);
+                
+                
+                if(!RAIZ.hijos.get(3).hijos.isEmpty())
+                {
+                    
+                    if(RAIZ.hijos.get(3).nombre.equals("dimension_valores"))
+                    {
+                        Nodo dimension = RAIZ.hijos.get(3);
+                        for (Nodo nod1 : dimension.hijos) {
+                            XopL = new Logica();
+                            cod2 = "\n\n\nget_local 0\n";
+                            cod2 += simbolo.direccion+"\n";
+                            cod2 += "add\n";
+                            cod2 += "get_local $calc\n";
+                            
+                            cod2 += "\n\n\nget_local 0\n";
+                            cod2 += simbolo.direccion+"\n";
+                            cod2 += "add\n";
+                            cod2 += "get_local $calc\n";
+                            cod2 += "1\n";
+                            cod2 += "add\n";
+                            cod2 += "get_global $calc\n\n";
+                            cod2 += "add\n";
+                            last.add(cod2);
+                            
+                            XopL.OPERAR(nod1);
+                            
+                            cod2 = "set_global $calc\n\n";
+                            
+                            cod2 += "\n\n\nget_local 0\n";
+                            cod2 += simbolo.direccion+"\n";
+                            cod2 += "add\n";
+                            cod2 += "get_local $calc\n";
+                            cod2 += "1\n";
+                            cod2 += "add\n";
+                            
+                            cod2 += "\n\n\nget_local 0\n";
+                            cod2 += simbolo.direccion+"\n";
+                            cod2 += "add\n";
+                            cod2 += "get_local $calc\n";
+                            cod2 += "1\n";
+                            cod2 += "add\n";
+                            cod2 += "get_global $calc\n\n";
+                            
+                            cod2 += "1\n";
+                            cod2 += "add\n";
+                            
+                            cod2 += "set_global $calc\n\n";
+                            last.add(cod2);
+                            //JOptionPane.showMessageDialog(null, nod1.nombre+":"+.valor);
+                        }
+                    }
+                }else
+                {
+                        cod2 = "\n\n\nget_local 0\n";
+                        cod2 += simbolo.direccion+"\n";
+                        cod2 += "add\n";
+                        cod2 += "get_local $calc\n";
+                        
+                        cod2 += "1\n";
+                        cod2 += "add\n";
+                        
+                        cod2 += "2\n";
+                        cod2 += "set_global $calc\n";
+                        
+                        cod2 += "$l1";
+                        cod2 += "\n\n\nget_local 0\n";
+                        cod2 += simbolo.direccion+"\n";
+                        cod2 += "add\n";
+                        cod2 += "get_local $calc\n";
+                        cod2 += "1\n";
+                        cod2 += "add\n";
+                        cod2 += "get_global $calc\n\n";
+                        
+                        cod2 += "\n\n\nget_local 0\n";
+                        cod2 += simbolo.direccion+"\n";
+                        cod2 += "add\n";
+                        cod2 += "get_local $calc\n";
+                        cod2 += "get_global $calc\n\n";
+                        
+                        cod2 += "lt\n";
+                        cod2 += "br_if $l3\n";
+                        cod2 += "br $l2\n";
+                        cod2 += "$l2\n";
+                            
+                            cod2 += "\n\n\nget_local 0\n";
+                            cod2 += simbolo.direccion+"\n";
+                            cod2 += "add\n";
+                            cod2 += "get_local $calc\n";
+                            
+                            cod2 += "\n\n\nget_local 0\n";
+                            cod2 += simbolo.direccion+"\n";
+                            cod2 += "add\n";
+                            cod2 += "get_local $calc\n";
+                            cod2 += "1\n";
+                            cod2 += "add\n";
+                            cod2 += "get_global $calc\n\n";
+                            cod2 += "add\n";
+                            cod2 += (int)nulo+"\n\n";
+                            cod2 += "set_global $calc\n\n";
+                            
+                            cod2 += "\n\n\nget_local 0\n";
+                            cod2 += simbolo.direccion+"\n";
+                            cod2 += "add\n";
+                            cod2 += "get_local $calc\n";
+                            cod2 += "1\n";
+                            cod2 += "add\n";
+                            
+                            cod2 += "\n\n\nget_local 0\n";
+                            cod2 += simbolo.direccion+"\n";
+                            cod2 += "add\n";
+                            cod2 += "get_local $calc\n";
+                            cod2 += "1\n";
+                            cod2 += "add\n";
+                            cod2 += "get_global $calc\n\n";
+                            
+                            cod2 += "1\n";
+                            cod2 += "add\n";
+                            
+                            cod2 += "set_global $calc\n\n";
+                            cod2 += "br $l1\n\n";
+                        cod2 += "$l3\n\n";
+                        cod2 += "\n\n\nget_local 0\n";
+                        cod2 += simbolo.direccion+"\n";
+                        cod2 += "add\n";
+                        cod2 += "get_local $calc\n";
+                        
+                        cod2 += "1\n";
+                        cod2 += "add\n";
+                        
+                        cod2 += "2\n";
+                        cod2 += "set_global $calc\n";
+                        
+                        last.add(cod2);
+                }
+            }
+            
+            
         }
+        return 0;
     }
-    
-    
-    
-    
-   
+
 }

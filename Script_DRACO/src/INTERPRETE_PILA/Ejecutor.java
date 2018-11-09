@@ -29,7 +29,7 @@ import javax.swing.JTextArea;
  * @author fernando
  */
 public class Ejecutor {
-    boolean ya=true;
+    boolean ya=false;
     String MI_SALIDA = "";
     Nodo raizX = null;
     String archivo ="";
@@ -96,7 +96,7 @@ public class Ejecutor {
             
             if(ya)
             {
-                //mostrarGrafico("Antes:  "+sentencia.nombre);
+                mostrarGrafico("Antes:  "+sentencia.nombre);
                 //System.out.println("|"+sentencia.nombre+"|");
             
             }
@@ -212,23 +212,17 @@ public class Ejecutor {
                             
                             
                             
-                            if(metodo_actual.valor.equalsIgnoreCase("$$_getStr"))
-                            {
-                                ya=true;
-                            }
                             
-                            if(metodo_actual.valor.equalsIgnoreCase("$$_getInt"))
-                            {
-                                ya=false;
-                            }
+                            
+                            
                             JOptionPane.showMessageDialog(null, "LLAMANDO A:"+metodo.valor);
                             mostrarGrafico("");
                             ejecutar(metodo.hijos.get(0));
                             JOptionPane.showMessageDialog(null, "FINALIZA LLAMADA A:"+metodo.valor);
                             mostrarGrafico("");
-                            if(metodo_actual.valor.equalsIgnoreCase("$$_getInt"))
+                            if(metodo_actual.valor.equalsIgnoreCase("struct_casa"))
                             {
-                                ya=true;
+                                ya=false;
                             }
                             
                             break;
@@ -238,7 +232,7 @@ public class Ejecutor {
             }
             if(ya)
             {
-                //mostrarGrafico("Despues:  "+sentencia.nombre);
+                mostrarGrafico("Despues:  "+sentencia.nombre);
             }
             
         }
@@ -321,9 +315,6 @@ public class Ejecutor {
             valor     = pilaaux.pop();
             direccion = Double.valueOf(hijo.valor);
             heap.set(direccion, valor);
-        }else 
-        {
-            
         }
     }
     

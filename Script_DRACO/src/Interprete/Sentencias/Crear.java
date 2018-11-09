@@ -31,7 +31,7 @@ public class Crear extends Interprete.Interpretacion{
         ambito = new ArrayList<>();
         ambito.add(simbolo.nombre);
         
-        String codigo_tmp = "function struct_"+simbolo.nombre+"\n";
+        String codigo_tmp = "\n\nfunction struct_"+simbolo.nombre+"\n";
         Xblockes.agregar(codigo_tmp, estructura);
         for (Nodo sentencia : sentencias) {
             switch(sentencia.nombre)
@@ -39,6 +39,9 @@ public class Crear extends Interprete.Interpretacion{
                 case "primitiva":
                     Xdeclaracion.declaracionPrimitivaDGlobal(sentencia);
                     break;
+                case "struct":
+                    Xdeclaracion.declaracionEstructuraGlobal(sentencia);
+                    
                 default:
                     Lista_Errores.add(sentencia.linea, sentencia.columna, "Semantico", "Dentro de una estructura solo se puede declarar", sentencia.archivo);
             }

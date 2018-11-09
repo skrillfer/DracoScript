@@ -50,6 +50,7 @@ public  class Compilador_S {
 
         for (Nodo sentencia : sentencias.hijos) 
         {
+            
             switch (sentencia.nombre) 
             {
                 case "primitiva":

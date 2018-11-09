@@ -23,51 +23,54 @@ public class Primitivas extends Interprete.Interpretacion{
         XopL = new Logica();
         
         Blocke last = Xblockes.obtener_UltimoBlock();
-        //last.codigo_asm += "//<><><><><><><><><><><><><><>\n";
+        
+        Xblockes.agregar("\n", RAIZ);
         Resultado r1 = XopL.OPERAR(RAIZ.hijos.get(0));
         
-        
+        Blocke last2 = Xblockes.obtener_UltimoBlock();
         
         if(r1.tipo.equals("cadena"))
         {
             if(r1.ref)
             {
-                codigo_tmp = "//LLAMANDO A IMPRIMIR\n";
-                codigo_tmp +=  "get_global $calc\n";
-                last.add(codigo_tmp);
-                //last.codigo_asm  += codigo_tmp;
+                codigo_tmp = "";
+                codigo_tmp +=  "get_global $calc//****\n\n\n";
+                last2.add(codigo_tmp);
                 
-                codigo_tmp = "0\n";
+                
+                
+                codigo_tmp = "get_local 0//paso parametro\n";
+                codigo_tmp += De$pl4z4r()+"\n";
+                codigo_tmp += "add\n";
+                codigo_tmp += "1\n";
+                codigo_tmp += "add\n";
+                
+                
+                
+                last2.agregarAl_Inicio(codigo_tmp);
+                
+                codigo_tmp = "set_local $calc\n";
+                
+                codigo_tmp += "//LLAMANDO A IMPRIMIR\n";
+                codigo_tmp += "\n\n\n0//Cambio de ambito\n";
                 codigo_tmp += "get_local 0\n";
                 codigo_tmp += De$pl4z4r()+"\n";
                 codigo_tmp += "add\n";
                 codigo_tmp += "set_local $calc\n";
                 
                 
-                codigo_tmp += "get_local 0\n";
-                codigo_tmp += "1\n";
-                codigo_tmp += "add\n";
                 
-                //codigo_2 = last.codigo_asm;
-                
-                last.agregarAl_Inicio(codigo_tmp);
-                
-                //last.codigo_asm = codigo_tmp;
-                
-                //last.codigo_asm += codigo_2;
-                
-                codigo_tmp = "set_local $calc\n";
                 
                 codigo_tmp += "call $$_outStr\n";
                 
                 
-                codigo_tmp += "0\n";
+                codigo_tmp += "0//regreso de ambtio\n";
                 codigo_tmp += "get_local 0\n";
                 codigo_tmp += De$pl4z4r()+"\n";
                 codigo_tmp += "diff\n";
                 codigo_tmp += "set_local $calc\n";
                 
-                last.add(codigo_tmp);
+                last2.add(codigo_tmp);
             }else
             {
                 codigo_tmp = "//LLAMANDO A IMPRIMIR\n";
@@ -79,7 +82,6 @@ public class Primitivas extends Interprete.Interpretacion{
                 
                 
                 last.add(codigo_tmp);
-                //last.codigo_asm += codigo_tmp;
                 
                 
                 codigo_tmp = "set_local $calc\n";

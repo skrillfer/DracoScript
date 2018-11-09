@@ -11,6 +11,7 @@ import ESTRUCTURAS.Simbolo;
 import Interprete.ALR.Aritmetica;
 import Interprete.ALR.Logica;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -35,9 +36,12 @@ public class Asignar extends Interprete.Interpretacion{
         
         Xnivel = 0;
         result = XopL.OPERAR(raiz.hijos.get(1));
+        
         Xnivel = nivelTmp;
         ambito = auxiliar_ambito;
-        //castearAsignacion(var,result,raiz);
+        
+        Xcastear.castearAsignacion(var,result,raiz);
+        
         Xnivel=0;
     }
     
@@ -83,11 +87,13 @@ public class Asignar extends Interprete.Interpretacion{
                         {
                             cod +="get_local $calc\n";
                         }
+                       
                         resultado = new Resultado(simbolo.tipo, "", true);
                         resultado.simbolo = simbolo;
                     }else
                     {
                         cod +=simbolo.direccion+"\n";
+                        cod +="add\n";
                         if(i!=raiz.hijos.size()-1)
                         {
                             cod +="get_global $calc\n";
@@ -139,6 +145,8 @@ public class Asignar extends Interprete.Interpretacion{
                     break;
             }
         }
+        JOptionPane.showMessageDialog(null, cod,"STR",JOptionPane.INFORMATION_MESSAGE);
+        Xblockes.agregar(cod, raiz);
         return resultado;
     }
 }

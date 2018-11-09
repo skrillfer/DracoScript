@@ -20,6 +20,7 @@ import Interprete.ALR.Logica;
 import Interprete.ALR.Relacional;
 import Interprete.Generico.Genericas;
 import Interprete.Generico.Primitivas;
+import Interprete.Sentencias.Asignar;
 import Interprete.Sentencias.Castear;
 import Interprete.Sentencias.Crear;
 import Interprete.Sentencias.PowerFull;
@@ -58,6 +59,7 @@ public class Interpretacion {
     public static int Xnivel = 0 ;
     public  static  Genericas genericas = new Genericas();
     public  static  Primitivas  Xprimitivas= new Primitivas();
+    public  static  Asignar  Xasignacion= new Asignar();
     
     public static Stack<String> pilaEntradas = null;
     public static Stack<String> pilaSalidas = null;
@@ -287,6 +289,23 @@ public class Interpretacion {
         }
     }
     
+    
+    public boolean R_IS_NULL(Resultado t)
+    {
+        if(t==null)
+        {
+            return true;
+        }else
+        {
+            if(t.valor==null)
+            {
+                return true;
+            }else
+            {
+                return false;
+            }
+        }
+    }
     public void ejecutarSentencias(Nodo RAIZ)
     {   
         for (Nodo sentencia : RAIZ.hijos) {
@@ -318,7 +337,10 @@ public class Interpretacion {
                     Xprimitivas.Imprimir(sentencia);
                     break;
                 case "asignacion":
-                    
+                    Xasignacion.asignacion(sentencia);
+                    break;
+                case "arreglo":
+                    Xdeclaracion.declaracionArreglo(sentencia);
                     break;
             }
         }

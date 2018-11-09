@@ -34,12 +34,15 @@ public class PilaAuxiliar {
         }
     }
     
+    
+    
     public void push(Double v)
     {
         
         System.out.println("PilaAux_push->"+v);
         lista.add(v);
     }
+    
     
     public Double get(Double i)
     {
